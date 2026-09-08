@@ -1,3 +1,18 @@
+
+## 🆔 Generate Account ID (`GetId`)
+
+> ⚠️ **Important**: You must generate your deterministic account ID with `GetId` **firstly** before connecting or streaming.
+
+Before establishing a connection, call `GetId` with your trading account number and password to obtain your deterministic terminal GUID:
+
+```bash
+curl -X GET "https://mt5.mrpc.pro/GetId?user=YOUR_LOGIN&password=YOUR_PASSWORD" \
+     -H "APIKey: YOUR_API_KEY"
+```
+
+The resulting `id` must be provided as the `id` header alongside `APIKey` for all subsequent operations.
+
+
 # Connection & Authentication
 
 Managing connections and sessions with MetaTrader 5.
@@ -7,7 +22,7 @@ Managing connections and sessions with MetaTrader 5.
 ```typescript
 import { MT5Client } from '@metarpc/nodemt5';
 
-const client = new MT5Client('mt5mt5.mrpc.pro', 443);
+const client = new MT5Client('mt5.mrpc.pro', 443);
 await client.connect(12345678, 'investor_or_master_password');
 ```
 
