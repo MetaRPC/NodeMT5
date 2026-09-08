@@ -1,37 +1,53 @@
-# NodeMT5 SDK
+# NodeMT5 SDK Documentation
 
-Welcome to the **NodeMT5 SDK** documentation. This high-performance Node.js and TypeScript library connects directly to MetaTrader 5 servers to execute trades, manage open positions, query account balance and margin, and stream real-time price quotes.
+**Complete Node.js SDK for MetaTrader 5 trading automation via gRPC**
 
-## Key Features
+<div class="home-grid">
 
-- **TypeScript Native**: Full typing support for compile-time safety across all requests, orders, and market events.
-- **Event-Driven Streaming**: Real-time tick quotes and market depth via reactive callbacks and EventEmitter.
-- **Order Execution**: Complete MT5 trade operations including market orders, pending orders, and partial closes.
-- **Async/Await API**: Idiomatic modern JavaScript Promises for clean asynchronous workflows.
+<!-- Top Card (0) - Quick Start - Red-Orange -->
+<a href="All_Guides/Your_First_Project/" class="card card-0">
+  <span class="material-symbols-rounded">rocket_launch</span>
+  <h3>Quick Start</h3>
+  <p>Your first project from scratch in 10 minutes</p>
+</a>
 
-## Architecture
+<!-- Wide Card (1) - Getting Started - Yellow-Orange-Pink -->
+<a href="All_Guides/GETTING_STARTED/" class="card card-1 card-wide">
+  <span class="material-symbols-rounded">bolt</span>
+  <h3>Getting Started</h3>
+  <p>New here? Start with setup and overview</p>
+</a>
 
-```mermaid
-graph TD
-    A[Node.js / TS Application] -->|Non-blocking Socket| B[MT5Client]
-    B -->|Encrypted Protocol| C[MetaTrader 5 Server]
-    C -->|Price Feeds| B
-    C -->|Execution Confirmations| B
-    B -->|Async Events| A
-```
+<!-- Middle Row (2-3) - Yellow-Blue & Purple -->
+<a href="All_Guides/PROJECT_MAP/" class="card card-2">
+  <span class="material-symbols-rounded">map</span>
+  <h3>Project Map</h3>
+  <p>Architecture overview</p>
+</a>
 
-## Quick Installation
+<a href="All_Guides/GLOSSARY/" class="card card-3">
+  <span class="material-symbols-rounded">menu_book</span>
+  <h3>Glossary</h3>
+  <p>MT5 terms and concepts</p>
+</a>
 
-```bash
-npm install @metarpc/nodemt5
-```
+<!-- Bottom Row (4-5-6) - Teal, Mint, Green -->
+<a href="API_Reference/MT5Service/" class="card card-4">
+  <span class="material-symbols-rounded">build</span>
+  <h3>MT5Service</h3>
+  <p>Wrapper methods layer</p>
+</a>
 
-Or with Yarn / pnpm:
+<a href="API_Reference/MT5Account/" class="card card-5">
+  <span class="material-symbols-rounded">settings</span>
+  <h3>MT5Account</h3>
+  <p>Low-level gRPC protocol layer</p>
+</a>
 
-```bash
-yarn add @metarpc/nodemt5
-# or
-pnpm add @metarpc/nodemt5
-```
+<a href="API_Reference/MT5Sugar/" class="card card-6">
+  <span class="material-symbols-rounded">auto_awesome</span>
+  <h3>MT5Sugar</h3>
+  <p>High-level convenience API</p>
+</a>
 
-Next, check out the [Getting Started](getting-started.md) guide to build your first trading script.
+</div>

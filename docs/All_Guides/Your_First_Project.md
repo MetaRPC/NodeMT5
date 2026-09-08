@@ -1,0 +1,55 @@
+# Your First Project in 10 Minutes (Node.js)
+
+> **Hands-on Quick Start** - Create a working trading project with MetaTrader 5 and NodeMT5 from scratch.
+
+---
+
+## Step 1: Create Your Project
+
+Create a new directory for your trading bot:
+
+```bash
+mkdir my_nodemt5_bot
+cd my_nodemt5_bot
+```
+
+Install the package:
+
+```bash
+npm install @metarpc/mt5
+```
+
+---
+
+## Step 2: Write Your Trading Code
+
+Create your main application file and paste the following snippet:
+
+```
+import { MT5Account } from '@metarpc/mt5';
+
+const account = new MT5Account({ user, password, server: grpcServer });
+await account.connectByServerName(serverName, 'EURUSD', 30);
+const summary = await account.accountSummary();
+console.log(`Balance: ${summary.accountBalance}, Equity: ${summary.accountEquity}`);
+```
+
+---
+
+## Step 3: Run the Program
+
+Run your application:
+
+```bash
+# Verify connection output
+# Balance: 10000.00, Equity: 10000.00
+```
+
+---
+
+## 🚀 Next Steps
+
+Congratulations! You have successfully established a direct gRPC connection to MetaTrader 5. Next:
+- Explore **[gRPC Streaming](GRPC_STREAM_MANAGEMENT.md)** to listen to live ticks.
+- Check the **[API Reference](../API_Reference/MT5Account.md)** for all 40+ available terminal methods.
+- Learn about high-level risk management and auto-normalization in **[MT5Sugar](../API_Reference/MT5Sugar.md)**.
