@@ -978,7 +978,7 @@
 <h2 id="basic-connection">Basic Connection<a class="headerlink" href="#basic-connection" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">MT5Client</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@metarpc/nodemt5'</span><span class="p">;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MT5Client</span><span class="p">(</span><span class="s1">'mt5demo.broker.com'</span><span class="p">,</span><span class="w"> </span><span class="mf">443</span><span class="p">);</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MT5Client</span><span class="p">(</span><span class="s1">'mt5mt5.mrpc.pro'</span><span class="p">,</span><span class="w"> </span><span class="mf">443</span><span class="p">);</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="mf">12345678</span><span class="p">,</span><span class="w"> </span><span class="s1">'investor_or_master_password'</span><span class="p">);</span>
 </code></pre></div>
 <h2 id="session-management-auto-reconnect">Session Management &amp; Auto-Reconnect<a class="headerlink" href="#session-management-auto-reconnect" title="Permanent link">¶</a></h2>
@@ -995,6 +995,9 @@
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">});</span>
 </code></pre></div>
+<blockquote>
+<p><strong>Authentication Note</strong>: Connecting to <code>mt5.mrpc.pro:443</code> requires a valid MetaRPC API key. Register for free at <a href="https://mrpc.pro/signup">https://mrpc.pro/signup</a> and generate your token in <a href="https://mrpc.pro/my">https://mrpc.pro/my</a>.</p>
+</blockquote>
 
 
 
