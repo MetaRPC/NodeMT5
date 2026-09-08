@@ -7,7 +7,7 @@ Managing connections and sessions with MetaTrader 5.
 ```typescript
 import { MT5Client } from '@metarpc/nodemt5';
 
-const client = new MT5Client('mt5demo.broker.com', 443);
+const client = new MT5Client('mt5mt5.mrpc.pro', 443);
 await client.connect(12345678, 'investor_or_master_password');
 ```
 
@@ -30,3 +30,7 @@ process.on('SIGINT', () => {
   process.exit(0);
 });
 ```
+
+
+> **Authentication Note**: Connecting to `mt5.mrpc.pro:443` requires a valid MetaRPC API key. Register for free at [https://mrpc.pro/signup](https://mrpc.pro/signup) and generate your token in [https://mrpc.pro/my](https://mrpc.pro/my).
+

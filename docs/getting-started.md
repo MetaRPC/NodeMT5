@@ -15,7 +15,7 @@ Create a file named `quickstart.ts`:
 import { MT5Client } from '@metarpc/nodemt5';
 
 async function main() {
-  const client = new MT5Client('mt5.broker.com', 443);
+  const client = new MT5Client('mt5.mrpc.pro', 443);
 
   // Authenticate
   console.log('Connecting to MT5...');
@@ -51,3 +51,7 @@ Run with `ts-node` or compile with `tsc`:
 ```bash
 npx ts-node quickstart.ts
 ```
+
+
+> **Authentication Note**: Connecting to `mt5.mrpc.pro:443` requires a valid MetaRPC API key. Register for free at [https://mrpc.pro/signup](https://mrpc.pro/signup) and generate your token in [https://mrpc.pro/my](https://mrpc.pro/my).
+

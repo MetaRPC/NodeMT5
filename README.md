@@ -2,16 +2,47 @@
 
 > Official MetaTrader 5 Node.js & TypeScript SDK for algorithmic trading and market data streaming.
 
-[![Docs](https://img.shields.io/badge/docs-metarpc.github.io%2FNodeMT5-blue.svg)](https://metarpc.github.io/NodeMT5/)
+[![Docs](https://img.shields.io/badge/docs-NodeMT5-blue.svg)](https://metarpc.github.io/NodeMT5/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Features
+📄 **Full Documentation**: [https://metarpc.github.io/NodeMT5/](https://metarpc.github.io/NodeMT5/)
 
-- **Direct Non-Blocking Connectivity**: Fast async communication without requiring a local MT5 GUI desktop client.
-- **TypeScript Support**: Full type definitions for all orders, positions, tick events, and account requests.
-- **Real-Time Streaming**: Real-time tick quotes and depth of market (DOM) subscriptions.
-- **Complete Order Lifecycle**: Market orders, pending orders (Buy/Sell Limit, Buy/Sell Stop, Stop Limit), position modification, and order closing.
+---
 
-## Documentation
+## 📦 Installation
 
-Full documentation is available at [https://metarpc.github.io/NodeMT5/](https://metarpc.github.io/NodeMT5/).
+```bash
+npm install @metarpc/nodemt5
+```
+
+---
+
+## 🔑 API Key & Authentication
+
+Connecting to MetaRPC production endpoints (`mt5.mrpc.pro:443`) requires an API key:
+
+1. **Sign Up**: Create an account for free at [https://mrpc.pro/signup](https://mrpc.pro/signup).
+2. **Generate API Key**: In your MetaRPC Portal dashboard at [https://mrpc.pro/my](https://mrpc.pro/my), go to **API Keys** to generate and copy your personal API token.
+3. **Configure Connection**: Pass your API key / token along with the server address (`mt5.mrpc.pro:443`) in your connection settings.
+
+---
+
+## 🌐 Production Endpoints
+
+| Environment | Host | Port | Protocol |
+| :--- | :--- | :--- | :--- |
+| **Production** | `mt5.mrpc.pro` | `443` | TLS / gRPC |
+| **Direct API UI (Swagger)** | `https://mt5.mrpc.pro/apiui` | `443` | HTTPS |
+| **Portal Dashboard** | `https://mrpc.pro/my` | `443` | HTTPS |
+| **Registration / API Key** | `https://mrpc.pro/signup` | `443` | HTTPS |
+
+---
+
+## 📄 Documentation & Guides
+
+Explore comprehensive documentation at [https://metarpc.github.io/NodeMT5/](https://metarpc.github.io/NodeMT5/):
+- 🚀 **Quick Start & First Project**
+- 🔑 **Authentication & API Keys**
+- 📡 **Live Market Data & gRPC Streaming**
+- 💼 **Account Management & Order Execution**
+- 📊 **Return Codes & Error Handling Reference**
