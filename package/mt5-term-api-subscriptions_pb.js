@@ -1,0 +1,11453 @@
+// source: mt5-term-api-subscriptions.proto
+/**
+ * @fileoverview
+ * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
+ * @suppress {messageConventions} JS Compiler reports an error if a variable or
+ *     field starts with 'MSG_' and isn't a translatable message.
+ * @public
+ */
+// GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
+
+var jspb = require('google-protobuf');
+var goog = jspb;
+var global =
+    (typeof globalThis !== 'undefined' && globalThis) ||
+    (typeof window !== 'undefined' && window) ||
+    (typeof global !== 'undefined' && global) ||
+    (typeof self !== 'undefined' && self) ||
+    (function () { return this; }).call(null) ||
+    Function('return this')();
+
+var google_api_annotations_pb = require('./google/api/annotations_pb.js');
+goog.object.extend(proto, google_api_annotations_pb);
+var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
+goog.object.extend(proto, google_protobuf_timestamp_pb);
+var mrpc$mt5$error_pb = require('./mrpc-mt5-error_pb.js');
+goog.object.extend(proto, mrpc$mt5$error_pb);
+goog.exportSymbol('proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE', null, global);
+goog.exportSymbol('proto.mt5_term_api.MqlTradeRequest', null, global);
+goog.exportSymbol('proto.mt5_term_api.MqlTradeResult', null, global);
+goog.exportSymbol('proto.mt5_term_api.MqlTradeTransaction', null, global);
+goog.exportSymbol('proto.mt5_term_api.MrpcSubscriptionMqlTick', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnEventAccountInfo', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnPositionProfitData', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnPositionProfitPositionInfo', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnPositionProfitReply', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnPositionProfitReply.ResponseCase', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnPositionProfitRequest', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.ResponseCase', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnSymbolTickData', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnSymbolTickReply', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnSymbolTickReply.ResponseCase', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnSymbolTickRequest', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTadeEventData', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeData', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeHistoryDealInfo', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeHistoryDealUpdate', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeHistoryOrderInfo', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeHistoryOrderUpdate', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeOrderInfo', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeOrderStateChange', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradePositionInfo', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradePositionUpdate', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeReply', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeReply.ResponseCase', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeRequest', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeTransactionData', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeTransactionReply', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeTransactionReply.ResponseCase', null, global);
+goog.exportSymbol('proto.mt5_term_api.OnTradeTransactionRequest', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_DEAL_ENTRY', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_DEAL_REASON', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_DEAL_TYPE', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_ORDER_REASON', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_ORDER_STATE', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_ORDER_TYPE', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_POSITION_REASON', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_POSITION_TYPE', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_TRADE_REQUEST_ACTIONS', null, global);
+goog.exportSymbol('proto.mt5_term_api.SUB_ENUM_TRADE_TRANSACTION_TYPE', null, global);
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeTransactionRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradeTransactionRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeTransactionRequest.displayName = 'proto.mt5_term_api.OnTradeTransactionRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeTransactionReply = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.mt5_term_api.OnTradeTransactionReply.oneofGroups_);
+};
+goog.inherits(proto.mt5_term_api.OnTradeTransactionReply, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeTransactionReply.displayName = 'proto.mt5_term_api.OnTradeTransactionReply';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeTransactionData = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradeTransactionData, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeTransactionData.displayName = 'proto.mt5_term_api.OnTradeTransactionData';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.MqlTradeTransaction = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.MqlTradeTransaction, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.MqlTradeTransaction.displayName = 'proto.mt5_term_api.MqlTradeTransaction';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.MqlTradeRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.MqlTradeRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.MqlTradeRequest.displayName = 'proto.mt5_term_api.MqlTradeRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.MqlTradeResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.MqlTradeResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.MqlTradeResult.displayName = 'proto.mt5_term_api.MqlTradeResult';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.displayName = 'proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.oneofGroups_);
+};
+goog.inherits(proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.displayName = 'proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.repeatedFields_, null);
+};
+goog.inherits(proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.displayName = 'proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnPositionProfitReply = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.mt5_term_api.OnPositionProfitReply.oneofGroups_);
+};
+goog.inherits(proto.mt5_term_api.OnPositionProfitReply, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnPositionProfitReply.displayName = 'proto.mt5_term_api.OnPositionProfitReply';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnPositionProfitData = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.mt5_term_api.OnPositionProfitData.repeatedFields_, null);
+};
+goog.inherits(proto.mt5_term_api.OnPositionProfitData, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnPositionProfitData.displayName = 'proto.mt5_term_api.OnPositionProfitData';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnPositionProfitRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnPositionProfitRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnPositionProfitRequest.displayName = 'proto.mt5_term_api.OnPositionProfitRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnPositionProfitPositionInfo, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnPositionProfitPositionInfo.displayName = 'proto.mt5_term_api.OnPositionProfitPositionInfo';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnEventAccountInfo = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnEventAccountInfo, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnEventAccountInfo.displayName = 'proto.mt5_term_api.OnEventAccountInfo';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradeRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeRequest.displayName = 'proto.mt5_term_api.OnTradeRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeReply = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.mt5_term_api.OnTradeReply.oneofGroups_);
+};
+goog.inherits(proto.mt5_term_api.OnTradeReply, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeReply.displayName = 'proto.mt5_term_api.OnTradeReply';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeData = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradeData, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeData.displayName = 'proto.mt5_term_api.OnTradeData';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeOrderInfo = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradeOrderInfo, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeOrderInfo.displayName = 'proto.mt5_term_api.OnTradeOrderInfo';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradePositionInfo = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradePositionInfo, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradePositionInfo.displayName = 'proto.mt5_term_api.OnTradePositionInfo';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradeHistoryDealInfo, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeHistoryDealInfo.displayName = 'proto.mt5_term_api.OnTradeHistoryDealInfo';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradeHistoryOrderInfo, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeHistoryOrderInfo.displayName = 'proto.mt5_term_api.OnTradeHistoryOrderInfo';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeOrderStateChange = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradeOrderStateChange, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeOrderStateChange.displayName = 'proto.mt5_term_api.OnTradeOrderStateChange';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradePositionUpdate = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradePositionUpdate, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradePositionUpdate.displayName = 'proto.mt5_term_api.OnTradePositionUpdate';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradeHistoryDealUpdate, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeHistoryDealUpdate.displayName = 'proto.mt5_term_api.OnTradeHistoryDealUpdate';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnTradeHistoryOrderUpdate, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTradeHistoryOrderUpdate.displayName = 'proto.mt5_term_api.OnTradeHistoryOrderUpdate';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnTadeEventData = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.mt5_term_api.OnTadeEventData.repeatedFields_, null);
+};
+goog.inherits(proto.mt5_term_api.OnTadeEventData, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnTadeEventData.displayName = 'proto.mt5_term_api.OnTadeEventData';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnSymbolTickRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.mt5_term_api.OnSymbolTickRequest.repeatedFields_, null);
+};
+goog.inherits(proto.mt5_term_api.OnSymbolTickRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnSymbolTickRequest.displayName = 'proto.mt5_term_api.OnSymbolTickRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnSymbolTickReply = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.mt5_term_api.OnSymbolTickReply.oneofGroups_);
+};
+goog.inherits(proto.mt5_term_api.OnSymbolTickReply, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnSymbolTickReply.displayName = 'proto.mt5_term_api.OnSymbolTickReply';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.OnSymbolTickData = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.OnSymbolTickData, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.OnSymbolTickData.displayName = 'proto.mt5_term_api.OnSymbolTickData';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.mt5_term_api.MrpcSubscriptionMqlTick, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.mt5_term_api.MrpcSubscriptionMqlTick.displayName = 'proto.mt5_term_api.MrpcSubscriptionMqlTick';
+}
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeTransactionRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeTransactionRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeTransactionRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeTransactionRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeTransactionRequest}
+ */
+proto.mt5_term_api.OnTradeTransactionRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeTransactionRequest;
+  return proto.mt5_term_api.OnTradeTransactionRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeTransactionRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeTransactionRequest}
+ */
+proto.mt5_term_api.OnTradeTransactionRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeTransactionRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeTransactionRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeTransactionRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeTransactionRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+};
+
+
+
+/**
+ * Oneof group definitions for this message. Each group defines the field
+ * numbers belonging to that group. When of these fields' value is set, all
+ * other fields in the group are cleared. During deserialization, if multiple
+ * fields are encountered for a group, only the last value seen will be kept.
+ * @private {!Array<!Array<number>>}
+ * @const
+ */
+proto.mt5_term_api.OnTradeTransactionReply.oneofGroups_ = [[1,2]];
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.OnTradeTransactionReply.ResponseCase = {
+  RESPONSE_NOT_SET: 0,
+  DATA: 1,
+  ERROR: 2
+};
+
+/**
+ * @return {proto.mt5_term_api.OnTradeTransactionReply.ResponseCase}
+ */
+proto.mt5_term_api.OnTradeTransactionReply.prototype.getResponseCase = function() {
+  return /** @type {proto.mt5_term_api.OnTradeTransactionReply.ResponseCase} */(jspb.Message.computeOneofCase(this, proto.mt5_term_api.OnTradeTransactionReply.oneofGroups_[0]));
+};
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeTransactionReply.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeTransactionReply.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeTransactionReply} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeTransactionReply.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    data: (f = msg.getData()) && proto.mt5_term_api.OnTradeTransactionData.toObject(includeInstance, f),
+    error: (f = msg.getError()) && mrpc$mt5$error_pb.Error.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeTransactionReply}
+ */
+proto.mt5_term_api.OnTradeTransactionReply.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeTransactionReply;
+  return proto.mt5_term_api.OnTradeTransactionReply.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeTransactionReply} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeTransactionReply}
+ */
+proto.mt5_term_api.OnTradeTransactionReply.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.OnTradeTransactionData;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeTransactionData.deserializeBinaryFromReader);
+      msg.setData(value);
+      break;
+    case 2:
+      var value = new mrpc$mt5$error_pb.Error;
+      reader.readMessage(value,mrpc$mt5$error_pb.Error.deserializeBinaryFromReader);
+      msg.setError(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeTransactionReply.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeTransactionReply.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeTransactionReply} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeTransactionReply.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getData();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.mt5_term_api.OnTradeTransactionData.serializeBinaryToWriter
+    );
+  }
+  f = message.getError();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      mrpc$mt5$error_pb.Error.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional OnTradeTransactionData data = 1;
+ * @return {?proto.mt5_term_api.OnTradeTransactionData}
+ */
+proto.mt5_term_api.OnTradeTransactionReply.prototype.getData = function() {
+  return /** @type{?proto.mt5_term_api.OnTradeTransactionData} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTradeTransactionData, 1));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTradeTransactionData|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeTransactionReply} returns this
+*/
+proto.mt5_term_api.OnTradeTransactionReply.prototype.setData = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 1, proto.mt5_term_api.OnTradeTransactionReply.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeTransactionReply} returns this
+ */
+proto.mt5_term_api.OnTradeTransactionReply.prototype.clearData = function() {
+  return this.setData(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeTransactionReply.prototype.hasData = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional Error error = 2;
+ * @return {?proto.mt5_term_api.Error}
+ */
+proto.mt5_term_api.OnTradeTransactionReply.prototype.getError = function() {
+  return /** @type{?proto.mt5_term_api.Error} */ (
+    jspb.Message.getWrapperField(this, mrpc$mt5$error_pb.Error, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.Error|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeTransactionReply} returns this
+*/
+proto.mt5_term_api.OnTradeTransactionReply.prototype.setError = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 2, proto.mt5_term_api.OnTradeTransactionReply.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeTransactionReply} returns this
+ */
+proto.mt5_term_api.OnTradeTransactionReply.prototype.clearError = function() {
+  return this.setError(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeTransactionReply.prototype.hasError = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeTransactionData.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeTransactionData} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeTransactionData.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    type: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    tradeTransaction: (f = msg.getTradeTransaction()) && proto.mt5_term_api.MqlTradeTransaction.toObject(includeInstance, f),
+    tradeRequest: (f = msg.getTradeRequest()) && proto.mt5_term_api.MqlTradeRequest.toObject(includeInstance, f),
+    tradeResult: (f = msg.getTradeResult()) && proto.mt5_term_api.MqlTradeResult.toObject(includeInstance, f),
+    terminalInstanceGuidId: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    accountInfo: (f = msg.getAccountInfo()) && proto.mt5_term_api.OnEventAccountInfo.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeTransactionData}
+ */
+proto.mt5_term_api.OnTradeTransactionData.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeTransactionData;
+  return proto.mt5_term_api.OnTradeTransactionData.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeTransactionData} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeTransactionData}
+ */
+proto.mt5_term_api.OnTradeTransactionData.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE} */ (reader.readEnum());
+      msg.setType(value);
+      break;
+    case 2:
+      var value = new proto.mt5_term_api.MqlTradeTransaction;
+      reader.readMessage(value,proto.mt5_term_api.MqlTradeTransaction.deserializeBinaryFromReader);
+      msg.setTradeTransaction(value);
+      break;
+    case 3:
+      var value = new proto.mt5_term_api.MqlTradeRequest;
+      reader.readMessage(value,proto.mt5_term_api.MqlTradeRequest.deserializeBinaryFromReader);
+      msg.setTradeRequest(value);
+      break;
+    case 4:
+      var value = new proto.mt5_term_api.MqlTradeResult;
+      reader.readMessage(value,proto.mt5_term_api.MqlTradeResult.deserializeBinaryFromReader);
+      msg.setTradeResult(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTerminalInstanceGuidId(value);
+      break;
+    case 6:
+      var value = new proto.mt5_term_api.OnEventAccountInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnEventAccountInfo.deserializeBinaryFromReader);
+      msg.setAccountInfo(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeTransactionData.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeTransactionData} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeTransactionData.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      1,
+      f
+    );
+  }
+  f = message.getTradeTransaction();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.mt5_term_api.MqlTradeTransaction.serializeBinaryToWriter
+    );
+  }
+  f = message.getTradeRequest();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      proto.mt5_term_api.MqlTradeRequest.serializeBinaryToWriter
+    );
+  }
+  f = message.getTradeResult();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.mt5_term_api.MqlTradeResult.serializeBinaryToWriter
+    );
+  }
+  f = message.getTerminalInstanceGuidId();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
+      f
+    );
+  }
+  f = message.getAccountInfo();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      proto.mt5_term_api.OnEventAccountInfo.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional MT5_SUB_ENUM_EVENT_GROUP_TYPE type = 1;
+ * @return {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.getType = function() {
+  return /** @type {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE} value
+ * @return {!proto.mt5_term_api.OnTradeTransactionData} returns this
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.setType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 1, value);
+};
+
+
+/**
+ * optional MqlTradeTransaction trade_transaction = 2;
+ * @return {?proto.mt5_term_api.MqlTradeTransaction}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.getTradeTransaction = function() {
+  return /** @type{?proto.mt5_term_api.MqlTradeTransaction} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.MqlTradeTransaction, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.MqlTradeTransaction|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeTransactionData} returns this
+*/
+proto.mt5_term_api.OnTradeTransactionData.prototype.setTradeTransaction = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeTransactionData} returns this
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.clearTradeTransaction = function() {
+  return this.setTradeTransaction(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.hasTradeTransaction = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional MqlTradeRequest trade_request = 3;
+ * @return {?proto.mt5_term_api.MqlTradeRequest}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.getTradeRequest = function() {
+  return /** @type{?proto.mt5_term_api.MqlTradeRequest} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.MqlTradeRequest, 3));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.MqlTradeRequest|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeTransactionData} returns this
+*/
+proto.mt5_term_api.OnTradeTransactionData.prototype.setTradeRequest = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeTransactionData} returns this
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.clearTradeRequest = function() {
+  return this.setTradeRequest(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.hasTradeRequest = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional MqlTradeResult trade_result = 4;
+ * @return {?proto.mt5_term_api.MqlTradeResult}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.getTradeResult = function() {
+  return /** @type{?proto.mt5_term_api.MqlTradeResult} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.MqlTradeResult, 4));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.MqlTradeResult|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeTransactionData} returns this
+*/
+proto.mt5_term_api.OnTradeTransactionData.prototype.setTradeResult = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeTransactionData} returns this
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.clearTradeResult = function() {
+  return this.setTradeResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.hasTradeResult = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional string terminal_instance_guid_id = 5;
+ * @return {string}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.getTerminalInstanceGuidId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnTradeTransactionData} returns this
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.setTerminalInstanceGuidId = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional OnEventAccountInfo account_info = 6;
+ * @return {?proto.mt5_term_api.OnEventAccountInfo}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.getAccountInfo = function() {
+  return /** @type{?proto.mt5_term_api.OnEventAccountInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnEventAccountInfo, 6));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnEventAccountInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeTransactionData} returns this
+*/
+proto.mt5_term_api.OnTradeTransactionData.prototype.setAccountInfo = function(value) {
+  return jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeTransactionData} returns this
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.clearAccountInfo = function() {
+  return this.setAccountInfo(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeTransactionData.prototype.hasAccountInfo = function() {
+  return jspb.Message.getField(this, 6) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.MqlTradeTransaction.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.MqlTradeTransaction} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.MqlTradeTransaction.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    dealTicket: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    orderTicket: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    symbol: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    type: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    orderType: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    orderState: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    dealType: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    orderTimeType: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    orderExpirationTime: (f = msg.getOrderExpirationTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    price: jspb.Message.getFloatingPointFieldWithDefault(msg, 10, 0.0),
+    priceTriggerStopLimit: jspb.Message.getFloatingPointFieldWithDefault(msg, 11, 0.0),
+    priceStopLoss: jspb.Message.getFloatingPointFieldWithDefault(msg, 12, 0.0),
+    priceTakeProfit: jspb.Message.getFloatingPointFieldWithDefault(msg, 13, 0.0),
+    volume: jspb.Message.getFloatingPointFieldWithDefault(msg, 14, 0.0),
+    positionTicket: jspb.Message.getFieldWithDefault(msg, 15, 0),
+    positionByOppositePosition: jspb.Message.getFieldWithDefault(msg, 16, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.MqlTradeTransaction}
+ */
+proto.mt5_term_api.MqlTradeTransaction.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.MqlTradeTransaction;
+  return proto.mt5_term_api.MqlTradeTransaction.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.MqlTradeTransaction} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.MqlTradeTransaction}
+ */
+proto.mt5_term_api.MqlTradeTransaction.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setDealTicket(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setOrderTicket(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSymbol(value);
+      break;
+    case 4:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_TRADE_TRANSACTION_TYPE} */ (reader.readEnum());
+      msg.setType(value);
+      break;
+    case 5:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} */ (reader.readEnum());
+      msg.setOrderType(value);
+      break;
+    case 6:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE} */ (reader.readEnum());
+      msg.setOrderState(value);
+      break;
+    case 7:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_DEAL_TYPE} */ (reader.readEnum());
+      msg.setDealType(value);
+      break;
+    case 8:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} */ (reader.readEnum());
+      msg.setOrderTimeType(value);
+      break;
+    case 9:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setOrderExpirationTime(value);
+      break;
+    case 10:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPrice(value);
+      break;
+    case 11:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPriceTriggerStopLimit(value);
+      break;
+    case 12:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPriceStopLoss(value);
+      break;
+    case 13:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPriceTakeProfit(value);
+      break;
+    case 14:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setVolume(value);
+      break;
+    case 15:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setPositionTicket(value);
+      break;
+    case 16:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setPositionByOppositePosition(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.MqlTradeTransaction.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.MqlTradeTransaction} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.MqlTradeTransaction.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDealTicket();
+  if (f !== 0) {
+    writer.writeUint64(
+      1,
+      f
+    );
+  }
+  f = message.getOrderTicket();
+  if (f !== 0) {
+    writer.writeUint64(
+      2,
+      f
+    );
+  }
+  f = message.getSymbol();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      4,
+      f
+    );
+  }
+  f = message.getOrderType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      5,
+      f
+    );
+  }
+  f = message.getOrderState();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      6,
+      f
+    );
+  }
+  f = message.getDealType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      7,
+      f
+    );
+  }
+  f = message.getOrderTimeType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      8,
+      f
+    );
+  }
+  f = message.getOrderExpirationTime();
+  if (f != null) {
+    writer.writeMessage(
+      9,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getPrice();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      10,
+      f
+    );
+  }
+  f = message.getPriceTriggerStopLimit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      11,
+      f
+    );
+  }
+  f = message.getPriceStopLoss();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      12,
+      f
+    );
+  }
+  f = message.getPriceTakeProfit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      13,
+      f
+    );
+  }
+  f = message.getVolume();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      14,
+      f
+    );
+  }
+  f = message.getPositionTicket();
+  if (f !== 0) {
+    writer.writeUint64(
+      15,
+      f
+    );
+  }
+  f = message.getPositionByOppositePosition();
+  if (f !== 0) {
+    writer.writeUint64(
+      16,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint64 deal_ticket = 1;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getDealTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setDealTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional uint64 order_ticket = 2;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getOrderTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setOrderTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional string symbol = 3;
+ * @return {string}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getSymbol = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setSymbol = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional SUB_ENUM_TRADE_TRANSACTION_TYPE type = 4;
+ * @return {!proto.mt5_term_api.SUB_ENUM_TRADE_TRANSACTION_TYPE}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_TRADE_TRANSACTION_TYPE} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_TRADE_TRANSACTION_TYPE} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 4, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE order_type = 5;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getOrderType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setOrderType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 5, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_STATE order_state = 6;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getOrderState = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setOrderState = function(value) {
+  return jspb.Message.setProto3EnumField(this, 6, value);
+};
+
+
+/**
+ * optional SUB_ENUM_DEAL_TYPE deal_type = 7;
+ * @return {!proto.mt5_term_api.SUB_ENUM_DEAL_TYPE}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getDealType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_DEAL_TYPE} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_DEAL_TYPE} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setDealType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 7, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE_TIME order_time_type = 8;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getOrderTimeType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setOrderTimeType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 8, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp order_expiration_time = 9;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getOrderExpirationTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 9));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+*/
+proto.mt5_term_api.MqlTradeTransaction.prototype.setOrderExpirationTime = function(value) {
+  return jspb.Message.setWrapperField(this, 9, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.clearOrderExpirationTime = function() {
+  return this.setOrderExpirationTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.hasOrderExpirationTime = function() {
+  return jspb.Message.getField(this, 9) != null;
+};
+
+
+/**
+ * optional double price = 10;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getPrice = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 10, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setPrice = function(value) {
+  return jspb.Message.setProto3FloatField(this, 10, value);
+};
+
+
+/**
+ * optional double price_trigger_stop_limit = 11;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getPriceTriggerStopLimit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 11, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setPriceTriggerStopLimit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 11, value);
+};
+
+
+/**
+ * optional double price_stop_loss = 12;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getPriceStopLoss = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 12, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setPriceStopLoss = function(value) {
+  return jspb.Message.setProto3FloatField(this, 12, value);
+};
+
+
+/**
+ * optional double price_take_profit = 13;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getPriceTakeProfit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 13, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setPriceTakeProfit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 13, value);
+};
+
+
+/**
+ * optional double volume = 14;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getVolume = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 14, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setVolume = function(value) {
+  return jspb.Message.setProto3FloatField(this, 14, value);
+};
+
+
+/**
+ * optional uint64 position_ticket = 15;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getPositionTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 15, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setPositionTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 15, value);
+};
+
+
+/**
+ * optional uint64 position_by_opposite_position = 16;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.getPositionByOppositePosition = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 16, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeTransaction} returns this
+ */
+proto.mt5_term_api.MqlTradeTransaction.prototype.setPositionByOppositePosition = function(value) {
+  return jspb.Message.setProto3IntField(this, 16, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.MqlTradeRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.MqlTradeRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.MqlTradeRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    tradeOperationType: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    magic: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    orderTicket: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    symbol: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    requestedDealVolumeLots: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    price: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0),
+    stoplImit: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0),
+    stopLoss: jspb.Message.getFloatingPointFieldWithDefault(msg, 8, 0.0),
+    takeProfit: jspb.Message.getFloatingPointFieldWithDefault(msg, 9, 0.0),
+    deviation: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    orderType: jspb.Message.getFieldWithDefault(msg, 11, 0),
+    orderTypeFilling: jspb.Message.getFieldWithDefault(msg, 12, 0),
+    typeTime: jspb.Message.getFieldWithDefault(msg, 13, 0),
+    orderExpirationTime: (f = msg.getOrderExpirationTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    orderComment: jspb.Message.getFieldWithDefault(msg, 15, ""),
+    positionTicket: jspb.Message.getFieldWithDefault(msg, 16, 0),
+    positionByOppositePosition: jspb.Message.getFieldWithDefault(msg, 17, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.MqlTradeRequest}
+ */
+proto.mt5_term_api.MqlTradeRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.MqlTradeRequest;
+  return proto.mt5_term_api.MqlTradeRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.MqlTradeRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.MqlTradeRequest}
+ */
+proto.mt5_term_api.MqlTradeRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_TRADE_REQUEST_ACTIONS} */ (reader.readEnum());
+      msg.setTradeOperationType(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setMagic(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setOrderTicket(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSymbol(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setRequestedDealVolumeLots(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPrice(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setStoplImit(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setStopLoss(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setTakeProfit(value);
+      break;
+    case 10:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setDeviation(value);
+      break;
+    case 11:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} */ (reader.readEnum());
+      msg.setOrderType(value);
+      break;
+    case 12:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING} */ (reader.readEnum());
+      msg.setOrderTypeFilling(value);
+      break;
+    case 13:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} */ (reader.readEnum());
+      msg.setTypeTime(value);
+      break;
+    case 14:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setOrderExpirationTime(value);
+      break;
+    case 15:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setOrderComment(value);
+      break;
+    case 16:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setPositionTicket(value);
+      break;
+    case 17:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setPositionByOppositePosition(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.MqlTradeRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.MqlTradeRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.MqlTradeRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getTradeOperationType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      1,
+      f
+    );
+  }
+  f = message.getMagic();
+  if (f !== 0) {
+    writer.writeUint64(
+      2,
+      f
+    );
+  }
+  f = message.getOrderTicket();
+  if (f !== 0) {
+    writer.writeUint64(
+      3,
+      f
+    );
+  }
+  f = message.getSymbol();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = message.getRequestedDealVolumeLots();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      5,
+      f
+    );
+  }
+  f = message.getPrice();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      6,
+      f
+    );
+  }
+  f = message.getStoplImit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      7,
+      f
+    );
+  }
+  f = message.getStopLoss();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      8,
+      f
+    );
+  }
+  f = message.getTakeProfit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      9,
+      f
+    );
+  }
+  f = message.getDeviation();
+  if (f !== 0) {
+    writer.writeUint64(
+      10,
+      f
+    );
+  }
+  f = message.getOrderType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      11,
+      f
+    );
+  }
+  f = message.getOrderTypeFilling();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      12,
+      f
+    );
+  }
+  f = message.getTypeTime();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      13,
+      f
+    );
+  }
+  f = message.getOrderExpirationTime();
+  if (f != null) {
+    writer.writeMessage(
+      14,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getOrderComment();
+  if (f.length > 0) {
+    writer.writeString(
+      15,
+      f
+    );
+  }
+  f = message.getPositionTicket();
+  if (f !== 0) {
+    writer.writeUint64(
+      16,
+      f
+    );
+  }
+  f = message.getPositionByOppositePosition();
+  if (f !== 0) {
+    writer.writeUint64(
+      17,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional SUB_ENUM_TRADE_REQUEST_ACTIONS trade_operation_type = 1;
+ * @return {!proto.mt5_term_api.SUB_ENUM_TRADE_REQUEST_ACTIONS}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getTradeOperationType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_TRADE_REQUEST_ACTIONS} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_TRADE_REQUEST_ACTIONS} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setTradeOperationType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 1, value);
+};
+
+
+/**
+ * optional uint64 magic = 2;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getMagic = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setMagic = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional uint64 order_ticket = 3;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getOrderTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setOrderTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional string symbol = 4;
+ * @return {string}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getSymbol = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setSymbol = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional double requested_deal_volume_lots = 5;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getRequestedDealVolumeLots = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setRequestedDealVolumeLots = function(value) {
+  return jspb.Message.setProto3FloatField(this, 5, value);
+};
+
+
+/**
+ * optional double price = 6;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getPrice = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 6, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setPrice = function(value) {
+  return jspb.Message.setProto3FloatField(this, 6, value);
+};
+
+
+/**
+ * optional double stopl_imit = 7;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getStoplImit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 7, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setStoplImit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 7, value);
+};
+
+
+/**
+ * optional double stop_loss = 8;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getStopLoss = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 8, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setStopLoss = function(value) {
+  return jspb.Message.setProto3FloatField(this, 8, value);
+};
+
+
+/**
+ * optional double take_profit = 9;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getTakeProfit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 9, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setTakeProfit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 9, value);
+};
+
+
+/**
+ * optional uint64 deviation = 10;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getDeviation = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setDeviation = function(value) {
+  return jspb.Message.setProto3IntField(this, 10, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE order_type = 11;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getOrderType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} */ (jspb.Message.getFieldWithDefault(this, 11, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setOrderType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 11, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE_FILLING order_type_filling = 12;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getOrderTypeFilling = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setOrderTypeFilling = function(value) {
+  return jspb.Message.setProto3EnumField(this, 12, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE_TIME type_time = 13;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getTypeTime = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} */ (jspb.Message.getFieldWithDefault(this, 13, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setTypeTime = function(value) {
+  return jspb.Message.setProto3EnumField(this, 13, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp order_expiration_time = 14;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getOrderExpirationTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 14));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+*/
+proto.mt5_term_api.MqlTradeRequest.prototype.setOrderExpirationTime = function(value) {
+  return jspb.Message.setWrapperField(this, 14, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.clearOrderExpirationTime = function() {
+  return this.setOrderExpirationTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.hasOrderExpirationTime = function() {
+  return jspb.Message.getField(this, 14) != null;
+};
+
+
+/**
+ * optional string order_comment = 15;
+ * @return {string}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getOrderComment = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 15, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setOrderComment = function(value) {
+  return jspb.Message.setProto3StringField(this, 15, value);
+};
+
+
+/**
+ * optional uint64 position_ticket = 16;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getPositionTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 16, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setPositionTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 16, value);
+};
+
+
+/**
+ * optional uint64 position_by_opposite_position = 17;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.getPositionByOppositePosition = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 17, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MqlTradeRequest.prototype.setPositionByOppositePosition = function(value) {
+  return jspb.Message.setProto3IntField(this, 17, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.MqlTradeResult.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.MqlTradeResult} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.MqlTradeResult.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    tradeReturnIntCode: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    tradeReturnCode: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    dealTicket: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    orderTicket: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    dealVolume: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    dealPrice: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0),
+    currentBid: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0),
+    currentAsk: jspb.Message.getFloatingPointFieldWithDefault(msg, 8, 0.0),
+    brokerCommentToOperation: jspb.Message.getFieldWithDefault(msg, 9, ""),
+    terminalDispatchRequestId: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    returnCodeExternal: jspb.Message.getFieldWithDefault(msg, 11, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.MqlTradeResult}
+ */
+proto.mt5_term_api.MqlTradeResult.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.MqlTradeResult;
+  return proto.mt5_term_api.MqlTradeResult.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.MqlTradeResult} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.MqlTradeResult}
+ */
+proto.mt5_term_api.MqlTradeResult.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setTradeReturnIntCode(value);
+      break;
+    case 2:
+      var value = /** @type {!proto.mt5_term_api.MqlErrorTradeCode} */ (reader.readEnum());
+      msg.setTradeReturnCode(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setDealTicket(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setOrderTicket(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setDealVolume(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setDealPrice(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setCurrentBid(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setCurrentAsk(value);
+      break;
+    case 9:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setBrokerCommentToOperation(value);
+      break;
+    case 10:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setTerminalDispatchRequestId(value);
+      break;
+    case 11:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setReturnCodeExternal(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.MqlTradeResult.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.MqlTradeResult} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.MqlTradeResult.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getTradeReturnIntCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = message.getTradeReturnCode();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      2,
+      f
+    );
+  }
+  f = message.getDealTicket();
+  if (f !== 0) {
+    writer.writeUint64(
+      3,
+      f
+    );
+  }
+  f = message.getOrderTicket();
+  if (f !== 0) {
+    writer.writeUint64(
+      4,
+      f
+    );
+  }
+  f = message.getDealVolume();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      5,
+      f
+    );
+  }
+  f = message.getDealPrice();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      6,
+      f
+    );
+  }
+  f = message.getCurrentBid();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      7,
+      f
+    );
+  }
+  f = message.getCurrentAsk();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      8,
+      f
+    );
+  }
+  f = message.getBrokerCommentToOperation();
+  if (f.length > 0) {
+    writer.writeString(
+      9,
+      f
+    );
+  }
+  f = message.getTerminalDispatchRequestId();
+  if (f !== 0) {
+    writer.writeUint32(
+      10,
+      f
+    );
+  }
+  f = message.getReturnCodeExternal();
+  if (f !== 0) {
+    writer.writeInt32(
+      11,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 trade_return_int_code = 1;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getTradeReturnIntCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setTradeReturnIntCode = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional MqlErrorTradeCode trade_return_code = 2;
+ * @return {!proto.mt5_term_api.MqlErrorTradeCode}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getTradeReturnCode = function() {
+  return /** @type {!proto.mt5_term_api.MqlErrorTradeCode} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.MqlErrorTradeCode} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setTradeReturnCode = function(value) {
+  return jspb.Message.setProto3EnumField(this, 2, value);
+};
+
+
+/**
+ * optional uint64 deal_ticket = 3;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getDealTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setDealTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional uint64 order_ticket = 4;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getOrderTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setOrderTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional double deal_volume = 5;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getDealVolume = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setDealVolume = function(value) {
+  return jspb.Message.setProto3FloatField(this, 5, value);
+};
+
+
+/**
+ * optional double deal_price = 6;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getDealPrice = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 6, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setDealPrice = function(value) {
+  return jspb.Message.setProto3FloatField(this, 6, value);
+};
+
+
+/**
+ * optional double current_bid = 7;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getCurrentBid = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 7, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setCurrentBid = function(value) {
+  return jspb.Message.setProto3FloatField(this, 7, value);
+};
+
+
+/**
+ * optional double current_ask = 8;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getCurrentAsk = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 8, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setCurrentAsk = function(value) {
+  return jspb.Message.setProto3FloatField(this, 8, value);
+};
+
+
+/**
+ * optional string broker_comment_to_operation = 9;
+ * @return {string}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getBrokerCommentToOperation = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setBrokerCommentToOperation = function(value) {
+  return jspb.Message.setProto3StringField(this, 9, value);
+};
+
+
+/**
+ * optional uint32 terminal_dispatch_request_id = 10;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getTerminalDispatchRequestId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setTerminalDispatchRequestId = function(value) {
+  return jspb.Message.setProto3IntField(this, 10, value);
+};
+
+
+/**
+ * optional int32 return_code_external = 11;
+ * @return {number}
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.getReturnCodeExternal = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 11, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MqlTradeResult} returns this
+ */
+proto.mt5_term_api.MqlTradeResult.prototype.setReturnCodeExternal = function(value) {
+  return jspb.Message.setProto3IntField(this, 11, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    timerPeriodMilliseconds: jspb.Message.getFieldWithDefault(msg, 1, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest;
+  return proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setTimerPeriodMilliseconds(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getTimerPeriodMilliseconds();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional int32 timer_period_milliseconds = 1;
+ * @return {number}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.prototype.getTimerPeriodMilliseconds = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsRequest.prototype.setTimerPeriodMilliseconds = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+
+/**
+ * Oneof group definitions for this message. Each group defines the field
+ * numbers belonging to that group. When of these fields' value is set, all
+ * other fields in the group are cleared. During deserialization, if multiple
+ * fields are encountered for a group, only the last value seen will be kept.
+ * @private {!Array<!Array<number>>}
+ * @const
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.oneofGroups_ = [[1,2]];
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.ResponseCase = {
+  RESPONSE_NOT_SET: 0,
+  DATA: 1,
+  ERROR: 2
+};
+
+/**
+ * @return {proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.ResponseCase}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.getResponseCase = function() {
+  return /** @type {proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.ResponseCase} */(jspb.Message.computeOneofCase(this, proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.oneofGroups_[0]));
+};
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    data: (f = msg.getData()) && proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.toObject(includeInstance, f),
+    error: (f = msg.getError()) && mrpc$mt5$error_pb.Error.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply;
+  return proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData;
+      reader.readMessage(value,proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.deserializeBinaryFromReader);
+      msg.setData(value);
+      break;
+    case 2:
+      var value = new mrpc$mt5$error_pb.Error;
+      reader.readMessage(value,mrpc$mt5$error_pb.Error.deserializeBinaryFromReader);
+      msg.setError(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getData();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.serializeBinaryToWriter
+    );
+  }
+  f = message.getError();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      mrpc$mt5$error_pb.Error.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional OnPositionsAndPendingOrdersTicketsData data = 1;
+ * @return {?proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.getData = function() {
+  return /** @type{?proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData, 1));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData|undefined} value
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply} returns this
+*/
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.setData = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 1, proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.clearData = function() {
+  return this.setData(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.hasData = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional Error error = 2;
+ * @return {?proto.mt5_term_api.Error}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.getError = function() {
+  return /** @type{?proto.mt5_term_api.Error} */ (
+    jspb.Message.getWrapperField(this, mrpc$mt5$error_pb.Error, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.Error|undefined} value
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply} returns this
+*/
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.setError = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 2, proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.clearError = function() {
+  return this.setError(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsReply.prototype.hasError = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.repeatedFields_ = [1,2];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    positionTicketsList: (f = jspb.Message.getRepeatedField(msg, 1)) == null ? undefined : f,
+    pendingOrderTicketsList: (f = jspb.Message.getRepeatedField(msg, 2)) == null ? undefined : f,
+    serverTime: (f = msg.getServerTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    terminalInstanceGuidId: jspb.Message.getFieldWithDefault(msg, 4, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData;
+  return proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedUint64() : [reader.readUint64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addPositionTickets(values[i]);
+      }
+      break;
+    case 2:
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedUint64() : [reader.readUint64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addPendingOrderTickets(values[i]);
+      }
+      break;
+    case 3:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setServerTime(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTerminalInstanceGuidId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getPositionTicketsList();
+  if (f.length > 0) {
+    writer.writePackedUint64(
+      1,
+      f
+    );
+  }
+  f = message.getPendingOrderTicketsList();
+  if (f.length > 0) {
+    writer.writePackedUint64(
+      2,
+      f
+    );
+  }
+  f = message.getServerTime();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getTerminalInstanceGuidId();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * repeated uint64 position_tickets = 1;
+ * @return {!Array<number>}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.getPositionTicketsList = function() {
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 1));
+};
+
+
+/**
+ * @param {!Array<number>} value
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.setPositionTicketsList = function(value) {
+  return jspb.Message.setField(this, 1, value || []);
+};
+
+
+/**
+ * @param {number} value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.addPositionTickets = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 1, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.clearPositionTicketsList = function() {
+  return this.setPositionTicketsList([]);
+};
+
+
+/**
+ * repeated uint64 pending_order_tickets = 2;
+ * @return {!Array<number>}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.getPendingOrderTicketsList = function() {
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 2));
+};
+
+
+/**
+ * @param {!Array<number>} value
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.setPendingOrderTicketsList = function(value) {
+  return jspb.Message.setField(this, 2, value || []);
+};
+
+
+/**
+ * @param {number} value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.addPendingOrderTickets = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 2, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.clearPendingOrderTicketsList = function() {
+  return this.setPendingOrderTicketsList([]);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp server_time = 3;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.getServerTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} returns this
+*/
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.setServerTime = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.clearServerTime = function() {
+  return this.setServerTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.hasServerTime = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional string terminal_instance_guid_id = 4;
+ * @return {string}
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.getTerminalInstanceGuidId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData} returns this
+ */
+proto.mt5_term_api.OnPositionsAndPendingOrdersTicketsData.prototype.setTerminalInstanceGuidId = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+
+/**
+ * Oneof group definitions for this message. Each group defines the field
+ * numbers belonging to that group. When of these fields' value is set, all
+ * other fields in the group are cleared. During deserialization, if multiple
+ * fields are encountered for a group, only the last value seen will be kept.
+ * @private {!Array<!Array<number>>}
+ * @const
+ */
+proto.mt5_term_api.OnPositionProfitReply.oneofGroups_ = [[1,2]];
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.OnPositionProfitReply.ResponseCase = {
+  RESPONSE_NOT_SET: 0,
+  DATA: 1,
+  ERROR: 2
+};
+
+/**
+ * @return {proto.mt5_term_api.OnPositionProfitReply.ResponseCase}
+ */
+proto.mt5_term_api.OnPositionProfitReply.prototype.getResponseCase = function() {
+  return /** @type {proto.mt5_term_api.OnPositionProfitReply.ResponseCase} */(jspb.Message.computeOneofCase(this, proto.mt5_term_api.OnPositionProfitReply.oneofGroups_[0]));
+};
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnPositionProfitReply.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnPositionProfitReply.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnPositionProfitReply} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionProfitReply.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    data: (f = msg.getData()) && proto.mt5_term_api.OnPositionProfitData.toObject(includeInstance, f),
+    error: (f = msg.getError()) && mrpc$mt5$error_pb.Error.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnPositionProfitReply}
+ */
+proto.mt5_term_api.OnPositionProfitReply.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnPositionProfitReply;
+  return proto.mt5_term_api.OnPositionProfitReply.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnPositionProfitReply} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnPositionProfitReply}
+ */
+proto.mt5_term_api.OnPositionProfitReply.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.OnPositionProfitData;
+      reader.readMessage(value,proto.mt5_term_api.OnPositionProfitData.deserializeBinaryFromReader);
+      msg.setData(value);
+      break;
+    case 2:
+      var value = new mrpc$mt5$error_pb.Error;
+      reader.readMessage(value,mrpc$mt5$error_pb.Error.deserializeBinaryFromReader);
+      msg.setError(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnPositionProfitReply.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnPositionProfitReply.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnPositionProfitReply} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionProfitReply.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getData();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.mt5_term_api.OnPositionProfitData.serializeBinaryToWriter
+    );
+  }
+  f = message.getError();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      mrpc$mt5$error_pb.Error.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional OnPositionProfitData data = 1;
+ * @return {?proto.mt5_term_api.OnPositionProfitData}
+ */
+proto.mt5_term_api.OnPositionProfitReply.prototype.getData = function() {
+  return /** @type{?proto.mt5_term_api.OnPositionProfitData} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnPositionProfitData, 1));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnPositionProfitData|undefined} value
+ * @return {!proto.mt5_term_api.OnPositionProfitReply} returns this
+*/
+proto.mt5_term_api.OnPositionProfitReply.prototype.setData = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 1, proto.mt5_term_api.OnPositionProfitReply.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnPositionProfitReply} returns this
+ */
+proto.mt5_term_api.OnPositionProfitReply.prototype.clearData = function() {
+  return this.setData(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnPositionProfitReply.prototype.hasData = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional Error error = 2;
+ * @return {?proto.mt5_term_api.Error}
+ */
+proto.mt5_term_api.OnPositionProfitReply.prototype.getError = function() {
+  return /** @type{?proto.mt5_term_api.Error} */ (
+    jspb.Message.getWrapperField(this, mrpc$mt5$error_pb.Error, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.Error|undefined} value
+ * @return {!proto.mt5_term_api.OnPositionProfitReply} returns this
+*/
+proto.mt5_term_api.OnPositionProfitReply.prototype.setError = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 2, proto.mt5_term_api.OnPositionProfitReply.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnPositionProfitReply} returns this
+ */
+proto.mt5_term_api.OnPositionProfitReply.prototype.clearError = function() {
+  return this.setError(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnPositionProfitReply.prototype.hasError = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.mt5_term_api.OnPositionProfitData.repeatedFields_ = [2,3,4];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnPositionProfitData.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnPositionProfitData} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionProfitData.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    type: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    newPositionsList: jspb.Message.toObjectList(msg.getNewPositionsList(),
+    proto.mt5_term_api.OnPositionProfitPositionInfo.toObject, includeInstance),
+    updatedPositionsList: jspb.Message.toObjectList(msg.getUpdatedPositionsList(),
+    proto.mt5_term_api.OnPositionProfitPositionInfo.toObject, includeInstance),
+    deletedPositionsList: jspb.Message.toObjectList(msg.getDeletedPositionsList(),
+    proto.mt5_term_api.OnPositionProfitPositionInfo.toObject, includeInstance),
+    accountInfo: (f = msg.getAccountInfo()) && proto.mt5_term_api.OnEventAccountInfo.toObject(includeInstance, f),
+    terminalInstanceGuidId: jspb.Message.getFieldWithDefault(msg, 6, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnPositionProfitData}
+ */
+proto.mt5_term_api.OnPositionProfitData.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnPositionProfitData;
+  return proto.mt5_term_api.OnPositionProfitData.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnPositionProfitData} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnPositionProfitData}
+ */
+proto.mt5_term_api.OnPositionProfitData.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE} */ (reader.readEnum());
+      msg.setType(value);
+      break;
+    case 2:
+      var value = new proto.mt5_term_api.OnPositionProfitPositionInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnPositionProfitPositionInfo.deserializeBinaryFromReader);
+      msg.addNewPositions(value);
+      break;
+    case 3:
+      var value = new proto.mt5_term_api.OnPositionProfitPositionInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnPositionProfitPositionInfo.deserializeBinaryFromReader);
+      msg.addUpdatedPositions(value);
+      break;
+    case 4:
+      var value = new proto.mt5_term_api.OnPositionProfitPositionInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnPositionProfitPositionInfo.deserializeBinaryFromReader);
+      msg.addDeletedPositions(value);
+      break;
+    case 5:
+      var value = new proto.mt5_term_api.OnEventAccountInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnEventAccountInfo.deserializeBinaryFromReader);
+      msg.setAccountInfo(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTerminalInstanceGuidId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnPositionProfitData.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnPositionProfitData} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionProfitData.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      1,
+      f
+    );
+  }
+  f = message.getNewPositionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      2,
+      f,
+      proto.mt5_term_api.OnPositionProfitPositionInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getUpdatedPositionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      3,
+      f,
+      proto.mt5_term_api.OnPositionProfitPositionInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getDeletedPositionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      4,
+      f,
+      proto.mt5_term_api.OnPositionProfitPositionInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getAccountInfo();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      proto.mt5_term_api.OnEventAccountInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getTerminalInstanceGuidId();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional MT5_SUB_ENUM_EVENT_GROUP_TYPE type = 1;
+ * @return {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.getType = function() {
+  return /** @type {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE} value
+ * @return {!proto.mt5_term_api.OnPositionProfitData} returns this
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.setType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 1, value);
+};
+
+
+/**
+ * repeated OnPositionProfitPositionInfo new_positions = 2;
+ * @return {!Array<!proto.mt5_term_api.OnPositionProfitPositionInfo>}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.getNewPositionsList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnPositionProfitPositionInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnPositionProfitPositionInfo, 2));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnPositionProfitPositionInfo>} value
+ * @return {!proto.mt5_term_api.OnPositionProfitData} returns this
+*/
+proto.mt5_term_api.OnPositionProfitData.prototype.setNewPositionsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 2, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnPositionProfitPositionInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnPositionProfitPositionInfo}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.addNewPositions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.mt5_term_api.OnPositionProfitPositionInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnPositionProfitData} returns this
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.clearNewPositionsList = function() {
+  return this.setNewPositionsList([]);
+};
+
+
+/**
+ * repeated OnPositionProfitPositionInfo updated_positions = 3;
+ * @return {!Array<!proto.mt5_term_api.OnPositionProfitPositionInfo>}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.getUpdatedPositionsList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnPositionProfitPositionInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnPositionProfitPositionInfo, 3));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnPositionProfitPositionInfo>} value
+ * @return {!proto.mt5_term_api.OnPositionProfitData} returns this
+*/
+proto.mt5_term_api.OnPositionProfitData.prototype.setUpdatedPositionsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnPositionProfitPositionInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnPositionProfitPositionInfo}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.addUpdatedPositions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.mt5_term_api.OnPositionProfitPositionInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnPositionProfitData} returns this
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.clearUpdatedPositionsList = function() {
+  return this.setUpdatedPositionsList([]);
+};
+
+
+/**
+ * repeated OnPositionProfitPositionInfo deleted_positions = 4;
+ * @return {!Array<!proto.mt5_term_api.OnPositionProfitPositionInfo>}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.getDeletedPositionsList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnPositionProfitPositionInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnPositionProfitPositionInfo, 4));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnPositionProfitPositionInfo>} value
+ * @return {!proto.mt5_term_api.OnPositionProfitData} returns this
+*/
+proto.mt5_term_api.OnPositionProfitData.prototype.setDeletedPositionsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 4, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnPositionProfitPositionInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnPositionProfitPositionInfo}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.addDeletedPositions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.mt5_term_api.OnPositionProfitPositionInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnPositionProfitData} returns this
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.clearDeletedPositionsList = function() {
+  return this.setDeletedPositionsList([]);
+};
+
+
+/**
+ * optional OnEventAccountInfo account_info = 5;
+ * @return {?proto.mt5_term_api.OnEventAccountInfo}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.getAccountInfo = function() {
+  return /** @type{?proto.mt5_term_api.OnEventAccountInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnEventAccountInfo, 5));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnEventAccountInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnPositionProfitData} returns this
+*/
+proto.mt5_term_api.OnPositionProfitData.prototype.setAccountInfo = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnPositionProfitData} returns this
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.clearAccountInfo = function() {
+  return this.setAccountInfo(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.hasAccountInfo = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+/**
+ * optional string terminal_instance_guid_id = 6;
+ * @return {string}
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.getTerminalInstanceGuidId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnPositionProfitData} returns this
+ */
+proto.mt5_term_api.OnPositionProfitData.prototype.setTerminalInstanceGuidId = function(value) {
+  return jspb.Message.setProto3StringField(this, 6, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnPositionProfitRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnPositionProfitRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnPositionProfitRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionProfitRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    timerPeriodMilliseconds: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    ignoreEmptyData: jspb.Message.getBooleanFieldWithDefault(msg, 2, false)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnPositionProfitRequest}
+ */
+proto.mt5_term_api.OnPositionProfitRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnPositionProfitRequest;
+  return proto.mt5_term_api.OnPositionProfitRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnPositionProfitRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnPositionProfitRequest}
+ */
+proto.mt5_term_api.OnPositionProfitRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setTimerPeriodMilliseconds(value);
+      break;
+    case 2:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmptyData(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnPositionProfitRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnPositionProfitRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnPositionProfitRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionProfitRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getTimerPeriodMilliseconds();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = message.getIgnoreEmptyData();
+  if (f) {
+    writer.writeBool(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional int32 timer_period_milliseconds = 1;
+ * @return {number}
+ */
+proto.mt5_term_api.OnPositionProfitRequest.prototype.getTimerPeriodMilliseconds = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnPositionProfitRequest} returns this
+ */
+proto.mt5_term_api.OnPositionProfitRequest.prototype.setTimerPeriodMilliseconds = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional bool ignore_empty_data = 2;
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnPositionProfitRequest.prototype.getIgnoreEmptyData = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.mt5_term_api.OnPositionProfitRequest} returns this
+ */
+proto.mt5_term_api.OnPositionProfitRequest.prototype.setIgnoreEmptyData = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnPositionProfitPositionInfo.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnPositionProfitPositionInfo} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    index: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    ticket: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    profit: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    positionSymbol: jspb.Message.getFieldWithDefault(msg, 4, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnPositionProfitPositionInfo}
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnPositionProfitPositionInfo;
+  return proto.mt5_term_api.OnPositionProfitPositionInfo.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnPositionProfitPositionInfo} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnPositionProfitPositionInfo}
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setIndex(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTicket(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setProfit(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPositionSymbol(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnPositionProfitPositionInfo.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnPositionProfitPositionInfo} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getIndex();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = message.getTicket();
+  if (f !== 0) {
+    writer.writeInt64(
+      2,
+      f
+    );
+  }
+  f = message.getProfit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      3,
+      f
+    );
+  }
+  f = message.getPositionSymbol();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional int32 index = 1;
+ * @return {number}
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.prototype.getIndex = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnPositionProfitPositionInfo} returns this
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.prototype.setIndex = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional int64 ticket = 2;
+ * @return {number}
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.prototype.getTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnPositionProfitPositionInfo} returns this
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.prototype.setTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional double profit = 3;
+ * @return {number}
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.prototype.getProfit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 3, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnPositionProfitPositionInfo} returns this
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.prototype.setProfit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 3, value);
+};
+
+
+/**
+ * optional string position_symbol = 4;
+ * @return {string}
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.prototype.getPositionSymbol = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnPositionProfitPositionInfo} returns this
+ */
+proto.mt5_term_api.OnPositionProfitPositionInfo.prototype.setPositionSymbol = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnEventAccountInfo.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnEventAccountInfo} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnEventAccountInfo.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    balance: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    credit: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    equity: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    margin: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
+    freeMargin: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    profit: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0),
+    marginLevel: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0),
+    login: jspb.Message.getFieldWithDefault(msg, 8, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnEventAccountInfo}
+ */
+proto.mt5_term_api.OnEventAccountInfo.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnEventAccountInfo;
+  return proto.mt5_term_api.OnEventAccountInfo.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnEventAccountInfo} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnEventAccountInfo}
+ */
+proto.mt5_term_api.OnEventAccountInfo.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setBalance(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setCredit(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setEquity(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setMargin(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setFreeMargin(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setProfit(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setMarginLevel(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setLogin(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnEventAccountInfo.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnEventAccountInfo} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnEventAccountInfo.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getBalance();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      1,
+      f
+    );
+  }
+  f = message.getCredit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      2,
+      f
+    );
+  }
+  f = message.getEquity();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      3,
+      f
+    );
+  }
+  f = message.getMargin();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      4,
+      f
+    );
+  }
+  f = message.getFreeMargin();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      5,
+      f
+    );
+  }
+  f = message.getProfit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      6,
+      f
+    );
+  }
+  f = message.getMarginLevel();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      7,
+      f
+    );
+  }
+  f = message.getLogin();
+  if (f !== 0) {
+    writer.writeInt64(
+      8,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional double balance = 1;
+ * @return {number}
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.getBalance = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 1, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnEventAccountInfo} returns this
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.setBalance = function(value) {
+  return jspb.Message.setProto3FloatField(this, 1, value);
+};
+
+
+/**
+ * optional double credit = 2;
+ * @return {number}
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.getCredit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 2, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnEventAccountInfo} returns this
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.setCredit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 2, value);
+};
+
+
+/**
+ * optional double equity = 3;
+ * @return {number}
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.getEquity = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 3, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnEventAccountInfo} returns this
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.setEquity = function(value) {
+  return jspb.Message.setProto3FloatField(this, 3, value);
+};
+
+
+/**
+ * optional double margin = 4;
+ * @return {number}
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.getMargin = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnEventAccountInfo} returns this
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.setMargin = function(value) {
+  return jspb.Message.setProto3FloatField(this, 4, value);
+};
+
+
+/**
+ * optional double free_margin = 5;
+ * @return {number}
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.getFreeMargin = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnEventAccountInfo} returns this
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.setFreeMargin = function(value) {
+  return jspb.Message.setProto3FloatField(this, 5, value);
+};
+
+
+/**
+ * optional double profit = 6;
+ * @return {number}
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.getProfit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 6, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnEventAccountInfo} returns this
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.setProfit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 6, value);
+};
+
+
+/**
+ * optional double margin_level = 7;
+ * @return {number}
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.getMarginLevel = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 7, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnEventAccountInfo} returns this
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.setMarginLevel = function(value) {
+  return jspb.Message.setProto3FloatField(this, 7, value);
+};
+
+
+/**
+ * optional int64 login = 8;
+ * @return {number}
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.getLogin = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnEventAccountInfo} returns this
+ */
+proto.mt5_term_api.OnEventAccountInfo.prototype.setLogin = function(value) {
+  return jspb.Message.setProto3IntField(this, 8, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeRequest}
+ */
+proto.mt5_term_api.OnTradeRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeRequest;
+  return proto.mt5_term_api.OnTradeRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeRequest}
+ */
+proto.mt5_term_api.OnTradeRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+};
+
+
+
+/**
+ * Oneof group definitions for this message. Each group defines the field
+ * numbers belonging to that group. When of these fields' value is set, all
+ * other fields in the group are cleared. During deserialization, if multiple
+ * fields are encountered for a group, only the last value seen will be kept.
+ * @private {!Array<!Array<number>>}
+ * @const
+ */
+proto.mt5_term_api.OnTradeReply.oneofGroups_ = [[1,2]];
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.OnTradeReply.ResponseCase = {
+  RESPONSE_NOT_SET: 0,
+  DATA: 1,
+  ERROR: 2
+};
+
+/**
+ * @return {proto.mt5_term_api.OnTradeReply.ResponseCase}
+ */
+proto.mt5_term_api.OnTradeReply.prototype.getResponseCase = function() {
+  return /** @type {proto.mt5_term_api.OnTradeReply.ResponseCase} */(jspb.Message.computeOneofCase(this, proto.mt5_term_api.OnTradeReply.oneofGroups_[0]));
+};
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeReply.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeReply.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeReply} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeReply.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    data: (f = msg.getData()) && proto.mt5_term_api.OnTradeData.toObject(includeInstance, f),
+    error: (f = msg.getError()) && mrpc$mt5$error_pb.Error.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeReply}
+ */
+proto.mt5_term_api.OnTradeReply.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeReply;
+  return proto.mt5_term_api.OnTradeReply.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeReply} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeReply}
+ */
+proto.mt5_term_api.OnTradeReply.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.OnTradeData;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeData.deserializeBinaryFromReader);
+      msg.setData(value);
+      break;
+    case 2:
+      var value = new mrpc$mt5$error_pb.Error;
+      reader.readMessage(value,mrpc$mt5$error_pb.Error.deserializeBinaryFromReader);
+      msg.setError(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeReply.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeReply.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeReply} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeReply.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getData();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.mt5_term_api.OnTradeData.serializeBinaryToWriter
+    );
+  }
+  f = message.getError();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      mrpc$mt5$error_pb.Error.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional OnTradeData data = 1;
+ * @return {?proto.mt5_term_api.OnTradeData}
+ */
+proto.mt5_term_api.OnTradeReply.prototype.getData = function() {
+  return /** @type{?proto.mt5_term_api.OnTradeData} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTradeData, 1));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTradeData|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeReply} returns this
+*/
+proto.mt5_term_api.OnTradeReply.prototype.setData = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 1, proto.mt5_term_api.OnTradeReply.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeReply} returns this
+ */
+proto.mt5_term_api.OnTradeReply.prototype.clearData = function() {
+  return this.setData(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeReply.prototype.hasData = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional Error error = 2;
+ * @return {?proto.mt5_term_api.Error}
+ */
+proto.mt5_term_api.OnTradeReply.prototype.getError = function() {
+  return /** @type{?proto.mt5_term_api.Error} */ (
+    jspb.Message.getWrapperField(this, mrpc$mt5$error_pb.Error, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.Error|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeReply} returns this
+*/
+proto.mt5_term_api.OnTradeReply.prototype.setError = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 2, proto.mt5_term_api.OnTradeReply.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeReply} returns this
+ */
+proto.mt5_term_api.OnTradeReply.prototype.clearError = function() {
+  return this.setError(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeReply.prototype.hasError = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeData.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeData.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeData} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeData.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    type: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    eventData: (f = msg.getEventData()) && proto.mt5_term_api.OnTadeEventData.toObject(includeInstance, f),
+    accountInfo: (f = msg.getAccountInfo()) && proto.mt5_term_api.OnEventAccountInfo.toObject(includeInstance, f),
+    terminalInstanceGuidId: jspb.Message.getFieldWithDefault(msg, 4, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeData}
+ */
+proto.mt5_term_api.OnTradeData.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeData;
+  return proto.mt5_term_api.OnTradeData.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeData} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeData}
+ */
+proto.mt5_term_api.OnTradeData.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE} */ (reader.readEnum());
+      msg.setType(value);
+      break;
+    case 2:
+      var value = new proto.mt5_term_api.OnTadeEventData;
+      reader.readMessage(value,proto.mt5_term_api.OnTadeEventData.deserializeBinaryFromReader);
+      msg.setEventData(value);
+      break;
+    case 3:
+      var value = new proto.mt5_term_api.OnEventAccountInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnEventAccountInfo.deserializeBinaryFromReader);
+      msg.setAccountInfo(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTerminalInstanceGuidId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeData.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeData.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeData} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeData.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      1,
+      f
+    );
+  }
+  f = message.getEventData();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.mt5_term_api.OnTadeEventData.serializeBinaryToWriter
+    );
+  }
+  f = message.getAccountInfo();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      proto.mt5_term_api.OnEventAccountInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getTerminalInstanceGuidId();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional MT5_SUB_ENUM_EVENT_GROUP_TYPE type = 1;
+ * @return {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE}
+ */
+proto.mt5_term_api.OnTradeData.prototype.getType = function() {
+  return /** @type {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE} value
+ * @return {!proto.mt5_term_api.OnTradeData} returns this
+ */
+proto.mt5_term_api.OnTradeData.prototype.setType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 1, value);
+};
+
+
+/**
+ * optional OnTadeEventData event_data = 2;
+ * @return {?proto.mt5_term_api.OnTadeEventData}
+ */
+proto.mt5_term_api.OnTradeData.prototype.getEventData = function() {
+  return /** @type{?proto.mt5_term_api.OnTadeEventData} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTadeEventData, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTadeEventData|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeData} returns this
+*/
+proto.mt5_term_api.OnTradeData.prototype.setEventData = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeData} returns this
+ */
+proto.mt5_term_api.OnTradeData.prototype.clearEventData = function() {
+  return this.setEventData(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeData.prototype.hasEventData = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional OnEventAccountInfo account_info = 3;
+ * @return {?proto.mt5_term_api.OnEventAccountInfo}
+ */
+proto.mt5_term_api.OnTradeData.prototype.getAccountInfo = function() {
+  return /** @type{?proto.mt5_term_api.OnEventAccountInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnEventAccountInfo, 3));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnEventAccountInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeData} returns this
+*/
+proto.mt5_term_api.OnTradeData.prototype.setAccountInfo = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeData} returns this
+ */
+proto.mt5_term_api.OnTradeData.prototype.clearAccountInfo = function() {
+  return this.setAccountInfo(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeData.prototype.hasAccountInfo = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional string terminal_instance_guid_id = 4;
+ * @return {string}
+ */
+proto.mt5_term_api.OnTradeData.prototype.getTerminalInstanceGuidId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnTradeData} returns this
+ */
+proto.mt5_term_api.OnTradeData.prototype.setTerminalInstanceGuidId = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeOrderInfo.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeOrderInfo} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeOrderInfo.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    index: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    ticket: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    state: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    setupTimeMsc: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    stopLoss: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    takeProfit: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0),
+    stopLimit: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0),
+    priceCurrent: jspb.Message.getFloatingPointFieldWithDefault(msg, 8, 0.0),
+    timeExpiration: (f = msg.getTimeExpiration()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    timeType: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    comment: jspb.Message.getFieldWithDefault(msg, 11, ""),
+    symbol: jspb.Message.getFieldWithDefault(msg, 12, ""),
+    magic: jspb.Message.getFieldWithDefault(msg, 13, 0),
+    priceOpen: jspb.Message.getFloatingPointFieldWithDefault(msg, 14, 0.0),
+    setupTime: (f = msg.getSetupTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    timeExpirationSeconds: jspb.Message.getFieldWithDefault(msg, 16, 0),
+    volumeCurrent: jspb.Message.getFloatingPointFieldWithDefault(msg, 17, 0.0),
+    volumeInitial: jspb.Message.getFloatingPointFieldWithDefault(msg, 18, 0.0),
+    accountLogin: jspb.Message.getFieldWithDefault(msg, 19, 0),
+    orderType: jspb.Message.getFieldWithDefault(msg, 20, 0),
+    orderTypeFilling: jspb.Message.getFieldWithDefault(msg, 21, 0),
+    orderReason: jspb.Message.getFieldWithDefault(msg, 22, 0),
+    positionId: jspb.Message.getFieldWithDefault(msg, 23, 0),
+    positionById: jspb.Message.getFieldWithDefault(msg, 24, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeOrderInfo;
+  return proto.mt5_term_api.OnTradeOrderInfo.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeOrderInfo} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setIndex(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTicket(value);
+      break;
+    case 3:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE} */ (reader.readEnum());
+      msg.setState(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setSetupTimeMsc(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setStopLoss(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setTakeProfit(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setStopLimit(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPriceCurrent(value);
+      break;
+    case 9:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setTimeExpiration(value);
+      break;
+    case 10:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} */ (reader.readEnum());
+      msg.setTimeType(value);
+      break;
+    case 11:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setComment(value);
+      break;
+    case 12:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSymbol(value);
+      break;
+    case 13:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setMagic(value);
+      break;
+    case 14:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPriceOpen(value);
+      break;
+    case 15:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setSetupTime(value);
+      break;
+    case 16:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTimeExpirationSeconds(value);
+      break;
+    case 17:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setVolumeCurrent(value);
+      break;
+    case 18:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setVolumeInitial(value);
+      break;
+    case 19:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setAccountLogin(value);
+      break;
+    case 20:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} */ (reader.readEnum());
+      msg.setOrderType(value);
+      break;
+    case 21:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING} */ (reader.readEnum());
+      msg.setOrderTypeFilling(value);
+      break;
+    case 22:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_REASON} */ (reader.readEnum());
+      msg.setOrderReason(value);
+      break;
+    case 23:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setPositionId(value);
+      break;
+    case 24:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setPositionById(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeOrderInfo.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeOrderInfo} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeOrderInfo.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getIndex();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = message.getTicket();
+  if (f !== 0) {
+    writer.writeInt64(
+      2,
+      f
+    );
+  }
+  f = message.getState();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      3,
+      f
+    );
+  }
+  f = message.getSetupTimeMsc();
+  if (f !== 0) {
+    writer.writeInt64(
+      4,
+      f
+    );
+  }
+  f = message.getStopLoss();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      5,
+      f
+    );
+  }
+  f = message.getTakeProfit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      6,
+      f
+    );
+  }
+  f = message.getStopLimit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      7,
+      f
+    );
+  }
+  f = message.getPriceCurrent();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      8,
+      f
+    );
+  }
+  f = message.getTimeExpiration();
+  if (f != null) {
+    writer.writeMessage(
+      9,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getTimeType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      10,
+      f
+    );
+  }
+  f = message.getComment();
+  if (f.length > 0) {
+    writer.writeString(
+      11,
+      f
+    );
+  }
+  f = message.getSymbol();
+  if (f.length > 0) {
+    writer.writeString(
+      12,
+      f
+    );
+  }
+  f = message.getMagic();
+  if (f !== 0) {
+    writer.writeInt64(
+      13,
+      f
+    );
+  }
+  f = message.getPriceOpen();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      14,
+      f
+    );
+  }
+  f = message.getSetupTime();
+  if (f != null) {
+    writer.writeMessage(
+      15,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getTimeExpirationSeconds();
+  if (f !== 0) {
+    writer.writeInt64(
+      16,
+      f
+    );
+  }
+  f = message.getVolumeCurrent();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      17,
+      f
+    );
+  }
+  f = message.getVolumeInitial();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      18,
+      f
+    );
+  }
+  f = message.getAccountLogin();
+  if (f !== 0) {
+    writer.writeInt64(
+      19,
+      f
+    );
+  }
+  f = message.getOrderType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      20,
+      f
+    );
+  }
+  f = message.getOrderTypeFilling();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      21,
+      f
+    );
+  }
+  f = message.getOrderReason();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      22,
+      f
+    );
+  }
+  f = message.getPositionId();
+  if (f !== 0) {
+    writer.writeInt64(
+      23,
+      f
+    );
+  }
+  f = message.getPositionById();
+  if (f !== 0) {
+    writer.writeInt64(
+      24,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional int32 index = 1;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getIndex = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setIndex = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional int64 ticket = 2;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_STATE state = 3;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getState = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setState = function(value) {
+  return jspb.Message.setProto3EnumField(this, 3, value);
+};
+
+
+/**
+ * optional int64 setup_time_msc = 4;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getSetupTimeMsc = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setSetupTimeMsc = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional double stop_loss = 5;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getStopLoss = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setStopLoss = function(value) {
+  return jspb.Message.setProto3FloatField(this, 5, value);
+};
+
+
+/**
+ * optional double take_profit = 6;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getTakeProfit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 6, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setTakeProfit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 6, value);
+};
+
+
+/**
+ * optional double stop_limit = 7;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getStopLimit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 7, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setStopLimit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 7, value);
+};
+
+
+/**
+ * optional double price_current = 8;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getPriceCurrent = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 8, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setPriceCurrent = function(value) {
+  return jspb.Message.setProto3FloatField(this, 8, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp time_expiration = 9;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getTimeExpiration = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 9));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+*/
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setTimeExpiration = function(value) {
+  return jspb.Message.setWrapperField(this, 9, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.clearTimeExpiration = function() {
+  return this.setTimeExpiration(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.hasTimeExpiration = function() {
+  return jspb.Message.getField(this, 9) != null;
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE_TIME time_type = 10;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getTimeType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setTimeType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 10, value);
+};
+
+
+/**
+ * optional string comment = 11;
+ * @return {string}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getComment = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 11, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setComment = function(value) {
+  return jspb.Message.setProto3StringField(this, 11, value);
+};
+
+
+/**
+ * optional string symbol = 12;
+ * @return {string}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getSymbol = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 12, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setSymbol = function(value) {
+  return jspb.Message.setProto3StringField(this, 12, value);
+};
+
+
+/**
+ * optional int64 magic = 13;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getMagic = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 13, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setMagic = function(value) {
+  return jspb.Message.setProto3IntField(this, 13, value);
+};
+
+
+/**
+ * optional double price_open = 14;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getPriceOpen = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 14, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setPriceOpen = function(value) {
+  return jspb.Message.setProto3FloatField(this, 14, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp setup_time = 15;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getSetupTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 15));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+*/
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setSetupTime = function(value) {
+  return jspb.Message.setWrapperField(this, 15, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.clearSetupTime = function() {
+  return this.setSetupTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.hasSetupTime = function() {
+  return jspb.Message.getField(this, 15) != null;
+};
+
+
+/**
+ * optional int64 time_expiration_seconds = 16;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getTimeExpirationSeconds = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 16, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setTimeExpirationSeconds = function(value) {
+  return jspb.Message.setProto3IntField(this, 16, value);
+};
+
+
+/**
+ * optional double volume_current = 17;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getVolumeCurrent = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 17, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setVolumeCurrent = function(value) {
+  return jspb.Message.setProto3FloatField(this, 17, value);
+};
+
+
+/**
+ * optional double volume_initial = 18;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getVolumeInitial = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 18, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setVolumeInitial = function(value) {
+  return jspb.Message.setProto3FloatField(this, 18, value);
+};
+
+
+/**
+ * optional int64 account_login = 19;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getAccountLogin = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 19, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setAccountLogin = function(value) {
+  return jspb.Message.setProto3IntField(this, 19, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE order_type = 20;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getOrderType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} */ (jspb.Message.getFieldWithDefault(this, 20, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setOrderType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 20, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE_FILLING order_type_filling = 21;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getOrderTypeFilling = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING} */ (jspb.Message.getFieldWithDefault(this, 21, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setOrderTypeFilling = function(value) {
+  return jspb.Message.setProto3EnumField(this, 21, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_REASON order_reason = 22;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_REASON}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getOrderReason = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_REASON} */ (jspb.Message.getFieldWithDefault(this, 22, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_REASON} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setOrderReason = function(value) {
+  return jspb.Message.setProto3EnumField(this, 22, value);
+};
+
+
+/**
+ * optional int64 position_id = 23;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getPositionId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 23, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setPositionId = function(value) {
+  return jspb.Message.setProto3IntField(this, 23, value);
+};
+
+
+/**
+ * optional int64 position_by_id = 24;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.getPositionById = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 24, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeOrderInfo.prototype.setPositionById = function(value) {
+  return jspb.Message.setProto3IntField(this, 24, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradePositionInfo.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradePositionInfo} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradePositionInfo.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    index: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    ticket: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    type: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    positionTime: (f = msg.getPositionTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    lastUpdateTime: (f = msg.getLastUpdateTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    priceOpen: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0),
+    profit: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0),
+    sl: jspb.Message.getFloatingPointFieldWithDefault(msg, 8, 0.0),
+    tp: jspb.Message.getFloatingPointFieldWithDefault(msg, 9, 0.0),
+    volume: jspb.Message.getFloatingPointFieldWithDefault(msg, 10, 0.0),
+    swap: jspb.Message.getFloatingPointFieldWithDefault(msg, 11, 0.0),
+    comment: jspb.Message.getFieldWithDefault(msg, 12, ""),
+    symbol: jspb.Message.getFieldWithDefault(msg, 13, ""),
+    magic: jspb.Message.getFieldWithDefault(msg, 14, 0),
+    priceCurrent: jspb.Message.getFloatingPointFieldWithDefault(msg, 15, 0.0),
+    accountLogin: jspb.Message.getFieldWithDefault(msg, 16, 0),
+    reason: jspb.Message.getFieldWithDefault(msg, 17, 0),
+    fromPendingOrder: jspb.Message.getBooleanFieldWithDefault(msg, 18, false)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradePositionInfo}
+ */
+proto.mt5_term_api.OnTradePositionInfo.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradePositionInfo;
+  return proto.mt5_term_api.OnTradePositionInfo.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradePositionInfo} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradePositionInfo}
+ */
+proto.mt5_term_api.OnTradePositionInfo.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setIndex(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTicket(value);
+      break;
+    case 3:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_POSITION_TYPE} */ (reader.readEnum());
+      msg.setType(value);
+      break;
+    case 4:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setPositionTime(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setLastUpdateTime(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPriceOpen(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setProfit(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setSl(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setTp(value);
+      break;
+    case 10:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setVolume(value);
+      break;
+    case 11:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setSwap(value);
+      break;
+    case 12:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setComment(value);
+      break;
+    case 13:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSymbol(value);
+      break;
+    case 14:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setMagic(value);
+      break;
+    case 15:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPriceCurrent(value);
+      break;
+    case 16:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setAccountLogin(value);
+      break;
+    case 17:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_POSITION_REASON} */ (reader.readEnum());
+      msg.setReason(value);
+      break;
+    case 18:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setFromPendingOrder(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradePositionInfo.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradePositionInfo} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradePositionInfo.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getIndex();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = message.getTicket();
+  if (f !== 0) {
+    writer.writeInt64(
+      2,
+      f
+    );
+  }
+  f = message.getType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      3,
+      f
+    );
+  }
+  f = message.getPositionTime();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getLastUpdateTime();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getPriceOpen();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      6,
+      f
+    );
+  }
+  f = message.getProfit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      7,
+      f
+    );
+  }
+  f = message.getSl();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      8,
+      f
+    );
+  }
+  f = message.getTp();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      9,
+      f
+    );
+  }
+  f = message.getVolume();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      10,
+      f
+    );
+  }
+  f = message.getSwap();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      11,
+      f
+    );
+  }
+  f = message.getComment();
+  if (f.length > 0) {
+    writer.writeString(
+      12,
+      f
+    );
+  }
+  f = message.getSymbol();
+  if (f.length > 0) {
+    writer.writeString(
+      13,
+      f
+    );
+  }
+  f = message.getMagic();
+  if (f !== 0) {
+    writer.writeInt64(
+      14,
+      f
+    );
+  }
+  f = message.getPriceCurrent();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      15,
+      f
+    );
+  }
+  f = message.getAccountLogin();
+  if (f !== 0) {
+    writer.writeInt64(
+      16,
+      f
+    );
+  }
+  f = message.getReason();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      17,
+      f
+    );
+  }
+  f = message.getFromPendingOrder();
+  if (f) {
+    writer.writeBool(
+      18,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional int32 index = 1;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getIndex = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setIndex = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional int64 ticket = 2;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional SUB_ENUM_POSITION_TYPE type = 3;
+ * @return {!proto.mt5_term_api.SUB_ENUM_POSITION_TYPE}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_POSITION_TYPE} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_POSITION_TYPE} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 3, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp position_time = 4;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getPositionTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+*/
+proto.mt5_term_api.OnTradePositionInfo.prototype.setPositionTime = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.clearPositionTime = function() {
+  return this.setPositionTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.hasPositionTime = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp last_update_time = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getLastUpdateTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+*/
+proto.mt5_term_api.OnTradePositionInfo.prototype.setLastUpdateTime = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.clearLastUpdateTime = function() {
+  return this.setLastUpdateTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.hasLastUpdateTime = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+/**
+ * optional double price_open = 6;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getPriceOpen = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 6, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setPriceOpen = function(value) {
+  return jspb.Message.setProto3FloatField(this, 6, value);
+};
+
+
+/**
+ * optional double profit = 7;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getProfit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 7, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setProfit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 7, value);
+};
+
+
+/**
+ * optional double sl = 8;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getSl = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 8, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setSl = function(value) {
+  return jspb.Message.setProto3FloatField(this, 8, value);
+};
+
+
+/**
+ * optional double tp = 9;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getTp = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 9, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setTp = function(value) {
+  return jspb.Message.setProto3FloatField(this, 9, value);
+};
+
+
+/**
+ * optional double volume = 10;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getVolume = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 10, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setVolume = function(value) {
+  return jspb.Message.setProto3FloatField(this, 10, value);
+};
+
+
+/**
+ * optional double swap = 11;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getSwap = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 11, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setSwap = function(value) {
+  return jspb.Message.setProto3FloatField(this, 11, value);
+};
+
+
+/**
+ * optional string comment = 12;
+ * @return {string}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getComment = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 12, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setComment = function(value) {
+  return jspb.Message.setProto3StringField(this, 12, value);
+};
+
+
+/**
+ * optional string symbol = 13;
+ * @return {string}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getSymbol = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setSymbol = function(value) {
+  return jspb.Message.setProto3StringField(this, 13, value);
+};
+
+
+/**
+ * optional int64 magic = 14;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getMagic = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 14, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setMagic = function(value) {
+  return jspb.Message.setProto3IntField(this, 14, value);
+};
+
+
+/**
+ * optional double price_current = 15;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getPriceCurrent = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 15, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setPriceCurrent = function(value) {
+  return jspb.Message.setProto3FloatField(this, 15, value);
+};
+
+
+/**
+ * optional int64 account_login = 16;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getAccountLogin = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 16, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setAccountLogin = function(value) {
+  return jspb.Message.setProto3IntField(this, 16, value);
+};
+
+
+/**
+ * optional SUB_ENUM_POSITION_REASON reason = 17;
+ * @return {!proto.mt5_term_api.SUB_ENUM_POSITION_REASON}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getReason = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_POSITION_REASON} */ (jspb.Message.getFieldWithDefault(this, 17, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_POSITION_REASON} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setReason = function(value) {
+  return jspb.Message.setProto3EnumField(this, 17, value);
+};
+
+
+/**
+ * optional bool from_pending_order = 18;
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.getFromPendingOrder = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 18, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.mt5_term_api.OnTradePositionInfo} returns this
+ */
+proto.mt5_term_api.OnTradePositionInfo.prototype.setFromPendingOrder = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 18, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeHistoryDealInfo.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeHistoryDealInfo} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    index: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    ticket: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    orderTicket: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    type: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    dealTime: (f = msg.getDealTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    entry: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    dealPositionId: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    commission: jspb.Message.getFloatingPointFieldWithDefault(msg, 8, 0.0),
+    fee: jspb.Message.getFloatingPointFieldWithDefault(msg, 9, 0.0),
+    price: jspb.Message.getFloatingPointFieldWithDefault(msg, 10, 0.0),
+    profit: jspb.Message.getFloatingPointFieldWithDefault(msg, 11, 0.0),
+    sl: jspb.Message.getFloatingPointFieldWithDefault(msg, 12, 0.0),
+    tp: jspb.Message.getFloatingPointFieldWithDefault(msg, 13, 0.0),
+    volume: jspb.Message.getFloatingPointFieldWithDefault(msg, 14, 0.0),
+    comment: jspb.Message.getFieldWithDefault(msg, 15, ""),
+    symbol: jspb.Message.getFieldWithDefault(msg, 16, ""),
+    swap: jspb.Message.getFloatingPointFieldWithDefault(msg, 17, 0.0),
+    reason: jspb.Message.getFieldWithDefault(msg, 18, 0),
+    magic: jspb.Message.getFieldWithDefault(msg, 19, 0),
+    accountLogin: jspb.Message.getFieldWithDefault(msg, 20, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeHistoryDealInfo;
+  return proto.mt5_term_api.OnTradeHistoryDealInfo.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeHistoryDealInfo} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setIndex(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setTicket(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setOrderTicket(value);
+      break;
+    case 4:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_DEAL_TYPE} */ (reader.readEnum());
+      msg.setType(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setDealTime(value);
+      break;
+    case 6:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_DEAL_ENTRY} */ (reader.readEnum());
+      msg.setEntry(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setDealPositionId(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setCommission(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setFee(value);
+      break;
+    case 10:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPrice(value);
+      break;
+    case 11:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setProfit(value);
+      break;
+    case 12:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setSl(value);
+      break;
+    case 13:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setTp(value);
+      break;
+    case 14:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setVolume(value);
+      break;
+    case 15:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setComment(value);
+      break;
+    case 16:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSymbol(value);
+      break;
+    case 17:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setSwap(value);
+      break;
+    case 18:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_DEAL_REASON} */ (reader.readEnum());
+      msg.setReason(value);
+      break;
+    case 19:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setMagic(value);
+      break;
+    case 20:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setAccountLogin(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeHistoryDealInfo.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeHistoryDealInfo} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getIndex();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = message.getTicket();
+  if (f !== 0) {
+    writer.writeUint64(
+      2,
+      f
+    );
+  }
+  f = message.getOrderTicket();
+  if (f !== 0) {
+    writer.writeInt64(
+      3,
+      f
+    );
+  }
+  f = message.getType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      4,
+      f
+    );
+  }
+  f = message.getDealTime();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getEntry();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      6,
+      f
+    );
+  }
+  f = message.getDealPositionId();
+  if (f !== 0) {
+    writer.writeInt64(
+      7,
+      f
+    );
+  }
+  f = message.getCommission();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      8,
+      f
+    );
+  }
+  f = message.getFee();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      9,
+      f
+    );
+  }
+  f = message.getPrice();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      10,
+      f
+    );
+  }
+  f = message.getProfit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      11,
+      f
+    );
+  }
+  f = message.getSl();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      12,
+      f
+    );
+  }
+  f = message.getTp();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      13,
+      f
+    );
+  }
+  f = message.getVolume();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      14,
+      f
+    );
+  }
+  f = message.getComment();
+  if (f.length > 0) {
+    writer.writeString(
+      15,
+      f
+    );
+  }
+  f = message.getSymbol();
+  if (f.length > 0) {
+    writer.writeString(
+      16,
+      f
+    );
+  }
+  f = message.getSwap();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      17,
+      f
+    );
+  }
+  f = message.getReason();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      18,
+      f
+    );
+  }
+  f = message.getMagic();
+  if (f !== 0) {
+    writer.writeInt64(
+      19,
+      f
+    );
+  }
+  f = message.getAccountLogin();
+  if (f !== 0) {
+    writer.writeInt64(
+      20,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional int32 index = 1;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getIndex = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setIndex = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional uint64 ticket = 2;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional int64 order_ticket = 3;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getOrderTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setOrderTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional SUB_ENUM_DEAL_TYPE type = 4;
+ * @return {!proto.mt5_term_api.SUB_ENUM_DEAL_TYPE}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_DEAL_TYPE} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_DEAL_TYPE} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 4, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp deal_time = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getDealTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+*/
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setDealTime = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.clearDealTime = function() {
+  return this.setDealTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.hasDealTime = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+/**
+ * optional SUB_ENUM_DEAL_ENTRY entry = 6;
+ * @return {!proto.mt5_term_api.SUB_ENUM_DEAL_ENTRY}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getEntry = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_DEAL_ENTRY} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_DEAL_ENTRY} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setEntry = function(value) {
+  return jspb.Message.setProto3EnumField(this, 6, value);
+};
+
+
+/**
+ * optional int64 deal_position_id = 7;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getDealPositionId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setDealPositionId = function(value) {
+  return jspb.Message.setProto3IntField(this, 7, value);
+};
+
+
+/**
+ * optional double commission = 8;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getCommission = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 8, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setCommission = function(value) {
+  return jspb.Message.setProto3FloatField(this, 8, value);
+};
+
+
+/**
+ * optional double fee = 9;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getFee = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 9, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setFee = function(value) {
+  return jspb.Message.setProto3FloatField(this, 9, value);
+};
+
+
+/**
+ * optional double price = 10;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getPrice = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 10, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setPrice = function(value) {
+  return jspb.Message.setProto3FloatField(this, 10, value);
+};
+
+
+/**
+ * optional double profit = 11;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getProfit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 11, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setProfit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 11, value);
+};
+
+
+/**
+ * optional double sl = 12;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getSl = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 12, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setSl = function(value) {
+  return jspb.Message.setProto3FloatField(this, 12, value);
+};
+
+
+/**
+ * optional double tp = 13;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getTp = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 13, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setTp = function(value) {
+  return jspb.Message.setProto3FloatField(this, 13, value);
+};
+
+
+/**
+ * optional double volume = 14;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getVolume = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 14, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setVolume = function(value) {
+  return jspb.Message.setProto3FloatField(this, 14, value);
+};
+
+
+/**
+ * optional string comment = 15;
+ * @return {string}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getComment = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 15, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setComment = function(value) {
+  return jspb.Message.setProto3StringField(this, 15, value);
+};
+
+
+/**
+ * optional string symbol = 16;
+ * @return {string}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getSymbol = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 16, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setSymbol = function(value) {
+  return jspb.Message.setProto3StringField(this, 16, value);
+};
+
+
+/**
+ * optional double swap = 17;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getSwap = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 17, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setSwap = function(value) {
+  return jspb.Message.setProto3FloatField(this, 17, value);
+};
+
+
+/**
+ * optional SUB_ENUM_DEAL_REASON reason = 18;
+ * @return {!proto.mt5_term_api.SUB_ENUM_DEAL_REASON}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getReason = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_DEAL_REASON} */ (jspb.Message.getFieldWithDefault(this, 18, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_DEAL_REASON} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setReason = function(value) {
+  return jspb.Message.setProto3EnumField(this, 18, value);
+};
+
+
+/**
+ * optional int64 magic = 19;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getMagic = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 19, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setMagic = function(value) {
+  return jspb.Message.setProto3IntField(this, 19, value);
+};
+
+
+/**
+ * optional int64 account_login = 20;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.getAccountLogin = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 20, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealInfo.prototype.setAccountLogin = function(value) {
+  return jspb.Message.setProto3IntField(this, 20, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeHistoryOrderInfo.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeHistoryOrderInfo} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    index: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    ticket: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    state: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    setupTime: (f = msg.getSetupTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    doneTime: (f = msg.getDoneTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    timeExpiration: (f = msg.getTimeExpiration()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    positionId: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    typeTime: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    stopLoss: jspb.Message.getFloatingPointFieldWithDefault(msg, 9, 0.0),
+    takeProfit: jspb.Message.getFloatingPointFieldWithDefault(msg, 10, 0.0),
+    stopLimit: jspb.Message.getFloatingPointFieldWithDefault(msg, 11, 0.0),
+    priceCurrent: jspb.Message.getFloatingPointFieldWithDefault(msg, 12, 0.0),
+    priceOpen: jspb.Message.getFloatingPointFieldWithDefault(msg, 13, 0.0),
+    volumeCurrent: jspb.Message.getFloatingPointFieldWithDefault(msg, 14, 0.0),
+    volumeInitial: jspb.Message.getFloatingPointFieldWithDefault(msg, 15, 0.0),
+    magic: jspb.Message.getFieldWithDefault(msg, 19, 0),
+    positionBy: jspb.Message.getFieldWithDefault(msg, 20, 0),
+    reason: jspb.Message.getFieldWithDefault(msg, 21, 0),
+    comment: jspb.Message.getFieldWithDefault(msg, 22, ""),
+    symbol: jspb.Message.getFieldWithDefault(msg, 23, ""),
+    timeExpirationSeconds: jspb.Message.getFieldWithDefault(msg, 24, 0),
+    accountLogin: jspb.Message.getFieldWithDefault(msg, 25, 0),
+    orderType: jspb.Message.getFieldWithDefault(msg, 26, 0),
+    orderTypeFilling: jspb.Message.getFieldWithDefault(msg, 27, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeHistoryOrderInfo;
+  return proto.mt5_term_api.OnTradeHistoryOrderInfo.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeHistoryOrderInfo} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setIndex(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTicket(value);
+      break;
+    case 3:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE} */ (reader.readEnum());
+      msg.setState(value);
+      break;
+    case 4:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setSetupTime(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setDoneTime(value);
+      break;
+    case 6:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setTimeExpiration(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setPositionId(value);
+      break;
+    case 8:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} */ (reader.readEnum());
+      msg.setTypeTime(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setStopLoss(value);
+      break;
+    case 10:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setTakeProfit(value);
+      break;
+    case 11:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setStopLimit(value);
+      break;
+    case 12:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPriceCurrent(value);
+      break;
+    case 13:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPriceOpen(value);
+      break;
+    case 14:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setVolumeCurrent(value);
+      break;
+    case 15:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setVolumeInitial(value);
+      break;
+    case 19:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setMagic(value);
+      break;
+    case 20:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setPositionBy(value);
+      break;
+    case 21:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_DEAL_REASON} */ (reader.readEnum());
+      msg.setReason(value);
+      break;
+    case 22:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setComment(value);
+      break;
+    case 23:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSymbol(value);
+      break;
+    case 24:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTimeExpirationSeconds(value);
+      break;
+    case 25:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setAccountLogin(value);
+      break;
+    case 26:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} */ (reader.readEnum());
+      msg.setOrderType(value);
+      break;
+    case 27:
+      var value = /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING} */ (reader.readEnum());
+      msg.setOrderTypeFilling(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeHistoryOrderInfo.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeHistoryOrderInfo} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getIndex();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = message.getTicket();
+  if (f !== 0) {
+    writer.writeInt64(
+      2,
+      f
+    );
+  }
+  f = message.getState();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      3,
+      f
+    );
+  }
+  f = message.getSetupTime();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getDoneTime();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getTimeExpiration();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getPositionId();
+  if (f !== 0) {
+    writer.writeUint64(
+      7,
+      f
+    );
+  }
+  f = message.getTypeTime();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      8,
+      f
+    );
+  }
+  f = message.getStopLoss();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      9,
+      f
+    );
+  }
+  f = message.getTakeProfit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      10,
+      f
+    );
+  }
+  f = message.getStopLimit();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      11,
+      f
+    );
+  }
+  f = message.getPriceCurrent();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      12,
+      f
+    );
+  }
+  f = message.getPriceOpen();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      13,
+      f
+    );
+  }
+  f = message.getVolumeCurrent();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      14,
+      f
+    );
+  }
+  f = message.getVolumeInitial();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      15,
+      f
+    );
+  }
+  f = message.getMagic();
+  if (f !== 0) {
+    writer.writeInt64(
+      19,
+      f
+    );
+  }
+  f = message.getPositionBy();
+  if (f !== 0) {
+    writer.writeInt64(
+      20,
+      f
+    );
+  }
+  f = message.getReason();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      21,
+      f
+    );
+  }
+  f = message.getComment();
+  if (f.length > 0) {
+    writer.writeString(
+      22,
+      f
+    );
+  }
+  f = message.getSymbol();
+  if (f.length > 0) {
+    writer.writeString(
+      23,
+      f
+    );
+  }
+  f = message.getTimeExpirationSeconds();
+  if (f !== 0) {
+    writer.writeInt64(
+      24,
+      f
+    );
+  }
+  f = message.getAccountLogin();
+  if (f !== 0) {
+    writer.writeInt64(
+      25,
+      f
+    );
+  }
+  f = message.getOrderType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      26,
+      f
+    );
+  }
+  f = message.getOrderTypeFilling();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      27,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional int32 index = 1;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getIndex = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setIndex = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional int64 ticket = 2;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getTicket = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setTicket = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_STATE state = 3;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getState = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_STATE} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setState = function(value) {
+  return jspb.Message.setProto3EnumField(this, 3, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp setup_time = 4;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getSetupTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+*/
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setSetupTime = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.clearSetupTime = function() {
+  return this.setSetupTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.hasSetupTime = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp done_time = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getDoneTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+*/
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setDoneTime = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.clearDoneTime = function() {
+  return this.setDoneTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.hasDoneTime = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp time_expiration = 6;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getTimeExpiration = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+*/
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setTimeExpiration = function(value) {
+  return jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.clearTimeExpiration = function() {
+  return this.setTimeExpiration(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.hasTimeExpiration = function() {
+  return jspb.Message.getField(this, 6) != null;
+};
+
+
+/**
+ * optional uint64 position_id = 7;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getPositionId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setPositionId = function(value) {
+  return jspb.Message.setProto3IntField(this, 7, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE_TIME type_time = 8;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getTypeTime = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setTypeTime = function(value) {
+  return jspb.Message.setProto3EnumField(this, 8, value);
+};
+
+
+/**
+ * optional double stop_loss = 9;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getStopLoss = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 9, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setStopLoss = function(value) {
+  return jspb.Message.setProto3FloatField(this, 9, value);
+};
+
+
+/**
+ * optional double take_profit = 10;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getTakeProfit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 10, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setTakeProfit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 10, value);
+};
+
+
+/**
+ * optional double stop_limit = 11;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getStopLimit = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 11, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setStopLimit = function(value) {
+  return jspb.Message.setProto3FloatField(this, 11, value);
+};
+
+
+/**
+ * optional double price_current = 12;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getPriceCurrent = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 12, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setPriceCurrent = function(value) {
+  return jspb.Message.setProto3FloatField(this, 12, value);
+};
+
+
+/**
+ * optional double price_open = 13;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getPriceOpen = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 13, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setPriceOpen = function(value) {
+  return jspb.Message.setProto3FloatField(this, 13, value);
+};
+
+
+/**
+ * optional double volume_current = 14;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getVolumeCurrent = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 14, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setVolumeCurrent = function(value) {
+  return jspb.Message.setProto3FloatField(this, 14, value);
+};
+
+
+/**
+ * optional double volume_initial = 15;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getVolumeInitial = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 15, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setVolumeInitial = function(value) {
+  return jspb.Message.setProto3FloatField(this, 15, value);
+};
+
+
+/**
+ * optional int64 magic = 19;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getMagic = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 19, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setMagic = function(value) {
+  return jspb.Message.setProto3IntField(this, 19, value);
+};
+
+
+/**
+ * optional int64 position_by = 20;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getPositionBy = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 20, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setPositionBy = function(value) {
+  return jspb.Message.setProto3IntField(this, 20, value);
+};
+
+
+/**
+ * optional SUB_ENUM_DEAL_REASON reason = 21;
+ * @return {!proto.mt5_term_api.SUB_ENUM_DEAL_REASON}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getReason = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_DEAL_REASON} */ (jspb.Message.getFieldWithDefault(this, 21, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_DEAL_REASON} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setReason = function(value) {
+  return jspb.Message.setProto3EnumField(this, 21, value);
+};
+
+
+/**
+ * optional string comment = 22;
+ * @return {string}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getComment = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 22, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setComment = function(value) {
+  return jspb.Message.setProto3StringField(this, 22, value);
+};
+
+
+/**
+ * optional string symbol = 23;
+ * @return {string}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getSymbol = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 23, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setSymbol = function(value) {
+  return jspb.Message.setProto3StringField(this, 23, value);
+};
+
+
+/**
+ * optional int64 time_expiration_seconds = 24;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getTimeExpirationSeconds = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 24, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setTimeExpirationSeconds = function(value) {
+  return jspb.Message.setProto3IntField(this, 24, value);
+};
+
+
+/**
+ * optional int64 account_login = 25;
+ * @return {number}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getAccountLogin = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 25, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setAccountLogin = function(value) {
+  return jspb.Message.setProto3IntField(this, 25, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE order_type = 26;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getOrderType = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} */ (jspb.Message.getFieldWithDefault(this, 26, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setOrderType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 26, value);
+};
+
+
+/**
+ * optional SUB_ENUM_ORDER_TYPE_FILLING order_type_filling = 27;
+ * @return {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.getOrderTypeFilling = function() {
+  return /** @type {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING} */ (jspb.Message.getFieldWithDefault(this, 27, 0));
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderInfo.prototype.setOrderTypeFilling = function(value) {
+  return jspb.Message.setProto3EnumField(this, 27, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeOrderStateChange.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeOrderStateChange} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    previousOrder: (f = msg.getPreviousOrder()) && proto.mt5_term_api.OnTradeOrderInfo.toObject(includeInstance, f),
+    currentOrder: (f = msg.getCurrentOrder()) && proto.mt5_term_api.OnTradeOrderInfo.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeOrderStateChange}
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeOrderStateChange;
+  return proto.mt5_term_api.OnTradeOrderStateChange.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeOrderStateChange} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeOrderStateChange}
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.OnTradeOrderInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeOrderInfo.deserializeBinaryFromReader);
+      msg.setPreviousOrder(value);
+      break;
+    case 2:
+      var value = new proto.mt5_term_api.OnTradeOrderInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeOrderInfo.deserializeBinaryFromReader);
+      msg.setCurrentOrder(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeOrderStateChange.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeOrderStateChange} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getPreviousOrder();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.mt5_term_api.OnTradeOrderInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getCurrentOrder();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.mt5_term_api.OnTradeOrderInfo.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional OnTradeOrderInfo previous_order = 1;
+ * @return {?proto.mt5_term_api.OnTradeOrderInfo}
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.prototype.getPreviousOrder = function() {
+  return /** @type{?proto.mt5_term_api.OnTradeOrderInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTradeOrderInfo, 1));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTradeOrderInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeOrderStateChange} returns this
+*/
+proto.mt5_term_api.OnTradeOrderStateChange.prototype.setPreviousOrder = function(value) {
+  return jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeOrderStateChange} returns this
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.prototype.clearPreviousOrder = function() {
+  return this.setPreviousOrder(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.prototype.hasPreviousOrder = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional OnTradeOrderInfo current_order = 2;
+ * @return {?proto.mt5_term_api.OnTradeOrderInfo}
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.prototype.getCurrentOrder = function() {
+  return /** @type{?proto.mt5_term_api.OnTradeOrderInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTradeOrderInfo, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTradeOrderInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeOrderStateChange} returns this
+*/
+proto.mt5_term_api.OnTradeOrderStateChange.prototype.setCurrentOrder = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeOrderStateChange} returns this
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.prototype.clearCurrentOrder = function() {
+  return this.setCurrentOrder(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeOrderStateChange.prototype.hasCurrentOrder = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradePositionUpdate.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradePositionUpdate.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradePositionUpdate} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradePositionUpdate.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    previousPosition: (f = msg.getPreviousPosition()) && proto.mt5_term_api.OnTradePositionInfo.toObject(includeInstance, f),
+    currentPosition: (f = msg.getCurrentPosition()) && proto.mt5_term_api.OnTradePositionInfo.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradePositionUpdate}
+ */
+proto.mt5_term_api.OnTradePositionUpdate.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradePositionUpdate;
+  return proto.mt5_term_api.OnTradePositionUpdate.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradePositionUpdate} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradePositionUpdate}
+ */
+proto.mt5_term_api.OnTradePositionUpdate.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.OnTradePositionInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradePositionInfo.deserializeBinaryFromReader);
+      msg.setPreviousPosition(value);
+      break;
+    case 2:
+      var value = new proto.mt5_term_api.OnTradePositionInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradePositionInfo.deserializeBinaryFromReader);
+      msg.setCurrentPosition(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradePositionUpdate.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradePositionUpdate.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradePositionUpdate} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradePositionUpdate.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getPreviousPosition();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.mt5_term_api.OnTradePositionInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getCurrentPosition();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.mt5_term_api.OnTradePositionInfo.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional OnTradePositionInfo previous_position = 1;
+ * @return {?proto.mt5_term_api.OnTradePositionInfo}
+ */
+proto.mt5_term_api.OnTradePositionUpdate.prototype.getPreviousPosition = function() {
+  return /** @type{?proto.mt5_term_api.OnTradePositionInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTradePositionInfo, 1));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTradePositionInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnTradePositionUpdate} returns this
+*/
+proto.mt5_term_api.OnTradePositionUpdate.prototype.setPreviousPosition = function(value) {
+  return jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradePositionUpdate} returns this
+ */
+proto.mt5_term_api.OnTradePositionUpdate.prototype.clearPreviousPosition = function() {
+  return this.setPreviousPosition(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradePositionUpdate.prototype.hasPreviousPosition = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional OnTradePositionInfo current_position = 2;
+ * @return {?proto.mt5_term_api.OnTradePositionInfo}
+ */
+proto.mt5_term_api.OnTradePositionUpdate.prototype.getCurrentPosition = function() {
+  return /** @type{?proto.mt5_term_api.OnTradePositionInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTradePositionInfo, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTradePositionInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnTradePositionUpdate} returns this
+*/
+proto.mt5_term_api.OnTradePositionUpdate.prototype.setCurrentPosition = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradePositionUpdate} returns this
+ */
+proto.mt5_term_api.OnTradePositionUpdate.prototype.clearCurrentPosition = function() {
+  return this.setCurrentPosition(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradePositionUpdate.prototype.hasCurrentPosition = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeHistoryDealUpdate.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeHistoryDealUpdate} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    previousHistoryDeal: (f = msg.getPreviousHistoryDeal()) && proto.mt5_term_api.OnTradeHistoryDealInfo.toObject(includeInstance, f),
+    currentHistoryDeal: (f = msg.getCurrentHistoryDeal()) && proto.mt5_term_api.OnTradeHistoryDealInfo.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealUpdate}
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeHistoryDealUpdate;
+  return proto.mt5_term_api.OnTradeHistoryDealUpdate.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeHistoryDealUpdate} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealUpdate}
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.OnTradeHistoryDealInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeHistoryDealInfo.deserializeBinaryFromReader);
+      msg.setPreviousHistoryDeal(value);
+      break;
+    case 2:
+      var value = new proto.mt5_term_api.OnTradeHistoryDealInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeHistoryDealInfo.deserializeBinaryFromReader);
+      msg.setCurrentHistoryDeal(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeHistoryDealUpdate.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeHistoryDealUpdate} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getPreviousHistoryDeal();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.mt5_term_api.OnTradeHistoryDealInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getCurrentHistoryDeal();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.mt5_term_api.OnTradeHistoryDealInfo.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional OnTradeHistoryDealInfo previous_history_deal = 1;
+ * @return {?proto.mt5_term_api.OnTradeHistoryDealInfo}
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.prototype.getPreviousHistoryDeal = function() {
+  return /** @type{?proto.mt5_term_api.OnTradeHistoryDealInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTradeHistoryDealInfo, 1));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTradeHistoryDealInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealUpdate} returns this
+*/
+proto.mt5_term_api.OnTradeHistoryDealUpdate.prototype.setPreviousHistoryDeal = function(value) {
+  return jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealUpdate} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.prototype.clearPreviousHistoryDeal = function() {
+  return this.setPreviousHistoryDeal(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.prototype.hasPreviousHistoryDeal = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional OnTradeHistoryDealInfo current_history_deal = 2;
+ * @return {?proto.mt5_term_api.OnTradeHistoryDealInfo}
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.prototype.getCurrentHistoryDeal = function() {
+  return /** @type{?proto.mt5_term_api.OnTradeHistoryDealInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTradeHistoryDealInfo, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTradeHistoryDealInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealUpdate} returns this
+*/
+proto.mt5_term_api.OnTradeHistoryDealUpdate.prototype.setCurrentHistoryDeal = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealUpdate} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.prototype.clearCurrentHistoryDeal = function() {
+  return this.setCurrentHistoryDeal(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeHistoryDealUpdate.prototype.hasCurrentHistoryDeal = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTradeHistoryOrderUpdate.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTradeHistoryOrderUpdate} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    previousHistoryOrder: (f = msg.getPreviousHistoryOrder()) && proto.mt5_term_api.OnTradeHistoryOrderInfo.toObject(includeInstance, f),
+    currentHistoryOrder: (f = msg.getCurrentHistoryOrder()) && proto.mt5_term_api.OnTradeHistoryOrderInfo.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderUpdate}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTradeHistoryOrderUpdate;
+  return proto.mt5_term_api.OnTradeHistoryOrderUpdate.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTradeHistoryOrderUpdate} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderUpdate}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.OnTradeHistoryOrderInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeHistoryOrderInfo.deserializeBinaryFromReader);
+      msg.setPreviousHistoryOrder(value);
+      break;
+    case 2:
+      var value = new proto.mt5_term_api.OnTradeHistoryOrderInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeHistoryOrderInfo.deserializeBinaryFromReader);
+      msg.setCurrentHistoryOrder(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTradeHistoryOrderUpdate.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTradeHistoryOrderUpdate} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getPreviousHistoryOrder();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.mt5_term_api.OnTradeHistoryOrderInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getCurrentHistoryOrder();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.mt5_term_api.OnTradeHistoryOrderInfo.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional OnTradeHistoryOrderInfo previous_history_order = 1;
+ * @return {?proto.mt5_term_api.OnTradeHistoryOrderInfo}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.prototype.getPreviousHistoryOrder = function() {
+  return /** @type{?proto.mt5_term_api.OnTradeHistoryOrderInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTradeHistoryOrderInfo, 1));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTradeHistoryOrderInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderUpdate} returns this
+*/
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.prototype.setPreviousHistoryOrder = function(value) {
+  return jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderUpdate} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.prototype.clearPreviousHistoryOrder = function() {
+  return this.setPreviousHistoryOrder(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.prototype.hasPreviousHistoryOrder = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional OnTradeHistoryOrderInfo current_history_order = 2;
+ * @return {?proto.mt5_term_api.OnTradeHistoryOrderInfo}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.prototype.getCurrentHistoryOrder = function() {
+  return /** @type{?proto.mt5_term_api.OnTradeHistoryOrderInfo} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnTradeHistoryOrderInfo, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnTradeHistoryOrderInfo|undefined} value
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderUpdate} returns this
+*/
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.prototype.setCurrentHistoryOrder = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderUpdate} returns this
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.prototype.clearCurrentHistoryOrder = function() {
+  return this.setCurrentHistoryOrder(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnTradeHistoryOrderUpdate.prototype.hasCurrentHistoryOrder = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.mt5_term_api.OnTadeEventData.repeatedFields_ = [1,2,3,4,5,6,7,8,9,10,11,12];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnTadeEventData.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnTadeEventData} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTadeEventData.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    newOrdersList: jspb.Message.toObjectList(msg.getNewOrdersList(),
+    proto.mt5_term_api.OnTradeOrderInfo.toObject, includeInstance),
+    disappearedOrdersList: jspb.Message.toObjectList(msg.getDisappearedOrdersList(),
+    proto.mt5_term_api.OnTradeOrderInfo.toObject, includeInstance),
+    stateChangedOrdersList: jspb.Message.toObjectList(msg.getStateChangedOrdersList(),
+    proto.mt5_term_api.OnTradeOrderStateChange.toObject, includeInstance),
+    newHistoryOrdersList: jspb.Message.toObjectList(msg.getNewHistoryOrdersList(),
+    proto.mt5_term_api.OnTradeHistoryOrderInfo.toObject, includeInstance),
+    disappearedHistoryOrdersList: jspb.Message.toObjectList(msg.getDisappearedHistoryOrdersList(),
+    proto.mt5_term_api.OnTradeHistoryOrderInfo.toObject, includeInstance),
+    updatedHistoryOrdersList: jspb.Message.toObjectList(msg.getUpdatedHistoryOrdersList(),
+    proto.mt5_term_api.OnTradeHistoryOrderUpdate.toObject, includeInstance),
+    newHistoryDealsList: jspb.Message.toObjectList(msg.getNewHistoryDealsList(),
+    proto.mt5_term_api.OnTradeHistoryDealInfo.toObject, includeInstance),
+    disappearedHistoryDealsList: jspb.Message.toObjectList(msg.getDisappearedHistoryDealsList(),
+    proto.mt5_term_api.OnTradeHistoryDealInfo.toObject, includeInstance),
+    updatedHistoryDealsList: jspb.Message.toObjectList(msg.getUpdatedHistoryDealsList(),
+    proto.mt5_term_api.OnTradeHistoryDealUpdate.toObject, includeInstance),
+    newPositionsList: jspb.Message.toObjectList(msg.getNewPositionsList(),
+    proto.mt5_term_api.OnTradePositionInfo.toObject, includeInstance),
+    disappearedPositionsList: jspb.Message.toObjectList(msg.getDisappearedPositionsList(),
+    proto.mt5_term_api.OnTradePositionInfo.toObject, includeInstance),
+    updatedPositionsList: jspb.Message.toObjectList(msg.getUpdatedPositionsList(),
+    proto.mt5_term_api.OnTradePositionUpdate.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnTadeEventData}
+ */
+proto.mt5_term_api.OnTadeEventData.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnTadeEventData;
+  return proto.mt5_term_api.OnTadeEventData.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnTadeEventData} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnTadeEventData}
+ */
+proto.mt5_term_api.OnTadeEventData.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.OnTradeOrderInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeOrderInfo.deserializeBinaryFromReader);
+      msg.addNewOrders(value);
+      break;
+    case 2:
+      var value = new proto.mt5_term_api.OnTradeOrderInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeOrderInfo.deserializeBinaryFromReader);
+      msg.addDisappearedOrders(value);
+      break;
+    case 3:
+      var value = new proto.mt5_term_api.OnTradeOrderStateChange;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeOrderStateChange.deserializeBinaryFromReader);
+      msg.addStateChangedOrders(value);
+      break;
+    case 4:
+      var value = new proto.mt5_term_api.OnTradeHistoryOrderInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeHistoryOrderInfo.deserializeBinaryFromReader);
+      msg.addNewHistoryOrders(value);
+      break;
+    case 5:
+      var value = new proto.mt5_term_api.OnTradeHistoryOrderInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeHistoryOrderInfo.deserializeBinaryFromReader);
+      msg.addDisappearedHistoryOrders(value);
+      break;
+    case 6:
+      var value = new proto.mt5_term_api.OnTradeHistoryOrderUpdate;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeHistoryOrderUpdate.deserializeBinaryFromReader);
+      msg.addUpdatedHistoryOrders(value);
+      break;
+    case 7:
+      var value = new proto.mt5_term_api.OnTradeHistoryDealInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeHistoryDealInfo.deserializeBinaryFromReader);
+      msg.addNewHistoryDeals(value);
+      break;
+    case 8:
+      var value = new proto.mt5_term_api.OnTradeHistoryDealInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeHistoryDealInfo.deserializeBinaryFromReader);
+      msg.addDisappearedHistoryDeals(value);
+      break;
+    case 9:
+      var value = new proto.mt5_term_api.OnTradeHistoryDealUpdate;
+      reader.readMessage(value,proto.mt5_term_api.OnTradeHistoryDealUpdate.deserializeBinaryFromReader);
+      msg.addUpdatedHistoryDeals(value);
+      break;
+    case 10:
+      var value = new proto.mt5_term_api.OnTradePositionInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradePositionInfo.deserializeBinaryFromReader);
+      msg.addNewPositions(value);
+      break;
+    case 11:
+      var value = new proto.mt5_term_api.OnTradePositionInfo;
+      reader.readMessage(value,proto.mt5_term_api.OnTradePositionInfo.deserializeBinaryFromReader);
+      msg.addDisappearedPositions(value);
+      break;
+    case 12:
+      var value = new proto.mt5_term_api.OnTradePositionUpdate;
+      reader.readMessage(value,proto.mt5_term_api.OnTradePositionUpdate.deserializeBinaryFromReader);
+      msg.addUpdatedPositions(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnTadeEventData.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnTadeEventData} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnTadeEventData.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getNewOrdersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.mt5_term_api.OnTradeOrderInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getDisappearedOrdersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      2,
+      f,
+      proto.mt5_term_api.OnTradeOrderInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getStateChangedOrdersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      3,
+      f,
+      proto.mt5_term_api.OnTradeOrderStateChange.serializeBinaryToWriter
+    );
+  }
+  f = message.getNewHistoryOrdersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      4,
+      f,
+      proto.mt5_term_api.OnTradeHistoryOrderInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getDisappearedHistoryOrdersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      5,
+      f,
+      proto.mt5_term_api.OnTradeHistoryOrderInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getUpdatedHistoryOrdersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      6,
+      f,
+      proto.mt5_term_api.OnTradeHistoryOrderUpdate.serializeBinaryToWriter
+    );
+  }
+  f = message.getNewHistoryDealsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      7,
+      f,
+      proto.mt5_term_api.OnTradeHistoryDealInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getDisappearedHistoryDealsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      8,
+      f,
+      proto.mt5_term_api.OnTradeHistoryDealInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getUpdatedHistoryDealsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      9,
+      f,
+      proto.mt5_term_api.OnTradeHistoryDealUpdate.serializeBinaryToWriter
+    );
+  }
+  f = message.getNewPositionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      10,
+      f,
+      proto.mt5_term_api.OnTradePositionInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getDisappearedPositionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      11,
+      f,
+      proto.mt5_term_api.OnTradePositionInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getUpdatedPositionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      12,
+      f,
+      proto.mt5_term_api.OnTradePositionUpdate.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated OnTradeOrderInfo new_orders = 1;
+ * @return {!Array<!proto.mt5_term_api.OnTradeOrderInfo>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getNewOrdersList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradeOrderInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradeOrderInfo, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradeOrderInfo>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setNewOrdersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradeOrderInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addNewOrders = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.mt5_term_api.OnTradeOrderInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearNewOrdersList = function() {
+  return this.setNewOrdersList([]);
+};
+
+
+/**
+ * repeated OnTradeOrderInfo disappeared_orders = 2;
+ * @return {!Array<!proto.mt5_term_api.OnTradeOrderInfo>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getDisappearedOrdersList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradeOrderInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradeOrderInfo, 2));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradeOrderInfo>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setDisappearedOrdersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 2, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradeOrderInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradeOrderInfo}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addDisappearedOrders = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.mt5_term_api.OnTradeOrderInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearDisappearedOrdersList = function() {
+  return this.setDisappearedOrdersList([]);
+};
+
+
+/**
+ * repeated OnTradeOrderStateChange state_changed_orders = 3;
+ * @return {!Array<!proto.mt5_term_api.OnTradeOrderStateChange>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getStateChangedOrdersList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradeOrderStateChange>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradeOrderStateChange, 3));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradeOrderStateChange>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setStateChangedOrdersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradeOrderStateChange=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradeOrderStateChange}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addStateChangedOrders = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.mt5_term_api.OnTradeOrderStateChange, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearStateChangedOrdersList = function() {
+  return this.setStateChangedOrdersList([]);
+};
+
+
+/**
+ * repeated OnTradeHistoryOrderInfo new_history_orders = 4;
+ * @return {!Array<!proto.mt5_term_api.OnTradeHistoryOrderInfo>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getNewHistoryOrdersList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradeHistoryOrderInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradeHistoryOrderInfo, 4));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradeHistoryOrderInfo>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setNewHistoryOrdersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 4, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradeHistoryOrderInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addNewHistoryOrders = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.mt5_term_api.OnTradeHistoryOrderInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearNewHistoryOrdersList = function() {
+  return this.setNewHistoryOrdersList([]);
+};
+
+
+/**
+ * repeated OnTradeHistoryOrderInfo disappeared_history_orders = 5;
+ * @return {!Array<!proto.mt5_term_api.OnTradeHistoryOrderInfo>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getDisappearedHistoryOrdersList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradeHistoryOrderInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradeHistoryOrderInfo, 5));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradeHistoryOrderInfo>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setDisappearedHistoryOrdersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 5, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradeHistoryOrderInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderInfo}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addDisappearedHistoryOrders = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.mt5_term_api.OnTradeHistoryOrderInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearDisappearedHistoryOrdersList = function() {
+  return this.setDisappearedHistoryOrdersList([]);
+};
+
+
+/**
+ * repeated OnTradeHistoryOrderUpdate updated_history_orders = 6;
+ * @return {!Array<!proto.mt5_term_api.OnTradeHistoryOrderUpdate>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getUpdatedHistoryOrdersList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradeHistoryOrderUpdate>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradeHistoryOrderUpdate, 6));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradeHistoryOrderUpdate>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setUpdatedHistoryOrdersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 6, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradeHistoryOrderUpdate=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradeHistoryOrderUpdate}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addUpdatedHistoryOrders = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 6, opt_value, proto.mt5_term_api.OnTradeHistoryOrderUpdate, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearUpdatedHistoryOrdersList = function() {
+  return this.setUpdatedHistoryOrdersList([]);
+};
+
+
+/**
+ * repeated OnTradeHistoryDealInfo new_history_deals = 7;
+ * @return {!Array<!proto.mt5_term_api.OnTradeHistoryDealInfo>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getNewHistoryDealsList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradeHistoryDealInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradeHistoryDealInfo, 7));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradeHistoryDealInfo>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setNewHistoryDealsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 7, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradeHistoryDealInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addNewHistoryDeals = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.mt5_term_api.OnTradeHistoryDealInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearNewHistoryDealsList = function() {
+  return this.setNewHistoryDealsList([]);
+};
+
+
+/**
+ * repeated OnTradeHistoryDealInfo disappeared_history_deals = 8;
+ * @return {!Array<!proto.mt5_term_api.OnTradeHistoryDealInfo>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getDisappearedHistoryDealsList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradeHistoryDealInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradeHistoryDealInfo, 8));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradeHistoryDealInfo>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setDisappearedHistoryDealsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 8, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradeHistoryDealInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealInfo}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addDisappearedHistoryDeals = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 8, opt_value, proto.mt5_term_api.OnTradeHistoryDealInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearDisappearedHistoryDealsList = function() {
+  return this.setDisappearedHistoryDealsList([]);
+};
+
+
+/**
+ * repeated OnTradeHistoryDealUpdate updated_history_deals = 9;
+ * @return {!Array<!proto.mt5_term_api.OnTradeHistoryDealUpdate>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getUpdatedHistoryDealsList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradeHistoryDealUpdate>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradeHistoryDealUpdate, 9));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradeHistoryDealUpdate>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setUpdatedHistoryDealsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 9, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradeHistoryDealUpdate=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradeHistoryDealUpdate}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addUpdatedHistoryDeals = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 9, opt_value, proto.mt5_term_api.OnTradeHistoryDealUpdate, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearUpdatedHistoryDealsList = function() {
+  return this.setUpdatedHistoryDealsList([]);
+};
+
+
+/**
+ * repeated OnTradePositionInfo new_positions = 10;
+ * @return {!Array<!proto.mt5_term_api.OnTradePositionInfo>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getNewPositionsList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradePositionInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradePositionInfo, 10));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradePositionInfo>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setNewPositionsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 10, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradePositionInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradePositionInfo}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addNewPositions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 10, opt_value, proto.mt5_term_api.OnTradePositionInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearNewPositionsList = function() {
+  return this.setNewPositionsList([]);
+};
+
+
+/**
+ * repeated OnTradePositionInfo disappeared_positions = 11;
+ * @return {!Array<!proto.mt5_term_api.OnTradePositionInfo>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getDisappearedPositionsList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradePositionInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradePositionInfo, 11));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradePositionInfo>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setDisappearedPositionsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 11, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradePositionInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradePositionInfo}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addDisappearedPositions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.mt5_term_api.OnTradePositionInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearDisappearedPositionsList = function() {
+  return this.setDisappearedPositionsList([]);
+};
+
+
+/**
+ * repeated OnTradePositionUpdate updated_positions = 12;
+ * @return {!Array<!proto.mt5_term_api.OnTradePositionUpdate>}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.getUpdatedPositionsList = function() {
+  return /** @type{!Array<!proto.mt5_term_api.OnTradePositionUpdate>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.mt5_term_api.OnTradePositionUpdate, 12));
+};
+
+
+/**
+ * @param {!Array<!proto.mt5_term_api.OnTradePositionUpdate>} value
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+*/
+proto.mt5_term_api.OnTadeEventData.prototype.setUpdatedPositionsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 12, value);
+};
+
+
+/**
+ * @param {!proto.mt5_term_api.OnTradePositionUpdate=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnTradePositionUpdate}
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.addUpdatedPositions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 12, opt_value, proto.mt5_term_api.OnTradePositionUpdate, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnTadeEventData} returns this
+ */
+proto.mt5_term_api.OnTadeEventData.prototype.clearUpdatedPositionsList = function() {
+  return this.setUpdatedPositionsList([]);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.mt5_term_api.OnSymbolTickRequest.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnSymbolTickRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnSymbolTickRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnSymbolTickRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnSymbolTickRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    symbolNamesList: (f = jspb.Message.getRepeatedField(msg, 1)) == null ? undefined : f
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnSymbolTickRequest}
+ */
+proto.mt5_term_api.OnSymbolTickRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnSymbolTickRequest;
+  return proto.mt5_term_api.OnSymbolTickRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnSymbolTickRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnSymbolTickRequest}
+ */
+proto.mt5_term_api.OnSymbolTickRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.addSymbolNames(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnSymbolTickRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnSymbolTickRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnSymbolTickRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnSymbolTickRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getSymbolNamesList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * repeated string symbol_names = 1;
+ * @return {!Array<string>}
+ */
+proto.mt5_term_api.OnSymbolTickRequest.prototype.getSymbolNamesList = function() {
+  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 1));
+};
+
+
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.mt5_term_api.OnSymbolTickRequest} returns this
+ */
+proto.mt5_term_api.OnSymbolTickRequest.prototype.setSymbolNamesList = function(value) {
+  return jspb.Message.setField(this, 1, value || []);
+};
+
+
+/**
+ * @param {string} value
+ * @param {number=} opt_index
+ * @return {!proto.mt5_term_api.OnSymbolTickRequest} returns this
+ */
+proto.mt5_term_api.OnSymbolTickRequest.prototype.addSymbolNames = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 1, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.mt5_term_api.OnSymbolTickRequest} returns this
+ */
+proto.mt5_term_api.OnSymbolTickRequest.prototype.clearSymbolNamesList = function() {
+  return this.setSymbolNamesList([]);
+};
+
+
+
+/**
+ * Oneof group definitions for this message. Each group defines the field
+ * numbers belonging to that group. When of these fields' value is set, all
+ * other fields in the group are cleared. During deserialization, if multiple
+ * fields are encountered for a group, only the last value seen will be kept.
+ * @private {!Array<!Array<number>>}
+ * @const
+ */
+proto.mt5_term_api.OnSymbolTickReply.oneofGroups_ = [[1,2]];
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.OnSymbolTickReply.ResponseCase = {
+  RESPONSE_NOT_SET: 0,
+  DATA: 1,
+  ERROR: 2
+};
+
+/**
+ * @return {proto.mt5_term_api.OnSymbolTickReply.ResponseCase}
+ */
+proto.mt5_term_api.OnSymbolTickReply.prototype.getResponseCase = function() {
+  return /** @type {proto.mt5_term_api.OnSymbolTickReply.ResponseCase} */(jspb.Message.computeOneofCase(this, proto.mt5_term_api.OnSymbolTickReply.oneofGroups_[0]));
+};
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnSymbolTickReply.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnSymbolTickReply.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnSymbolTickReply} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnSymbolTickReply.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    data: (f = msg.getData()) && proto.mt5_term_api.OnSymbolTickData.toObject(includeInstance, f),
+    error: (f = msg.getError()) && mrpc$mt5$error_pb.Error.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnSymbolTickReply}
+ */
+proto.mt5_term_api.OnSymbolTickReply.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnSymbolTickReply;
+  return proto.mt5_term_api.OnSymbolTickReply.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnSymbolTickReply} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnSymbolTickReply}
+ */
+proto.mt5_term_api.OnSymbolTickReply.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.OnSymbolTickData;
+      reader.readMessage(value,proto.mt5_term_api.OnSymbolTickData.deserializeBinaryFromReader);
+      msg.setData(value);
+      break;
+    case 2:
+      var value = new mrpc$mt5$error_pb.Error;
+      reader.readMessage(value,mrpc$mt5$error_pb.Error.deserializeBinaryFromReader);
+      msg.setError(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnSymbolTickReply.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnSymbolTickReply.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnSymbolTickReply} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnSymbolTickReply.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getData();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.mt5_term_api.OnSymbolTickData.serializeBinaryToWriter
+    );
+  }
+  f = message.getError();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      mrpc$mt5$error_pb.Error.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional OnSymbolTickData data = 1;
+ * @return {?proto.mt5_term_api.OnSymbolTickData}
+ */
+proto.mt5_term_api.OnSymbolTickReply.prototype.getData = function() {
+  return /** @type{?proto.mt5_term_api.OnSymbolTickData} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.OnSymbolTickData, 1));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.OnSymbolTickData|undefined} value
+ * @return {!proto.mt5_term_api.OnSymbolTickReply} returns this
+*/
+proto.mt5_term_api.OnSymbolTickReply.prototype.setData = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 1, proto.mt5_term_api.OnSymbolTickReply.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnSymbolTickReply} returns this
+ */
+proto.mt5_term_api.OnSymbolTickReply.prototype.clearData = function() {
+  return this.setData(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnSymbolTickReply.prototype.hasData = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional Error error = 2;
+ * @return {?proto.mt5_term_api.Error}
+ */
+proto.mt5_term_api.OnSymbolTickReply.prototype.getError = function() {
+  return /** @type{?proto.mt5_term_api.Error} */ (
+    jspb.Message.getWrapperField(this, mrpc$mt5$error_pb.Error, 2));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.Error|undefined} value
+ * @return {!proto.mt5_term_api.OnSymbolTickReply} returns this
+*/
+proto.mt5_term_api.OnSymbolTickReply.prototype.setError = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 2, proto.mt5_term_api.OnSymbolTickReply.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnSymbolTickReply} returns this
+ */
+proto.mt5_term_api.OnSymbolTickReply.prototype.clearError = function() {
+  return this.setError(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnSymbolTickReply.prototype.hasError = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.OnSymbolTickData.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.OnSymbolTickData.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.OnSymbolTickData} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnSymbolTickData.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    symbolTick: (f = msg.getSymbolTick()) && proto.mt5_term_api.MrpcSubscriptionMqlTick.toObject(includeInstance, f),
+    terminalInstanceGuidId: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.OnSymbolTickData}
+ */
+proto.mt5_term_api.OnSymbolTickData.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.OnSymbolTickData;
+  return proto.mt5_term_api.OnSymbolTickData.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.OnSymbolTickData} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.OnSymbolTickData}
+ */
+proto.mt5_term_api.OnSymbolTickData.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.mt5_term_api.MrpcSubscriptionMqlTick;
+      reader.readMessage(value,proto.mt5_term_api.MrpcSubscriptionMqlTick.deserializeBinaryFromReader);
+      msg.setSymbolTick(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTerminalInstanceGuidId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.OnSymbolTickData.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.OnSymbolTickData.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.OnSymbolTickData} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.OnSymbolTickData.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getSymbolTick();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.mt5_term_api.MrpcSubscriptionMqlTick.serializeBinaryToWriter
+    );
+  }
+  f = message.getTerminalInstanceGuidId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional MrpcSubscriptionMqlTick symbol_tick = 1;
+ * @return {?proto.mt5_term_api.MrpcSubscriptionMqlTick}
+ */
+proto.mt5_term_api.OnSymbolTickData.prototype.getSymbolTick = function() {
+  return /** @type{?proto.mt5_term_api.MrpcSubscriptionMqlTick} */ (
+    jspb.Message.getWrapperField(this, proto.mt5_term_api.MrpcSubscriptionMqlTick, 1));
+};
+
+
+/**
+ * @param {?proto.mt5_term_api.MrpcSubscriptionMqlTick|undefined} value
+ * @return {!proto.mt5_term_api.OnSymbolTickData} returns this
+*/
+proto.mt5_term_api.OnSymbolTickData.prototype.setSymbolTick = function(value) {
+  return jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OnSymbolTickData} returns this
+ */
+proto.mt5_term_api.OnSymbolTickData.prototype.clearSymbolTick = function() {
+  return this.setSymbolTick(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OnSymbolTickData.prototype.hasSymbolTick = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional string terminal_instance_guid_id = 2;
+ * @return {string}
+ */
+proto.mt5_term_api.OnSymbolTickData.prototype.getTerminalInstanceGuidId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.OnSymbolTickData} returns this
+ */
+proto.mt5_term_api.OnSymbolTickData.prototype.setTerminalInstanceGuidId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.toObject = function(opt_includeInstance) {
+  return proto.mt5_term_api.MrpcSubscriptionMqlTick.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.mt5_term_api.MrpcSubscriptionMqlTick} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    time: (f = msg.getTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    bid: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    ask: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    last: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
+    volume: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    timeMsc: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    flags: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    volumeReal: jspb.Message.getFloatingPointFieldWithDefault(msg, 8, 0.0),
+    symbol: jspb.Message.getFieldWithDefault(msg, 9, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.mt5_term_api.MrpcSubscriptionMqlTick;
+  return proto.mt5_term_api.MrpcSubscriptionMqlTick.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.mt5_term_api.MrpcSubscriptionMqlTick} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setTime(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setBid(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setAsk(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setLast(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setVolume(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTimeMsc(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setFlags(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setVolumeReal(value);
+      break;
+    case 9:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSymbol(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.mt5_term_api.MrpcSubscriptionMqlTick.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.mt5_term_api.MrpcSubscriptionMqlTick} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getTime();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getBid();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      2,
+      f
+    );
+  }
+  f = message.getAsk();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      3,
+      f
+    );
+  }
+  f = message.getLast();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      4,
+      f
+    );
+  }
+  f = message.getVolume();
+  if (f !== 0) {
+    writer.writeUint64(
+      5,
+      f
+    );
+  }
+  f = message.getTimeMsc();
+  if (f !== 0) {
+    writer.writeInt64(
+      6,
+      f
+    );
+  }
+  f = message.getFlags();
+  if (f !== 0) {
+    writer.writeUint32(
+      7,
+      f
+    );
+  }
+  f = message.getVolumeReal();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      8,
+      f
+    );
+  }
+  f = message.getSymbol();
+  if (f.length > 0) {
+    writer.writeString(
+      9,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional google.protobuf.Timestamp time = 1;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.getTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 1));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick} returns this
+*/
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.setTime = function(value) {
+  return jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.clearTime = function() {
+  return this.setTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.hasTime = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional double bid = 2;
+ * @return {number}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.getBid = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 2, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.setBid = function(value) {
+  return jspb.Message.setProto3FloatField(this, 2, value);
+};
+
+
+/**
+ * optional double ask = 3;
+ * @return {number}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.getAsk = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 3, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.setAsk = function(value) {
+  return jspb.Message.setProto3FloatField(this, 3, value);
+};
+
+
+/**
+ * optional double last = 4;
+ * @return {number}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.getLast = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.setLast = function(value) {
+  return jspb.Message.setProto3FloatField(this, 4, value);
+};
+
+
+/**
+ * optional uint64 volume = 5;
+ * @return {number}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.getVolume = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.setVolume = function(value) {
+  return jspb.Message.setProto3IntField(this, 5, value);
+};
+
+
+/**
+ * optional int64 time_msc = 6;
+ * @return {number}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.getTimeMsc = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.setTimeMsc = function(value) {
+  return jspb.Message.setProto3IntField(this, 6, value);
+};
+
+
+/**
+ * optional uint32 flags = 7;
+ * @return {number}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.getFlags = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.setFlags = function(value) {
+  return jspb.Message.setProto3IntField(this, 7, value);
+};
+
+
+/**
+ * optional double volume_real = 8;
+ * @return {number}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.getVolumeReal = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 8, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.setVolumeReal = function(value) {
+  return jspb.Message.setProto3FloatField(this, 8, value);
+};
+
+
+/**
+ * optional string symbol = 9;
+ * @return {string}
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.getSymbol = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.MrpcSubscriptionMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcSubscriptionMqlTick.prototype.setSymbol = function(value) {
+  return jspb.Message.setProto3StringField(this, 9, value);
+};
+
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_TRADE_TRANSACTION_TYPE = {
+  SUB_TRADE_TRANSACTION_ORDER_ADD: 0,
+  SUB_TRADE_TRANSACTION_ORDER_UPDATE: 1,
+  SUB_TRADE_TRANSACTION_ORDER_DELETE: 2,
+  SUB_TRADE_TRANSACTION_DEAL_ADD: 3,
+  SUB_TRADE_TRANSACTION_DEAL_UPDATE: 4,
+  SUB_TRADE_TRANSACTION_DEAL_DELETE: 5,
+  SUB_TRADE_TRANSACTION_HISTORY_ADD: 6,
+  SUB_TRADE_TRANSACTION_HISTORY_UPDATE: 7,
+  SUB_TRADE_TRANSACTION_HISTORY_DELETE: 8,
+  SUB_TRADE_TRANSACTION_POSITION: 9,
+  SUB_TRADE_TRANSACTION_REQUEST: 10
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_TRADE_REQUEST_ACTIONS = {
+  SUB_TRADE_ACTION_UNDEFINED: 0,
+  SUB_TRADE_ACTION_DEAL: 1,
+  SUB_TRADE_ACTION_PENDING: 2,
+  SUB_TRADE_ACTION_SLTP: 3,
+  SUB_TRADE_ACTION_MODIFY: 4,
+  SUB_TRADE_ACTION_REMOVE: 5,
+  SUB_TRADE_ACTION_CLOSE_BY: 6
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_ORDER_REASON = {
+  SUB_ORDER_REASON_CLIENT: 0,
+  SUB_ORDER_REASON_MOBILE: 2,
+  SUB_ORDER_REASON_WEB: 3,
+  SUB_ORDER_REASON_EXPERT: 4,
+  SUB_ORDER_REASON_SL: 5,
+  SUB_ORDER_REASON_TP: 6,
+  SUB_ORDER_REASON_SO: 7
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_FILLING = {
+  SUB_ORDER_FILLING_FOK: 0,
+  SUB_ORDER_FILLING_IOC: 1,
+  SUB_ORDER_FILLING_BOC: 2,
+  SUB_ORDER_FILLING_RETURN: 3
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_ORDER_TYPE = {
+  SUB_ORDER_TYPE_BUY: 0,
+  SUB_ORDER_TYPE_SELL: 1,
+  SUB_ORDER_TYPE_BUY_LIMIT: 2,
+  SUB_ORDER_TYPE_SELL_LIMIT: 3,
+  SUB_ORDER_TYPE_BUY_STOP: 4,
+  SUB_ORDER_TYPE_SELL_STOP: 5,
+  SUB_ORDER_TYPE_BUY_STOP_LIMIT: 6,
+  SUB_ORDER_TYPE_SELL_STOP_LIMIT: 7,
+  SUB_ORDER_TYPE_CLOSE_BY: 8
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_ORDER_TYPE_TIME = {
+  SUB_ORDER_TIME_GTC: 0,
+  SUB_ORDER_TIME_DAY: 1,
+  SUB_ORDER_TIME_SPECIFIED: 2,
+  SUB_ORDER_TIME_SPECIFIED_DAY: 3
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_ORDER_STATE = {
+  SUB_ORDER_STATE_STARTED: 0,
+  SUB_ORDER_STATE_PLACED: 1,
+  SUB_ORDER_STATE_CANCELED: 2,
+  SUB_ORDER_STATE_PARTIAL: 3,
+  SUB_ORDER_STATE_FILLED: 4,
+  SUB_ORDER_STATE_REJECTED: 5,
+  SUB_ORDER_STATE_EXPIRED: 6,
+  SUB_ORDER_STATE_REQUEST_ADD: 7,
+  SUB_ORDER_STATE_REQUEST_MODIFY: 8,
+  SUB_ORDER_STATE_REQUEST_CANCEL: 9
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_POSITION_REASON = {
+  SUB_POSITION_REASON_CLIENT: 0,
+  SUB_POSITION_REASON_MOBILE: 2,
+  SUB_POSITION_REASON_WEB: 3,
+  SUB_POSITION_REASON_EXPERT: 4
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_POSITION_TYPE = {
+  SUB_POSITION_TYPE_BUY: 0,
+  SUB_POSITION_TYPE_SELL: 1
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_DEAL_REASON = {
+  SUB_DEAL_REASON_CLIENT: 0,
+  SUB_DEAL_REASON_MOBILE: 1,
+  SUB_DEAL_REASON_WEB: 2,
+  SUB_DEAL_REASON_EXPERT: 3,
+  SUB_DEAL_REASON_SL: 4,
+  SUB_DEAL_REASON_TP: 5,
+  SUB_DEAL_REASON_SO: 6,
+  SUB_DEAL_REASON_ROLLOVER: 7,
+  SUB_DEAL_REASON_VMARGIN: 8,
+  SUB_DEAL_REASON_SPLIT: 9,
+  SUB_DEAL_REASON_CORPORATE_ACTION: 10
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_DEAL_TYPE = {
+  SUB_DEAL_TYPE_BUY: 0,
+  SUB_DEAL_TYPE_SELL: 1,
+  SUB_DEAL_TYPE_BALANCE: 2,
+  SUB_DEAL_TYPE_CREDIT: 3,
+  SUB_DEAL_TYPE_CHARGE: 4,
+  SUB_DEAL_TYPE_CORRECTION: 5,
+  SUB_DEAL_TYPE_BONUS: 6,
+  SUB_DEAL_TYPE_COMMISSION: 7,
+  SUB_DEAL_TYPE_COMMISSION_DAILY: 8,
+  SUB_DEAL_TYPE_COMMISSION_MONTHLY: 9,
+  SUB_DEAL_TYPE_COMMISSION_AGENT_DAILY: 10,
+  SUB_DEAL_TYPE_COMMISSION_AGENT_MONTHLY: 11,
+  SUB_DEAL_TYPE_INTEREST: 12,
+  SUB_DEAL_TYPE_BUY_CANCELED: 13,
+  SUB_DEAL_TYPE_SELL_CANCELED: 14,
+  SUB_DEAL_DIVIDEND: 15,
+  SUB_DEAL_DIVIDEND_FRANKED: 16,
+  SUB_DEAL_TAX: 17
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.SUB_ENUM_DEAL_ENTRY = {
+  SUB_DEAL_ENTRY_IN: 0,
+  SUB_DEAL_ENTRY_OUT: 1,
+  SUB_DEAL_ENTRY_INOUT: 2,
+  SUB_DEAL_ENTRY_OUT_BY: 3
+};
+
+/**
+ * @enum {number}
+ */
+proto.mt5_term_api.MT5_SUB_ENUM_EVENT_GROUP_TYPE = {
+  ORDERPROFIT: 0,
+  ORDERUPDATE: 1
+};
+
+goog.object.extend(exports, proto.mt5_term_api);
