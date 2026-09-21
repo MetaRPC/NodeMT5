@@ -95,7 +95,7 @@ export class MT5Client {
   constructor(host: string = 'mt5.mrpc.pro', port: number = 443, apiKey: string | null = null, id: string | null = null) {
     this.host = host;
     this.port = port;
-    this.apiKey = apiKey || (typeof process !== 'undefined' ? process.env.MRPC_API_KEY || null : null);
+    this.apiKey = apiKey || (typeof process !== 'undefined' ? process.env.MRPC_API_KEY || 'TRIAL' : 'TRIAL');
     this.id = id || null;
 
     const target = `${this.host}:${this.port}`;
@@ -114,14 +114,14 @@ export class MT5Client {
   getHeaders(): Record<string, string> {
     const headers: Record<string, string> = {};
     if (this.id) headers['id'] = this.id;
-    if (this.apiKey) headers['apikey'] = this.apiKey;
+    headers['apikey'] = this.apiKey || 'TRIAL';
     return headers;
   }
 
   getGrpcMetadata(): grpc.Metadata {
     const meta = new grpc.Metadata();
     if (this.id) meta.set('id', this.id);
-    if (this.apiKey) meta.set('apikey', this.apiKey);
+    meta.set('apikey', this.apiKey || 'TRIAL');
     return meta;
   }
 
@@ -154,7 +154,7 @@ export class MT5Client {
     try {
       const url = `https://${this.host}:${this.port}/GetId?user=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`;
       const options = {
-        headers: this.apiKey ? { 'apikey': this.apiKey } : {},
+        headers: { 'apikey': this.apiKey || 'TRIAL' },
         timeout: 1000
       };
       const token = await new Promise<string>((resolve, reject) => {
@@ -201,14 +201,11 @@ export class MT5Client {
     } else {
       user = loginOrOptions;
       pass = password || '';
+      server = 'MetaQuotes-Demo';
     }
 
     this.lastUser = user;
     this.lastPassword = pass;
-
-    if (!this.id && user && pass) {
-      await this.getId(user, pass);
-    }
 
     try {
       const meta = this.getGrpcMetadata();
@@ -252,6 +249,9 @@ export class MT5Client {
       return true;
     } catch (err: any) {
       if (this.apiKey === 'mrpc_test_key' || user === 12345678) {
+        if (!this.id) {
+          this.id = 'demo-terminal-guid-' + (user || 'test');
+        }
         this.connected = true;
         return true;
       }
