@@ -48,50 +48,6 @@ function deserialize_mt5_term_api_GuiCloseDialogsRequest(buffer_arg) {
   return mt5$term$api$gui_pb.GuiCloseDialogsRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_mt5_term_api_GuiDemoEnumControlsReply(arg) {
-  if (!(arg instanceof mt5$term$api$gui_pb.GuiDemoEnumControlsReply)) {
-    throw new Error('Expected argument of type mt5_term_api.GuiDemoEnumControlsReply');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_mt5_term_api_GuiDemoEnumControlsReply(buffer_arg) {
-  return mt5$term$api$gui_pb.GuiDemoEnumControlsReply.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_mt5_term_api_GuiDemoEnumControlsRequest(arg) {
-  if (!(arg instanceof mt5$term$api$gui_pb.GuiDemoEnumControlsRequest)) {
-    throw new Error('Expected argument of type mt5_term_api.GuiDemoEnumControlsRequest');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_mt5_term_api_GuiDemoEnumControlsRequest(buffer_arg) {
-  return mt5$term$api$gui_pb.GuiDemoEnumControlsRequest.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_mt5_term_api_GuiDemoFindCompaniesReply(arg) {
-  if (!(arg instanceof mt5$term$api$gui_pb.GuiDemoFindCompaniesReply)) {
-    throw new Error('Expected argument of type mt5_term_api.GuiDemoFindCompaniesReply');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_mt5_term_api_GuiDemoFindCompaniesReply(buffer_arg) {
-  return mt5$term$api$gui_pb.GuiDemoFindCompaniesReply.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_mt5_term_api_GuiDemoFindCompaniesRequest(arg) {
-  if (!(arg instanceof mt5$term$api$gui_pb.GuiDemoFindCompaniesRequest)) {
-    throw new Error('Expected argument of type mt5_term_api.GuiDemoFindCompaniesRequest');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_mt5_term_api_GuiDemoFindCompaniesRequest(buffer_arg) {
-  return mt5$term$api$gui_pb.GuiDemoFindCompaniesRequest.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
 function serialize_mt5_term_api_GuiDemoInteractiveClientMessage(arg) {
   if (!(arg instanceof mt5$term$api$gui_pb.GuiDemoInteractiveClientMessage)) {
     throw new Error('Expected argument of type mt5_term_api.GuiDemoInteractiveClientMessage');
@@ -134,39 +90,6 @@ function serialize_mt5_term_api_GuiDemoOpenAccountRequest(arg) {
 
 function deserialize_mt5_term_api_GuiDemoOpenAccountRequest(buffer_arg) {
   return mt5$term$api$gui_pb.GuiDemoOpenAccountRequest.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_mt5_term_api_GuiDemoProgressEvent(arg) {
-  if (!(arg instanceof mt5$term$api$gui_pb.GuiDemoProgressEvent)) {
-    throw new Error('Expected argument of type mt5_term_api.GuiDemoProgressEvent');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_mt5_term_api_GuiDemoProgressEvent(buffer_arg) {
-  return mt5$term$api$gui_pb.GuiDemoProgressEvent.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_mt5_term_api_GuiDemoServersAndTypesReply(arg) {
-  if (!(arg instanceof mt5$term$api$gui_pb.GuiDemoServersAndTypesReply)) {
-    throw new Error('Expected argument of type mt5_term_api.GuiDemoServersAndTypesReply');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_mt5_term_api_GuiDemoServersAndTypesReply(buffer_arg) {
-  return mt5$term$api$gui_pb.GuiDemoServersAndTypesReply.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_mt5_term_api_GuiDemoServersAndTypesRequest(arg) {
-  if (!(arg instanceof mt5$term$api$gui_pb.GuiDemoServersAndTypesRequest)) {
-    throw new Error('Expected argument of type mt5_term_api.GuiDemoServersAndTypesRequest');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_mt5_term_api_GuiDemoServersAndTypesRequest(buffer_arg) {
-  return mt5$term$api$gui_pb.GuiDemoServersAndTypesRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_mt5_term_api_GuiLoginExReply(arg) {
@@ -259,28 +182,6 @@ var GuiService = exports.GuiService = {
     responseSerialize: serialize_mt5_term_api_GuiCloseDialogsReply,
     responseDeserialize: deserialize_mt5_term_api_GuiCloseDialogsReply,
   },
-  demoFindCompanies: {
-    path: '/mt5_term_api.Gui/DemoFindCompanies',
-    requestStream: false,
-    responseStream: false,
-    requestType: mt5$term$api$gui_pb.GuiDemoFindCompaniesRequest,
-    responseType: mt5$term$api$gui_pb.GuiDemoFindCompaniesReply,
-    requestSerialize: serialize_mt5_term_api_GuiDemoFindCompaniesRequest,
-    requestDeserialize: deserialize_mt5_term_api_GuiDemoFindCompaniesRequest,
-    responseSerialize: serialize_mt5_term_api_GuiDemoFindCompaniesReply,
-    responseDeserialize: deserialize_mt5_term_api_GuiDemoFindCompaniesReply,
-  },
-  demoServersAndTypes: {
-    path: '/mt5_term_api.Gui/DemoServersAndTypes',
-    requestStream: false,
-    responseStream: false,
-    requestType: mt5$term$api$gui_pb.GuiDemoServersAndTypesRequest,
-    responseType: mt5$term$api$gui_pb.GuiDemoServersAndTypesReply,
-    requestSerialize: serialize_mt5_term_api_GuiDemoServersAndTypesRequest,
-    requestDeserialize: deserialize_mt5_term_api_GuiDemoServersAndTypesRequest,
-    responseSerialize: serialize_mt5_term_api_GuiDemoServersAndTypesReply,
-    responseDeserialize: deserialize_mt5_term_api_GuiDemoServersAndTypesReply,
-  },
   demoOpenAccount: {
     path: '/mt5_term_api.Gui/DemoOpenAccount',
     requestStream: false,
@@ -291,28 +192,6 @@ var GuiService = exports.GuiService = {
     requestDeserialize: deserialize_mt5_term_api_GuiDemoOpenAccountRequest,
     responseSerialize: serialize_mt5_term_api_GuiDemoOpenAccountReply,
     responseDeserialize: deserialize_mt5_term_api_GuiDemoOpenAccountReply,
-  },
-  demoEnumControls: {
-    path: '/mt5_term_api.Gui/DemoEnumControls',
-    requestStream: false,
-    responseStream: false,
-    requestType: mt5$term$api$gui_pb.GuiDemoEnumControlsRequest,
-    responseType: mt5$term$api$gui_pb.GuiDemoEnumControlsReply,
-    requestSerialize: serialize_mt5_term_api_GuiDemoEnumControlsRequest,
-    requestDeserialize: deserialize_mt5_term_api_GuiDemoEnumControlsRequest,
-    responseSerialize: serialize_mt5_term_api_GuiDemoEnumControlsReply,
-    responseDeserialize: deserialize_mt5_term_api_GuiDemoEnumControlsReply,
-  },
-  demoOpenAccountWithProgress: {
-    path: '/mt5_term_api.Gui/DemoOpenAccountWithProgress',
-    requestStream: false,
-    responseStream: true,
-    requestType: mt5$term$api$gui_pb.GuiDemoOpenAccountRequest,
-    responseType: mt5$term$api$gui_pb.GuiDemoProgressEvent,
-    requestSerialize: serialize_mt5_term_api_GuiDemoOpenAccountRequest,
-    requestDeserialize: deserialize_mt5_term_api_GuiDemoOpenAccountRequest,
-    responseSerialize: serialize_mt5_term_api_GuiDemoProgressEvent,
-    responseDeserialize: deserialize_mt5_term_api_GuiDemoProgressEvent,
   },
   demoOpenAccountInteractive: {
     path: '/mt5_term_api.Gui/DemoOpenAccountInteractive',
