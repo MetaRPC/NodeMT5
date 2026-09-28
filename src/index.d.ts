@@ -69,6 +69,11 @@ export declare class MT5Client {
     private lastUser?;
     private lastPassword?;
     static computeDeterministicId(user: number | string, password: string): string;
+    static openDemoAccount(server?: string, apiKey?: string): Promise<{
+        login: number;
+        password: string;
+        server: string;
+    }>;
     constructor(host?: string, port?: number, apiKey?: string | null, id?: string | null);
     getHeaders(): Record<string, string>;
     getGrpcMetadata(): grpc.Metadata;
@@ -79,5 +84,5 @@ export declare class MT5Client {
     subscribeQuotes(symbols: string[], callback: (quote: Quote) => void): {
         unsubscribe: () => void;
     };
-    disconnect(): void;
+    disconnect(): Promise<void>;
 }

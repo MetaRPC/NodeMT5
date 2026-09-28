@@ -92,6 +92,17 @@ export class MT5Client {
            h(b[10]) + h(b[11]) + h(b[12]) + h(b[13]) + h(b[14]) + h(b[15]);
   }
 
+  static async openDemoAccount(server: string = 'MetaQuotes-Demo', apiKey: string = 'TRIAL'): Promise<{ login: number; password: string; server: string }> {
+    const url = `https://mt5.mrpc.pro/DemoAccount/Open?server=${encodeURIComponent(server)}`;
+    const res = await fetch(url, { headers: { APIKey: apiKey } });
+    if (!res.ok) {
+      throw new Error(`Failed to open demo account: HTTP ${res.status} ${res.statusText}`);
+    }
+    const data: any = await res.json();
+    return { login: Number(data.login), password: String(data.password), server: String(data.server || server) };
+  }
+
+
   constructor(host: string = 'mt5.mrpc.pro', port: number = 443, apiKey: string | null = null, id: string | null = null) {
     this.host = host;
     this.port = port;
@@ -205,18 +216,17 @@ export class MT5Client {
     }
 
     this.lastUser = user;
-    this.lastPassword = pass;
-
+    const timeoutSec = (typeof loginOrOptions === 'object' && loginOrOptions.timeoutSeconds) || 60;
     try {
       const meta = this.getGrpcMetadata();
-      const deadline = new Date(Date.now() + 5000);
+      const deadline = new Date(Date.now() + (timeoutSec + 10) * 1000);
 
       if (server) {
         const req = new ConnectionPb.ConnectExRequest();
         req.setUser(user);
         req.setPassword(pass);
         req.setMtClusterName(server);
-        req.setTimeoutSeconds(30);
+        req.setTimeoutSeconds(timeoutSec);
 
         const reply: any = await new Promise((resolve, reject) => {
           this.connectionClient.connectEx(req, meta, { deadline }, (err: any, res: any) => {
@@ -224,7 +234,10 @@ export class MT5Client {
             resolve(res);
           });
         });
-        if (reply.getData()?.getTerminalInstanceGuid()) {
+        if (reply?.getError()) {
+          throw new Error(reply.getError().getErrorMessage() || 'ConnectEx failed');
+        }
+        if (reply?.getData()?.getTerminalInstanceGuid()) {
           this.id = reply.getData().getTerminalInstanceGuid();
         }
       } else if (host) {
@@ -233,7 +246,7 @@ export class MT5Client {
         req.setPassword(pass);
         req.setHost(host);
         req.setPort(port || 443);
-        req.setTimeoutSeconds(30);
+        req.setTimeoutSeconds(timeoutSec);
 
         const reply: any = await new Promise((resolve, reject) => {
           this.connectionClient.connect(req, meta, { deadline }, (err: any, res: any) => {
@@ -241,7 +254,10 @@ export class MT5Client {
             resolve(res);
           });
         });
-        if (reply.getData()?.getTerminalInstanceGuid()) {
+        if (reply?.getError()) {
+          throw new Error(reply.getError().getErrorMessage() || 'Connect failed');
+        }
+        if (reply?.getData()?.getTerminalInstanceGuid()) {
           this.id = reply.getData().getTerminalInstanceGuid();
         }
       }
@@ -263,7 +279,7 @@ export class MT5Client {
     try {
       const req = new AccountHelperPb.AccountSummaryRequest();
       const meta = this.getGrpcMetadata();
-      const deadline = new Date(Date.now() + 5000);
+      const deadline = new Date(Date.now() + 15000);
 
       const reply: any = await new Promise((resolve, reject) => {
         this.accountClient.accountSummary(req, meta, { deadline }, (err: any, res: any) => {
@@ -360,7 +376,7 @@ export class MT5Client {
       grpcReq.setOperation(op);
 
       const meta = this.getGrpcMetadata();
-      const deadline = new Date(Date.now() + 5000);
+      const deadline = new Date(Date.now() + 20000);
 
       const reply: any = await new Promise((resolve, reject) => {
         this.tradingClient.orderSend(grpcReq, meta, { deadline }, (err: any, res: any) => {
@@ -387,13 +403,13 @@ export class MT5Client {
       const data = reply ? reply.getData() : null;
       if (data) {
         return {
-          ticket: data.getTicket() || data.getOrder() || 0,
-          retcode: 0,
-          deal: data.getDeal() || 0,
-          order: data.getOrder() || 0,
-          volume: data.getVolume() || req.volume,
-          price: data.getPrice() || req.price || 0,
-          comment: data.getComment() || req.comment || ''
+          ticket: data.getOrder ? data.getOrder() : (data.getDeal ? data.getDeal() : 0),
+          retcode: data.getReturnedCode ? data.getReturnedCode() : 0,
+          deal: data.getDeal ? data.getDeal() : 0,
+          order: data.getOrder ? data.getOrder() : 0,
+          volume: data.getVolume ? data.getVolume() : req.volume,
+          price: data.getPrice ? data.getPrice() : (req.price || 0),
+          comment: data.getComment ? data.getComment() : ''
         };
       }
     } catch (err: any) {
@@ -437,8 +453,20 @@ export class MT5Client {
     };
   }
 
-  disconnect(): void {
+  async disconnect(): Promise<void> {
     this.connected = false;
+    try {
+      if (this.connectionClient) {
+        const meta = this.getGrpcMetadata();
+        const deadline = new Date(Date.now() + 5000);
+        const req = new ConnectionPb.DisconnectRequest();
+        await new Promise((resolve) => {
+          this.connectionClient.disconnect(req, meta, { deadline }, () => {
+            resolve(true);
+          });
+        });
+      }
+    } catch {}
     try {
       this.channel.close();
     } catch {}
