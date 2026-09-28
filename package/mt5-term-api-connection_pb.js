@@ -7464,6 +7464,10 @@ proto.mt5_term_api.DisconnectRequest.deserializeBinaryFromReader = function(msg,
       var value = /** @type {string} */ (reader.readString());
       msg.setReason(value);
       break;
+    case 2:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setDelete(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -7497,6 +7501,13 @@ proto.mt5_term_api.DisconnectRequest.serializeBinaryToWriter = function(message,
   if (f != null) {
     writer.writeString(
       1,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 2));
+  if (f != null) {
+    writer.writeBool(
+      2,
       f
     );
   }
@@ -7536,6 +7547,42 @@ proto.mt5_term_api.DisconnectRequest.prototype.clearReason = function() {
  */
 proto.mt5_term_api.DisconnectRequest.prototype.hasReason = function() {
   return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional bool delete = 2;
+ * @return {boolean}
+ */
+proto.mt5_term_api.DisconnectRequest.prototype.getDelete = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.mt5_term_api.DisconnectRequest} returns this
+ */
+proto.mt5_term_api.DisconnectRequest.prototype.setDelete = function(value) {
+  return jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.mt5_term_api.DisconnectRequest} returns this
+ */
+proto.mt5_term_api.DisconnectRequest.prototype.clearDelete = function() {
+  return jspb.Message.setField(this, 2, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.DisconnectRequest.prototype.hasDelete = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 

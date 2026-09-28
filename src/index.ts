@@ -453,13 +453,19 @@ export class MT5Client {
     };
   }
 
-  async disconnect(): Promise<void> {
+  async disconnect(deleteOnDisconnect: boolean = false): Promise<void> {
     this.connected = false;
     try {
       if (this.connectionClient) {
         const meta = this.getGrpcMetadata();
+        if (deleteOnDisconnect) {
+          meta.set('delete', 'true');
+        }
         const deadline = new Date(Date.now() + 5000);
         const req = new ConnectionPb.DisconnectRequest();
+        if (typeof req.setDelete === 'function') {
+          req.setDelete(deleteOnDisconnect);
+        }
         await new Promise((resolve) => {
           this.connectionClient.disconnect(req, meta, { deadline }, () => {
             resolve(true);

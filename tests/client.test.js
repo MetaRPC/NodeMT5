@@ -21,15 +21,19 @@ test('MT5Client getId returns deterministic token', async () => {
 
 test('MT5Client connect and account info', async () => {
   const client = new MT5Client('mt5.mrpc.pro', 443, 'mrpc_test_key');
-  const connected = await client.connect(12345678, 'demo_password');
-  assert.strictEqual(connected, true);
-  assert.ok(client.id);
+  try {
+    const connected = await client.connect(12345678, 'demo_password');
+    assert.strictEqual(connected, true);
+    assert.ok(client.id);
 
-  const info = await client.getAccountInfo();
-  assert.strictEqual(info.login, 12345678);
-  assert.strictEqual(info.currency, 'USD');
-  assert.strictEqual(info.balance, 10000.0);
-  assert.strictEqual(info.leverage, 100);
+    const info = await client.getAccountInfo();
+    assert.strictEqual(info.login, 12345678);
+    assert.strictEqual(info.currency, 'USD');
+    assert.strictEqual(info.balance, 10000.0);
+    assert.strictEqual(info.leverage, 100);
+  } finally {
+    await client.disconnect(true);
+  }
 });
 
 test('MT5Client orderSend', async () => {
@@ -44,4 +48,15 @@ test('MT5Client orderSend', async () => {
   assert.strictEqual(res.retcode, 0);
   assert.strictEqual(res.volume, 0.1);
   assert.strictEqual(res.comment, 'Test buy');
+});
+
+test('DisconnectRequest delete parameter support', () => {
+  const { ConnectionPb } = require('../src/index.js');
+  const req = new ConnectionPb.DisconnectRequest();
+  assert.strictEqual(req.getDelete(), false);
+  req.setDelete(true);
+  assert.strictEqual(req.getDelete(), true);
+  const bytes = req.serializeBinary();
+  const deserialized = ConnectionPb.DisconnectRequest.deserializeBinary(bytes);
+  assert.strictEqual(deserialized.getDelete(), true);
 });

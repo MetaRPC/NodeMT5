@@ -439,13 +439,19 @@ class MT5Client {
             unsubscribe: () => stream.cancel()
         };
     }
-    async disconnect() {
+    async disconnect(deleteOnDisconnect = false) {
         this.connected = false;
         try {
             if (this.connectionClient) {
                 const meta = this.getGrpcMetadata();
+                if (deleteOnDisconnect) {
+                    meta.set('delete', 'true');
+                }
                 const deadline = new Date(Date.now() + 5000);
                 const req = new exports.ConnectionPb.DisconnectRequest();
+                if (typeof req.setDelete === 'function') {
+                    req.setDelete(deleteOnDisconnect);
+                }
                 await new Promise((resolve) => {
                     this.connectionClient.disconnect(req, meta, { deadline }, () => {
                         resolve(true);

@@ -84,5 +84,5 @@ export declare class MT5Client {
     subscribeQuotes(symbols: string[], callback: (quote: Quote) => void): {
         unsubscribe: () => void;
     };
-    disconnect(): Promise<void>;
+    disconnect(deleteOnDisconnect?: boolean): Promise<void>;
 }
