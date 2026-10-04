@@ -1755,7 +1755,8 @@ proto.mt5_term_api.GetTerminalJournalData.prototype.toObject = function(opt_incl
 proto.mt5_term_api.GetTerminalJournalData.toObject = function(includeInstance, msg) {
   var f, obj = {
     rowsList: jspb.Message.toObjectList(msg.getRowsList(),
-    proto.mt5_term_api.TerminalJournalRow.toObject, includeInstance)
+    proto.mt5_term_api.TerminalJournalRow.toObject, includeInstance),
+    diagnostics: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -1797,6 +1798,10 @@ proto.mt5_term_api.GetTerminalJournalData.deserializeBinaryFromReader = function
       reader.readMessage(value,proto.mt5_term_api.TerminalJournalRow.deserializeBinaryFromReader);
       msg.addRows(value);
       break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDiagnostics(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1832,6 +1837,13 @@ proto.mt5_term_api.GetTerminalJournalData.serializeBinaryToWriter = function(mes
       1,
       f,
       proto.mt5_term_api.TerminalJournalRow.serializeBinaryToWriter
+    );
+  }
+  f = message.getDiagnostics();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
     );
   }
 };
@@ -1872,6 +1884,24 @@ proto.mt5_term_api.GetTerminalJournalData.prototype.addRows = function(opt_value
  */
 proto.mt5_term_api.GetTerminalJournalData.prototype.clearRowsList = function() {
   return this.setRowsList([]);
+};
+
+
+/**
+ * optional string diagnostics = 2;
+ * @return {string}
+ */
+proto.mt5_term_api.GetTerminalJournalData.prototype.getDiagnostics = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.mt5_term_api.GetTerminalJournalData} returns this
+ */
+proto.mt5_term_api.GetTerminalJournalData.prototype.setDiagnostics = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
