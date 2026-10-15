@@ -23,7 +23,7 @@
     
     
       
-        <title>Account Information - NodeMT5 SDK Documentation</title>
+        <title>Account - NodeMT5 SDK Documentation</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#account-information" class="md-skip">
+        <a href="#account" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Account Information
+              Account
             
           </span>
         </div>
@@ -914,36 +914,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#fetching-account-balance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fetching Account Balance
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#active-positions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Active Positions
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -962,22 +932,33 @@
   
 
 
-<h1 id="account-information">Account Information<a class="headerlink" href="#account-information" title="Permanent link">¶</a></h1>
-<p>Inspect account summary, margin, leverage, and position history.</p>
-<h2 id="fetching-account-balance">Fetching Account Balance<a class="headerlink" href="#fetching-account-balance" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">getAccountInfo</span><span class="p">();</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Login:'</span><span class="p">,</span><span class="w"> </span><span class="nx">acc</span><span class="p">.</span><span class="nx">login</span><span class="p">);</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Balance:'</span><span class="p">,</span><span class="w"> </span><span class="nx">acc</span><span class="p">.</span><span class="nx">balance</span><span class="p">);</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Equity:'</span><span class="p">,</span><span class="w"> </span><span class="nx">acc</span><span class="p">.</span><span class="nx">equity</span><span class="p">);</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Free Margin:'</span><span class="p">,</span><span class="w"> </span><span class="nx">acc</span><span class="p">.</span><span class="nx">freeMargin</span><span class="p">);</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Leverage: 1:'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">acc</span><span class="p">.</span><span class="nx">leverage</span><span class="p">);</span>
+<h1 id="account">Account<a class="headerlink" href="#account" title="Permanent link">¶</a></h1>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">getAccountInfo</span><span class="p">();</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">account</span><span class="p">.</span><span class="nx">login</span><span class="p">,</span><span class="w"> </span><span class="nx">account</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">account</span><span class="p">.</span><span class="nx">server</span><span class="p">);</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Balance </span><span class="si">${</span><span class="nx">account</span><span class="p">.</span><span class="nx">balance</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">account</span><span class="p">.</span><span class="nx">currency</span><span class="si">}</span><span class="sb">, equity </span><span class="si">${</span><span class="nx">account</span><span class="p">.</span><span class="nx">equity</span><span class="si">}</span><span class="sb">, leverage 1:</span><span class="si">${</span><span class="nx">account</span><span class="p">.</span><span class="nx">leverage</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 </code></pre></div>
-<h2 id="active-positions">Active Positions<a class="headerlink" href="#active-positions" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">positions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">getPositions</span><span class="p">();</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">pos</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">positions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`#</span><span class="si">${</span><span class="nx">pos</span><span class="p">.</span><span class="nx">ticket</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">pos</span><span class="p">.</span><span class="nx">symbol</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">pos</span><span class="p">.</span><span class="kr">type</span><span class="si">}</span><span class="sb"> vol:</span><span class="si">${</span><span class="nx">pos</span><span class="p">.</span><span class="nx">volume</span><span class="si">}</span><span class="sb"> P/L:</span><span class="si">${</span><span class="nx">pos</span><span class="p">.</span><span class="nx">profit</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">}</span>
-</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>login</code>, <code>name</code>, <code>server</code></td>
+<td>account number, owner name, broker server (<code>AccountInfoString(ACCOUNT_SERVER)</code>)</td>
+</tr>
+<tr>
+<td><code>balance</code>, <code>equity</code>, <code>currency</code>, <code>leverage</code></td>
+<td><code>AccountSummary</code></td>
+</tr>
+<tr>
+<td><code>margin</code>, <code>freeMargin</code>, <code>marginLevel</code></td>
+<td><code>AccountInfoDouble(ACCOUNT_MARGIN / ACCOUNT_MARGIN_FREE / ACCOUNT_MARGIN_LEVEL)</code></td>
+</tr>
+</tbody>
+</table>
 
 
 
