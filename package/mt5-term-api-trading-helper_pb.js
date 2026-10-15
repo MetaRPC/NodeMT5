@@ -907,6 +907,7 @@ proto.mt5_term_api.OrderModifyRequest.toObject = function(includeInstance, msg) 
     price: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
     expirationTimeType: jspb.Message.getFieldWithDefault(msg, 5, 0),
     expirationTime: (f = msg.getExpirationTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    expirationTimeUtc: (f = msg.getExpirationTimeUtc()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     stopLimit: jspb.Message.getFloatingPointFieldWithDefault(msg, 8, 0.0)
   };
 
@@ -968,6 +969,11 @@ proto.mt5_term_api.OrderModifyRequest.deserializeBinaryFromReader = function(msg
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setExpirationTime(value);
+      break;
+    case 9:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setExpirationTimeUtc(value);
       break;
     case 8:
       var value = /** @type {number} */ (reader.readDouble());
@@ -1041,6 +1047,14 @@ proto.mt5_term_api.OrderModifyRequest.serializeBinaryToWriter = function(message
   if (f != null) {
     writer.writeMessage(
       6,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getExpirationTimeUtc();
+  if (f != null) {
+    writer.writeMessage(
+      9,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -1251,6 +1265,43 @@ proto.mt5_term_api.OrderModifyRequest.prototype.clearExpirationTime = function()
  */
 proto.mt5_term_api.OrderModifyRequest.prototype.hasExpirationTime = function() {
   return jspb.Message.getField(this, 6) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp expiration_time_utc = 9;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OrderModifyRequest.prototype.getExpirationTimeUtc = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 9));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OrderModifyRequest} returns this
+*/
+proto.mt5_term_api.OrderModifyRequest.prototype.setExpirationTimeUtc = function(value) {
+  return jspb.Message.setWrapperField(this, 9, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OrderModifyRequest} returns this
+ */
+proto.mt5_term_api.OrderModifyRequest.prototype.clearExpirationTimeUtc = function() {
+  return this.setExpirationTimeUtc(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OrderModifyRequest.prototype.hasExpirationTimeUtc = function() {
+  return jspb.Message.getField(this, 9) != null;
 };
 
 
@@ -2022,6 +2073,7 @@ proto.mt5_term_api.OrderSendRequest.toObject = function(includeInstance, msg) {
     stopLimitPrice: jspb.Message.getFloatingPointFieldWithDefault(msg, 10, 0.0),
     expirationTimeType: jspb.Message.getFieldWithDefault(msg, 11, 0),
     expirationTime: (f = msg.getExpirationTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    expirationTimeUtc: (f = msg.getExpirationTimeUtc()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     quotesWaitMs: jspb.Message.getFieldWithDefault(msg, 13, 0)
   };
 
@@ -2107,6 +2159,11 @@ proto.mt5_term_api.OrderSendRequest.deserializeBinaryFromReader = function(msg, 
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setExpirationTime(value);
+      break;
+    case 14:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setExpirationTimeUtc(value);
       break;
     case 13:
       var value = /** @type {number} */ (reader.readInt32());
@@ -2222,6 +2279,14 @@ proto.mt5_term_api.OrderSendRequest.serializeBinaryToWriter = function(message, 
   if (f != null) {
     writer.writeMessage(
       12,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getExpirationTimeUtc();
+  if (f != null) {
+    writer.writeMessage(
+      14,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -2612,6 +2677,43 @@ proto.mt5_term_api.OrderSendRequest.prototype.clearExpirationTime = function() {
  */
 proto.mt5_term_api.OrderSendRequest.prototype.hasExpirationTime = function() {
   return jspb.Message.getField(this, 12) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp expiration_time_utc = 14;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.OrderSendRequest.prototype.getExpirationTimeUtc = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 14));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.OrderSendRequest} returns this
+*/
+proto.mt5_term_api.OrderSendRequest.prototype.setExpirationTimeUtc = function(value) {
+  return jspb.Message.setWrapperField(this, 14, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.OrderSendRequest} returns this
+ */
+proto.mt5_term_api.OrderSendRequest.prototype.clearExpirationTimeUtc = function() {
+  return this.setExpirationTimeUtc(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.OrderSendRequest.prototype.hasExpirationTimeUtc = function() {
+  return jspb.Message.getField(this, 14) != null;
 };
 
 

@@ -5169,7 +5169,8 @@ proto.mt5_term_api.SymbolInfoIntegerData.prototype.toObject = function(opt_inclu
  */
 proto.mt5_term_api.SymbolInfoIntegerData.toObject = function(includeInstance, msg) {
   var f, obj = {
-    value: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    value: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    valueUtc: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -5210,6 +5211,10 @@ proto.mt5_term_api.SymbolInfoIntegerData.deserializeBinaryFromReader = function(
       var value = /** @type {number} */ (reader.readInt64());
       msg.setValue(value);
       break;
+    case 2:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setValueUtc(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -5246,6 +5251,13 @@ proto.mt5_term_api.SymbolInfoIntegerData.serializeBinaryToWriter = function(mess
       f
     );
   }
+  f = message.getValueUtc();
+  if (f !== 0) {
+    writer.writeInt64(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -5264,6 +5276,24 @@ proto.mt5_term_api.SymbolInfoIntegerData.prototype.getValue = function() {
  */
 proto.mt5_term_api.SymbolInfoIntegerData.prototype.setValue = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional int64 value_utc = 2;
+ * @return {number}
+ */
+proto.mt5_term_api.SymbolInfoIntegerData.prototype.getValueUtc = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.SymbolInfoIntegerData} returns this
+ */
+proto.mt5_term_api.SymbolInfoIntegerData.prototype.setValueUtc = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -6724,11 +6754,13 @@ proto.mt5_term_api.MrpcMqlTick.prototype.toObject = function(opt_includeInstance
 proto.mt5_term_api.MrpcMqlTick.toObject = function(includeInstance, msg) {
   var f, obj = {
     time: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    timeUtc: jspb.Message.getFieldWithDefault(msg, 9, 0),
     bid: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
     ask: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
     last: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
     volume: jspb.Message.getFieldWithDefault(msg, 5, 0),
     timeMsc: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    timeMscUtc: jspb.Message.getFieldWithDefault(msg, 10, 0),
     flags: jspb.Message.getFieldWithDefault(msg, 7, 0),
     volumeReal: jspb.Message.getFloatingPointFieldWithDefault(msg, 8, 0.0)
   };
@@ -6771,6 +6803,10 @@ proto.mt5_term_api.MrpcMqlTick.deserializeBinaryFromReader = function(msg, reade
       var value = /** @type {number} */ (reader.readInt64());
       msg.setTime(value);
       break;
+    case 9:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTimeUtc(value);
+      break;
     case 2:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setBid(value);
@@ -6790,6 +6826,10 @@ proto.mt5_term_api.MrpcMqlTick.deserializeBinaryFromReader = function(msg, reade
     case 6:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setTimeMsc(value);
+      break;
+    case 10:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTimeMscUtc(value);
       break;
     case 7:
       var value = /** @type {number} */ (reader.readUint32());
@@ -6835,6 +6875,13 @@ proto.mt5_term_api.MrpcMqlTick.serializeBinaryToWriter = function(message, write
       f
     );
   }
+  f = message.getTimeUtc();
+  if (f !== 0) {
+    writer.writeInt64(
+      9,
+      f
+    );
+  }
   f = message.getBid();
   if (f !== 0.0) {
     writer.writeDouble(
@@ -6870,6 +6917,13 @@ proto.mt5_term_api.MrpcMqlTick.serializeBinaryToWriter = function(message, write
       f
     );
   }
+  f = message.getTimeMscUtc();
+  if (f !== 0) {
+    writer.writeInt64(
+      10,
+      f
+    );
+  }
   f = message.getFlags();
   if (f !== 0) {
     writer.writeUint32(
@@ -6902,6 +6956,24 @@ proto.mt5_term_api.MrpcMqlTick.prototype.getTime = function() {
  */
 proto.mt5_term_api.MrpcMqlTick.prototype.setTime = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional int64 time_utc = 9;
+ * @return {number}
+ */
+proto.mt5_term_api.MrpcMqlTick.prototype.getTimeUtc = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MrpcMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcMqlTick.prototype.setTimeUtc = function(value) {
+  return jspb.Message.setProto3IntField(this, 9, value);
 };
 
 
@@ -6992,6 +7064,24 @@ proto.mt5_term_api.MrpcMqlTick.prototype.getTimeMsc = function() {
  */
 proto.mt5_term_api.MrpcMqlTick.prototype.setTimeMsc = function(value) {
   return jspb.Message.setProto3IntField(this, 6, value);
+};
+
+
+/**
+ * optional int64 time_msc_utc = 10;
+ * @return {number}
+ */
+proto.mt5_term_api.MrpcMqlTick.prototype.getTimeMscUtc = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.MrpcMqlTick} returns this
+ */
+proto.mt5_term_api.MrpcMqlTick.prototype.setTimeMscUtc = function(value) {
+  return jspb.Message.setProto3IntField(this, 10, value);
 };
 
 
@@ -10020,7 +10110,9 @@ proto.mt5_term_api.PriceHistoryRequest.toObject = function(includeInstance, msg)
     symbol: jspb.Message.getFieldWithDefault(msg, 1, ""),
     timeframe: jspb.Message.getFieldWithDefault(msg, 2, 0),
     fromTime: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    fromTimeUtc: jspb.Message.getFieldWithDefault(msg, 6, 0),
     toTime: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    toTimeUtc: jspb.Message.getFieldWithDefault(msg, 7, 0),
     maxBars: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
@@ -10070,9 +10162,17 @@ proto.mt5_term_api.PriceHistoryRequest.deserializeBinaryFromReader = function(ms
       var value = /** @type {number} */ (reader.readInt64());
       msg.setFromTime(value);
       break;
+    case 6:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setFromTimeUtc(value);
+      break;
     case 4:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setToTime(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setToTimeUtc(value);
       break;
     case 5:
       var value = /** @type {number} */ (reader.readInt32());
@@ -10128,10 +10228,24 @@ proto.mt5_term_api.PriceHistoryRequest.serializeBinaryToWriter = function(messag
       f
     );
   }
+  f = message.getFromTimeUtc();
+  if (f !== 0) {
+    writer.writeInt64(
+      6,
+      f
+    );
+  }
   f = message.getToTime();
   if (f !== 0) {
     writer.writeInt64(
       4,
+      f
+    );
+  }
+  f = message.getToTimeUtc();
+  if (f !== 0) {
+    writer.writeInt64(
+      7,
       f
     );
   }
@@ -10200,6 +10314,24 @@ proto.mt5_term_api.PriceHistoryRequest.prototype.setFromTime = function(value) {
 
 
 /**
+ * optional int64 from_time_utc = 6;
+ * @return {number}
+ */
+proto.mt5_term_api.PriceHistoryRequest.prototype.getFromTimeUtc = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.PriceHistoryRequest} returns this
+ */
+proto.mt5_term_api.PriceHistoryRequest.prototype.setFromTimeUtc = function(value) {
+  return jspb.Message.setProto3IntField(this, 6, value);
+};
+
+
+/**
  * optional int64 to_time = 4;
  * @return {number}
  */
@@ -10214,6 +10346,24 @@ proto.mt5_term_api.PriceHistoryRequest.prototype.getToTime = function() {
  */
 proto.mt5_term_api.PriceHistoryRequest.prototype.setToTime = function(value) {
   return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional int64 to_time_utc = 7;
+ * @return {number}
+ */
+proto.mt5_term_api.PriceHistoryRequest.prototype.getToTimeUtc = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.PriceHistoryRequest} returns this
+ */
+proto.mt5_term_api.PriceHistoryRequest.prototype.setToTimeUtc = function(value) {
+  return jspb.Message.setProto3IntField(this, 7, value);
 };
 
 
@@ -10656,6 +10806,7 @@ proto.mt5_term_api.PriceBar.prototype.toObject = function(opt_includeInstance) {
 proto.mt5_term_api.PriceBar.toObject = function(includeInstance, msg) {
   var f, obj = {
     time: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    timeUtc: jspb.Message.getFieldWithDefault(msg, 9, 0),
     open: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
     high: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
     low: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
@@ -10702,6 +10853,10 @@ proto.mt5_term_api.PriceBar.deserializeBinaryFromReader = function(msg, reader) 
     case 1:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setTime(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setTimeUtc(value);
       break;
     case 2:
       var value = /** @type {number} */ (reader.readDouble());
@@ -10764,6 +10919,13 @@ proto.mt5_term_api.PriceBar.serializeBinaryToWriter = function(message, writer) 
   if (f !== 0) {
     writer.writeInt64(
       1,
+      f
+    );
+  }
+  f = message.getTimeUtc();
+  if (f !== 0) {
+    writer.writeInt64(
+      9,
       f
     );
   }
@@ -10834,6 +10996,24 @@ proto.mt5_term_api.PriceBar.prototype.getTime = function() {
  */
 proto.mt5_term_api.PriceBar.prototype.setTime = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional int64 time_utc = 9;
+ * @return {number}
+ */
+proto.mt5_term_api.PriceBar.prototype.getTimeUtc = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.PriceBar} returns this
+ */
+proto.mt5_term_api.PriceBar.prototype.setTimeUtc = function(value) {
+  return jspb.Message.setProto3IntField(this, 9, value);
 };
 
 
