@@ -1,69 +1,39 @@
 # Getting Started with NodeMT5
 
-This guide shows you how to install NodeMT5, authenticate with an MT5 server, and place your first trade.
-
-## Prerequisites
-
-- **Node.js 18.0+**
-- MT5 Account credentials (Host, Port, Login ID, Password)
-
-## Quick Example
-
-Create a file named `quickstart.ts`:
-
-```typescript
-import { MT5Client } from '@metarpc/nodemt5';
-
-async function main() {
-  const client = new MT5Client('mt5.mrpc.pro', 443);
-
-  // Authenticate
-  console.log('Connecting to MT5...');
-  await client.connect(12345678, 'your_password');
-  console.log('Connected!');
-
-  // Fetch account overview
-  const account = await client.getAccountInfo();
-  console.log(`Account Balance: ${account.balance} ${account.currency}`);
-  console.log(`Leverage: 1:${account.leverage}`);
-
-  // Subscribe to live EURUSD ticks
-  await client.subscribeQuotes(['EURUSD'], (quote) => {
-    console.log(`[EURUSD] Bid: ${quote.bid} | Ask: ${quote.ask}`);
-  });
-
-  // Open a 0.01 lot Buy order
-  const order = await client.orderSend({
-    symbol: 'EURUSD',
-    action: 'BUY',
-    volume: 0.01,
-    comment: 'NodeMT5 Quickstart'
-  });
-
-  console.log(`Order placed! Ticket: #${order.ticket}`);
-}
-
-main().catch(console.error);
-```
-
-Run with `ts-node` or compile with `tsc`:
+Requires Node.js 18 or newer, an MRPC API key and an MT5 account (any broker; or open a demo account with
+`MT5Client.openDemoAccount('MetaQuotes-Demo', apiKey)`).
 
 ```bash
-npx ts-node quickstart.ts
+npm install github:MetaRPC/NodeMT5 @grpc/grpc-js
 ```
 
+The package is installed from GitHub; it is not on the npm registry. It is named `@metarpc/nodemt5`, so `require('@metarpc/nodemt5')` works as usual.
 
-> **Authentication Note**: Connecting to `mt5.mrpc.pro:443` requires a valid MetaRPC API key. Register for free at [https://mrpc.pro/signup](https://mrpc.pro/signup) and generate your token in [https://mrpc.pro/my](https://mrpc.pro/my).
+```javascript
+const { MT5Client } = require('@metarpc/nodemt5');
 
+async function main() {
+  const client = new MT5Client('mt5.mrpc.pro', 443, process.env.MRPC_API_KEY);
+  await client.connect({ user: Number(process.env.MT5_LOGIN), password: process.env.MT5_PASSWORD, server: 'MetaQuotes-Demo' });
+  try {
+    const account = await client.getAccountInfo();
+    console.log(`Balance: ${account.balance} ${account.currency}, equity ${account.equity}, leverage 1:${account.leverage}`);
 
+    const order = await client.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.01, comment: 'first order' });
+    console.log(`Deal #${order.deal}, position #${order.order} at ${order.price} (return code ${order.retcode})`);
+  } finally {
+    await client.disconnect();
+  }
+}
 
----
+main().catch((err) => { console.error(err.message); process.exit(1); });
+```
+The same program with a demo account and error handling is
+[`examples/quickstart.js`](https://github.com/MetaRPC/NodeMT5/blob/main/examples/quickstart.js).
 
-## 🆔 Automatic Account ID & Authentication
+## API key and terminal id
 
-MetaRPC endpoints require authentication and session management:
-1. **`APIKey`**: Your personal authentication token from [https://mrpc.pro/my](https://mrpc.pro/my) (obtained by registering at [https://mrpc.pro/signup](https://mrpc.pro/signup)). Sent in the `APIKey` header.
-2. **`id`**: A terminal session GUID returned by `Connect` / `ConnectEx` (`terminalInstanceGuid`).
-
-> 💡 **Seamless Automation**: You do not need to call `GetId` or provide an `id` header when connecting. The server automatically generates a session GUID upon connection and returns it to the caller. The SDK automatically captures this session ID and attaches it alongside your `APIKey` to all subsequent requests and streaming subscriptions.
-
+- **`APIKey`**: your key from [https://mrpc.pro/my](https://mrpc.pro/my) (sign up free at [https://mrpc.pro/signup](https://mrpc.pro/signup)).
+  Pass it to the constructor or set `MRPC_API_KEY`; without one the client sends `TRIAL`.
+- **`id`**: the terminal id. `connect()` receives it from the server (`terminalInstanceGuid`), keeps it in `client.id` and
+  sends it with every later call and stream. You don't need to call `getId()` first.
