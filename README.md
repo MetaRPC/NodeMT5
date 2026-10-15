@@ -12,8 +12,10 @@
 ## 📦 Installation
 
 ```bash
-npm install @metarpc/nodemt5
+npm install github:MetaRPC/NodeMT5
 ```
+
+The package is installed from this repository (it is not published to the npm registry); it is named `@metarpc/nodemt5`, so `require('@metarpc/nodemt5')` works as usual. The generated gRPC stubs are under `@metarpc/nodemt5/package/`.
 
 ---
 
