@@ -66,9 +66,12 @@ export interface ConnectOptions {
   timeoutSeconds?: number;
 }
 
-/** An error the MRPC API answered with (the reply's `error`), or a failed call. */
+/**
+ * An error the MRPC API answered with (the reply's `error`), or a failed call. `error` is the reply's error message
+ * itself (absent for a failed call): `getMqlErrorCode()`, `getMqlErrorTradeIntCode()` and the rest of its fields.
+ */
 export class MrpcError extends Error {
-  constructor(message: string, public readonly code: string = '') {
+  constructor(message: string, public readonly code: string = '', public readonly error?: any) {
     super(code ? `${code}: ${message}` : message);
     this.name = 'MrpcError';
   }
@@ -159,7 +162,7 @@ export class MT5Client {
       client[method](request, this.getGrpcMetadata(), { deadline }, (err: any, reply: any) => {
         if (err) return reject(err);
         const error = reply?.getError?.();
-        if (error) return reject(new MrpcError(error.getErrorMessage() || 'request failed', error.getErrorCode() || ''));
+        if (error) return reject(new MrpcError(error.getErrorMessage() || 'request failed', error.getErrorCode() || '', error));
         resolve(reply?.getData?.());
       });
     });
@@ -277,7 +280,7 @@ export class MT5Client {
     stream.on('data', (reply: any) => {
       const error = reply.getError();
       if (error) {
-        onError?.(new MrpcError(error.getErrorMessage() || 'stream error', error.getErrorCode() || ''));
+        onError?.(new MrpcError(error.getErrorMessage() || 'stream error', error.getErrorCode() || '', error));
         return;
       }
       const tick = reply.getData()?.getSymbolTick();

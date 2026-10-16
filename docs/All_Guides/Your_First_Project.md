@@ -64,4 +64,4 @@ No account yet? `MT5Client.openDemoAccount('MetaQuotes-Demo', apiKey)` opens a d
 
 - **[Quotes](../quotes.md)** - stream ticks with `subscribeQuotes`.
 - **[API Reference](../api.md)** - everything `MT5Client` does, and the generated clients for the rest of the API.
-- **[gRPC Streaming](GRPC_STREAM_MANAGEMENT.md)** - the other streams.
+- **[Streams](STREAMS.md)** - the other streams.
