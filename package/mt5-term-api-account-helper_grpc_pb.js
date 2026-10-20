@@ -51,6 +51,28 @@ function deserialize_mt5_term_api_AllHistoryOrdersRequest(buffer_arg) {
   return mt5$term$api$account$helper_pb.AllHistoryOrdersRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_mt5_term_api_DealsHistoryReply(arg) {
+  if (!(arg instanceof mt5$term$api$account$helper_pb.DealsHistoryReply)) {
+    throw new Error('Expected argument of type mt5_term_api.DealsHistoryReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_mt5_term_api_DealsHistoryReply(buffer_arg) {
+  return mt5$term$api$account$helper_pb.DealsHistoryReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_mt5_term_api_DealsHistoryRequest(arg) {
+  if (!(arg instanceof mt5$term$api$account$helper_pb.DealsHistoryRequest)) {
+    throw new Error('Expected argument of type mt5_term_api.DealsHistoryRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_mt5_term_api_DealsHistoryRequest(buffer_arg) {
+  return mt5$term$api$account$helper_pb.DealsHistoryRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_mt5_term_api_OpenedOrdersReply(arg) {
   if (!(arg instanceof mt5$term$api$account$helper_pb.OpenedOrdersReply)) {
     throw new Error('Expected argument of type mt5_term_api.OpenedOrdersReply');
@@ -284,6 +306,26 @@ positionsHistory: {
     requestDeserialize: deserialize_mt5_term_api_AllHistoryOrdersRequest,
     responseSerialize: serialize_mt5_term_api_AllHistoryOrdersReply,
     responseDeserialize: deserialize_mt5_term_api_AllHistoryOrdersReply,
+  },
+  // Every deal of the account in a time range: trades and also the deals without an order - deposits, withdrawals, credit,
+// charges, corrections, bonuses, commissions, interest, dividends, taxes - which OrderHistory and PositionsHistory leave out.
+// A balance operation has type BMT5_DEAL_TYPE_BALANCE (CREDIT, BONUS...), order 0 and position_id 0; profit is its amount.
+// [DefaultValues]
+// {
+//   "inputFromUtc": "2026-10-01T00:00:00Z",
+//   "inputToUtc": "2026-10-31T00:00:00Z",
+//   "pageSize": 1000
+// }
+dealsHistory: {
+    path: '/mt5_term_api.AccountHelper/DealsHistory',
+    requestStream: false,
+    responseStream: false,
+    requestType: mt5$term$api$account$helper_pb.DealsHistoryRequest,
+    responseType: mt5$term$api$account$helper_pb.DealsHistoryReply,
+    requestSerialize: serialize_mt5_term_api_DealsHistoryRequest,
+    requestDeserialize: deserialize_mt5_term_api_DealsHistoryRequest,
+    responseSerialize: serialize_mt5_term_api_DealsHistoryReply,
+    responseDeserialize: deserialize_mt5_term_api_DealsHistoryReply,
   },
 };
 
