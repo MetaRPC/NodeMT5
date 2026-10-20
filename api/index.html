@@ -893,20 +893,76 @@ the gRPC error. Nothing is invented on failure.</p>
 <td>the same, short form</td>
 </tr>
 <tr>
+<td><code>connect({ ..., id, name, expiration })</code></td>
+<td><code>id</code>: a stable terminal id (GUID) the gateway reuses across runs (<code>MT5Client.uuid5(namespace, name)</code> derives one); <code>name</code>: the terminal's label in the Accounts listing; <code>expiration</code>: terminal lifetime in minutes</td>
+</tr>
+<tr>
 <td><code>getAccountInfo(): Promise&lt;AccountInfo&gt;</code></td>
-<td>see <a href="../account/">Account</a></td>
+<td>see <a href="../account/">Account</a>; also <code>tradeMode</code> (<code>DEMO</code>/<code>CONTEST</code>/<code>REAL</code>), <code>tradeModeCode</code>, <code>company</code>, <code>credit</code>, <code>serverTime</code>, <code>utcServerShiftMinutes</code></td>
 </tr>
 <tr>
 <td><code>orderSend(request): Promise&lt;OrderResult&gt;</code></td>
-<td>see <a href="../trading/">Trading</a></td>
+<td>see <a href="../trading/">Trading</a>; <code>magic</code> (expert id), <code>stopLimitPrice</code>, <code>expirationTimeType</code>, <code>expirationTime</code>, <code>quotesWaitMs</code>; the result also has <code>retcodeDescription</code>, <code>bid</code>, <code>ask</code>, <code>requestId</code></td>
+</tr>
+<tr>
+<td><code>orderModify({ ticket, stopLoss?, takeProfit?, price?, stopLimit?, expirationTimeType?, expirationTime? })</code></td>
+<td><code>OrderModify</code>: SL/TP of a position, SL/TP/price/expiration of a pending order</td>
+</tr>
+<tr>
+<td><code>orderClose({ ticket, volume?, slippage? })</code></td>
+<td><code>OrderClose</code>: closes a position (partially with <code>volume</code>) or deletes a pending order; <code>{ retcode, retcodeDescription, closeMode }</code></td>
+</tr>
+<tr>
+<td><code>openedOrders()</code>, <code>positions(magic?)</code></td>
+<td><code>OpenedOrders</code>: <code>{ positions, orders }</code>; <code>positions(magic)</code> is the open positions of one expert id</td>
+</tr>
+<tr>
+<td><code>orderHistory(from, to, { sort?, page?, perPage? })</code></td>
+<td><code>OrderHistory</code>: <code>{ orders, deals }</code> of a window in <strong>server time</strong> (<code>MT5Client.serverDate(utcDate, utcServerShiftMinutes)</code> builds one)</td>
+</tr>
+<tr>
+<td><code>positionsHistory(from, to, { sort?, page?, perPage? })</code></td>
+<td><code>PositionsHistory</code>: closed positions by open time, server time</td>
+</tr>
+<tr>
+<td><code>symbolSelect(symbol, select = true)</code>, <code>symbolIsSynchronized(symbol)</code>, <code>symbolList()</code></td>
+<td><code>SymbolSelect</code>, <code>SymbolIsSynchronized</code>, <code>SymbolList</code></td>
+</tr>
+<tr>
+<td><code>symbolInfoTick(symbol): Promise&lt;Quote&gt;</code></td>
+<td><code>SymbolInfoTick</code>: the current tick, the reliable price source</td>
+</tr>
+<tr>
+<td><code>symbolParams(symbol)</code>, <code>symbolParamsAll()</code></td>
+<td><code>SymbolParamsMany</code>: the contract specification (<code>digits</code>, <code>point</code>, <code>volumeMin/Max/Step</code>, <code>stopsLevel</code>, <code>fillingModes</code>, ...) of one or of every symbol</td>
+</tr>
+<tr>
+<td><code>ensureSymbol(symbol, waitMs = 10000)</code></td>
+<td>selects the symbol and waits for its first two-sided quote</td>
+</tr>
+<tr>
+<td><code>priceHistory(symbol, timeframe, { from?, to?, maxBars? })</code></td>
+<td><code>PriceHistory</code>: OHLC bars; <code>timeframe</code> is <code>'M1'</code>...<code>'MN1'</code> (<code>TIMEFRAMES</code>) or the MQL5 value; without <code>from</code>/<code>to</code> the newest <code>maxBars</code></td>
 </tr>
 <tr>
 <td><code>subscribeQuotes(symbols, onQuote, onError?)</code></td>
-<td><code>OnSymbolTick</code> stream; returns <code>{ unsubscribe() }</code>, see <a href="../quotes/">Quotes</a></td>
+<td><code>OnSymbolTick</code> stream; returns <code>{ unsubscribe() }</code>, see <a href="../quotes/">Quotes</a>. <code>onError</code> also fires when the stream ends; it is not re-subscribed on its own</td>
+</tr>
+<tr>
+<td><code>subscribeTrades(onEvent, onError?)</code></td>
+<td><code>OnTrade</code> stream of the raw <code>OnTradeData</code> messages</td>
+</tr>
+<tr>
+<td><code>call(client, method, request, timeoutMs?)</code></td>
+<td>a unary call through one of the exported generated clients with the client's metadata; resolves with the reply's data, rejects with <code>MrpcError</code> on an error reply</td>
+</tr>
+<tr>
+<td><code>close()</code></td>
+<td>closes the channel and leaves the terminal running on the gateway (a strategy's normal shutdown)</td>
 </tr>
 <tr>
 <td><code>disconnect(deleteTerminal = false)</code></td>
-<td><code>Disconnect</code>; <code>true</code> also deletes the terminal. Closes the channel</td>
+<td><code>Disconnect</code>: stops the terminal, <code>true</code> also deletes it. Closes the channel</td>
 </tr>
 <tr>
 <td><code>getId(login, password): Promise&lt;string&gt;</code></td>
@@ -927,11 +983,11 @@ the gRPC error. Nothing is invented on failure.</p>
 </tbody>
 </table>
 <h3 id="everything-else">Everything else<a class="headerlink" href="#everything-else" title="Permanent link">¶</a></h3>
-<p>The client covers connecting, the account, market orders and ticks. Every other method of the API (positions, history,
-symbol information, order modify/close, other streams) is in the generated gRPC clients the package exports
-(<code>ConnectionGrpc</code>, <code>AccountHelperGrpc</code>, <code>TradingHelperGrpc</code>, <code>SubscriptionsGrpc</code>, <code>MarketInfoGrpc</code>, ... with their <code>*Pb</code>
-messages) and under <code>@metarpc/nodemt5/package/</code>. Call them on the same host with <code>client.getGrpcMetadata()</code>; every reply has
-<code>data</code> or <code>error</code>. Every method, its request and reply: <a href="../API_Reference/methods/">API methods</a>; try them at
+<p>Every other method of the API is in the generated gRPC clients the package exports (<code>ConnectionGrpc</code>, <code>AccountHelperGrpc</code>,
+<code>AccountInformationGrpc</code>, <code>TradingHelperGrpc</code>, <code>SubscriptionsGrpc</code>, <code>MarketInfoGrpc</code>, <code>TradeFunctionsGrpc</code>, with their <code>*Pb</code>
+messages) and under <code>@metarpc/nodemt5/package/</code>. Call them through <code>client.call(client.tradeFunctionsClient, 'positionsTotal', request)</code>
+or on the same host with <code>client.getGrpcMetadata()</code>; every reply has <code>data</code> or <code>error</code>. <code>MrpcError</code> carries the MQL and trade
+codes of an error reply (<code>mqlCode</code>, <code>mqlDescription</code>, <code>tradeCode</code>, <code>tradeDescription</code>) and <code>isInvalidLogin</code> (never retry those). Every method, its request and reply: <a href="../API_Reference/methods/">API methods</a>; try them at
 <a href="https://mt5.mrpc.pro/apiui">https://mt5.mrpc.pro/apiui</a>.</p>
 
 
