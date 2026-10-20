@@ -3,6 +3,8 @@ export declare const ConnectionGrpc: any;
 export declare const ConnectionPb: any;
 export declare const AccountHelperGrpc: any;
 export declare const AccountHelperPb: any;
+export declare const AccountInformationGrpc: any;
+export declare const AccountInformationPb: any;
 export declare const TradingHelperGrpc: any;
 export declare const TradingHelperPb: any;
 export declare const SubscriptionsGrpc: any;
@@ -28,6 +30,7 @@ export interface AccountInfo {
     marginLevel: number;
     leverage: number;
     name: string;
+    /** The broker server the account is on (e.g. "MetaQuotes-Demo"). */
     server: string;
     company: string;
     /** DEMO | CONTEST | REAL (MrpcEnumAccountTradeMode 0/1/2). */
@@ -44,7 +47,7 @@ export interface Quote {
     ask: number;
     last: number;
     volume: number;
-    /** Tick time in ms since epoch (server timezone). */
+    /** Tick time, milliseconds since the epoch (UTC when the server reports it, otherwise the server-time tick time). */
     time: number;
     flags: number;
 }
@@ -255,17 +258,28 @@ export interface ConnectOptions {
 export interface Subscription {
     unsubscribe: () => void;
 }
-/** Error raised when the gateway answers with an Error payload instead of data. */
-export declare class MT5Error extends Error {
-    code: string;
-    mqlCode: string;
-    mqlDescription: string;
-    tradeCode: string;
-    tradeDescription: string;
-    constructor(err: any);
+/**
+ * An error the MRPC API answered with (the reply's `error`), or a failed call. `error` is the reply's error message
+ * itself (absent for a failed call): `getMqlErrorCode()`, `getMqlErrorTradeIntCode()` and the rest of its fields.
+ * The MQL and trade codes of an error reply are also exposed as `mqlCode`, `mqlDescription`, `tradeCode`,
+ * `tradeDescription`.
+ */
+export declare class MrpcError extends Error {
+    readonly code: string;
+    readonly error?: any;
+    readonly mqlCode: string;
+    readonly mqlDescription: string;
+    readonly tradeCode: string;
+    readonly tradeDescription: string;
+    constructor(message: string, code?: string, error?: any);
+    /** Builds the error of an error reply (the reply's `error` message). */
+    static fromReply(error: any): MrpcError;
     /** INVALID_LOGIN / wrong password errors must never be retried (brokers lock accounts). */
     get isInvalidLogin(): boolean;
 }
+/** The name the fleet audit used for `MrpcError`. */
+export declare const MT5Error: typeof MrpcError;
+export type MT5Error = MrpcError;
 export declare class MT5Client {
     host: string;
     port: number;
@@ -275,18 +289,21 @@ export declare class MT5Client {
     channel: grpc.Channel;
     connectionClient: any;
     accountClient: any;
+    accountInformationClient: any;
     tradingClient: any;
     subscriptionClient: any;
     marketInfoClient: any;
     tradeFunctionsClient: any;
     /** Default deadline for unary calls, ms. */
     callTimeoutMs: number;
-    private lastUser?;
-    private lastPassword?;
-    static computeDeterministicId(user: number | string, password: string): string;
+    private lastServer?;
     /** RFC 4122 UUID v5 (SHA-1) - use it to derive a stable terminal id from a strategy name. */
     static uuid5(namespace: string, name: string): string;
-    static openDemoAccount(server?: string, apiKey?: string): Promise<{
+    /**
+     * Opens a new demo account through the API (GET /DemoAccount/Open) and returns its credentials.
+     * @param host the REST host of the platform, e.g. "mt5.mrpc.pro"
+     */
+    static openDemoAccount(server?: string, apiKey?: string, host?: string): Promise<{
         login: number;
         password: string;
         server: string;
@@ -295,12 +312,18 @@ export declare class MT5Client {
     getHeaders(): Record<string, string>;
     getGrpcMetadata(): grpc.Metadata;
     /**
-     * Generic unary call: `client[method](req, metadata, {deadline}, cb)`. Throws MT5Error when the
-     * reply carries an Error payload, returns reply.getData() otherwise.
+     * A unary call `client[method](request, metadata, {deadline}, cb)` through one of the exported generated clients:
+     * resolves with the reply's data, rejects with the reply's error (`MrpcError`) or the call's failure.
      */
-    call(client: any, method: string, req: any, timeoutMs?: number): Promise<any>;
-    getId(user?: number | string, password?: string): Promise<string>;
-    connect(loginOrOptions: number | ConnectOptions, password?: string): Promise<boolean>;
+    call(client: any, method: string, request: any, timeoutMs?: number): Promise<any>;
+    /** The terminal id the server assigns to these credentials (Connection.GetId). */
+    getId(user: number | string, password: string): Promise<string>;
+    /**
+     * Connects by broker server name (ConnectEx: `server`, e.g. "MetaQuotes-Demo") or by address (Connect: `host`/`port`).
+     * `id` (a stable GUID) is sent with the call so the gateway reuses that terminal; `name` labels it in the Accounts
+     * listing. On success `id` is the terminal id the server answered with.
+     */
+    connect(loginOrOptions: number | ConnectOptions, password?: string, server?: string): Promise<boolean>;
     private static tradeModeName;
     getAccountInfo(): Promise<AccountInfo>;
     /** Add (select=true) or remove a symbol from Market Watch. */
@@ -329,9 +352,11 @@ export declare class MT5Client {
         to?: Date | number;
         maxBars?: number;
     }): Promise<Bar[]>;
-    private static orderType;
     private static mapOrderResult;
-    /** Market or pending order. Throws MT5Error when the broker rejects it (retcode != 10009 is also surfaced in the result). */
+    /**
+     * Market or pending order. An error reply rejects with `MrpcError`; a broker rejection is in the result
+     * (`retcode` is 10009 when done).
+     */
     orderSend(req: OrderRequest): Promise<OrderResult>;
     /** Change SL/TP of a position, or SL/TP/price/expiration of a pending order. */
     orderModify(req: ModifyRequest): Promise<OrderResult>;
@@ -365,15 +390,16 @@ export declare class MT5Client {
     /** Convert a UTC instant to broker server time using the shift reported by AccountSummary. */
     static serverDate(utc: Date, utcServerShiftMinutes: number): Date;
     /**
-     * Tick stream. `onError` fires when the stream ends or fails (including when cancelled); the
-     * caller is responsible for re-subscribing after a transport error.
+     * Streams the ticks of the symbols (every Market Watch symbol when the list is empty). `onError` receives an
+     * error reply of the stream, the stream's failure or its end (a cancelled stream - `unsubscribe()` - is not an
+     * error); the stream is not re-subscribed on its own.
      */
-    subscribeQuotes(symbols: string[], callback: (quote: Quote) => void, onError?: (err: Error) => void): Subscription;
+    subscribeQuotes(symbols: string[], callback: (quote: Quote) => void, onError?: (error: Error) => void): Subscription;
     /** Raw OnTrade event stream (order/position/deal updates). Delivers the protobuf OnTradeData. */
-    subscribeTrades(callback: (event: any) => void, onError?: (err: Error) => void): Subscription;
+    subscribeTrades(callback: (event: any) => void, onError?: (error: Error) => void): Subscription;
     /**
-     * Stop the terminal on the gateway and close the channel. Strategies that want their terminal
-     * kept warm between runs should NOT call this - just exit; the gateway keeps it under the id.
+     * Stops the terminal on the gateway (`true` also deletes it) and closes the channel. A strategy that wants its
+     * terminal kept warm between runs should call `close()` instead: the gateway keeps the terminal under the id.
      */
     disconnect(deleteOnDisconnect?: boolean): Promise<void>;
     /** Close the gRPC channel without touching the terminal on the gateway. */

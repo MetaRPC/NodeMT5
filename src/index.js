@@ -33,15 +33,16 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MT5Client = exports.MT5Error = exports.TIMEFRAMES = exports.TimestampPb = exports.TradeFunctionsPb = exports.TradeFunctionsGrpc = exports.MarketInfoPb = exports.MarketInfoGrpc = exports.SubscriptionsPb = exports.SubscriptionsGrpc = exports.TradingHelperPb = exports.TradingHelperGrpc = exports.AccountHelperPb = exports.AccountHelperGrpc = exports.ConnectionPb = exports.ConnectionGrpc = void 0;
+exports.MT5Client = exports.MT5Error = exports.MrpcError = exports.TIMEFRAMES = exports.TimestampPb = exports.TradeFunctionsPb = exports.TradeFunctionsGrpc = exports.MarketInfoPb = exports.MarketInfoGrpc = exports.SubscriptionsPb = exports.SubscriptionsGrpc = exports.TradingHelperPb = exports.TradingHelperGrpc = exports.AccountInformationPb = exports.AccountInformationGrpc = exports.AccountHelperPb = exports.AccountHelperGrpc = exports.ConnectionPb = exports.ConnectionGrpc = void 0;
 const grpc = __importStar(require("@grpc/grpc-js"));
 const crypto = __importStar(require("crypto"));
-const https = __importStar(require("https"));
 // Low-level gRPC and Protobuf bindings (generated from the MetaRPC MT5 protos)
 exports.ConnectionGrpc = require('../package/mt5-term-api-connection_grpc_pb');
 exports.ConnectionPb = require('../package/mt5-term-api-connection_pb');
 exports.AccountHelperGrpc = require('../package/mt5-term-api-account-helper_grpc_pb');
 exports.AccountHelperPb = require('../package/mt5-term-api-account-helper_pb');
+exports.AccountInformationGrpc = require('../package/mt5-term-api-account-information_grpc_pb');
+exports.AccountInformationPb = require('../package/mt5-term-api-account-information_pb');
 exports.TradingHelperGrpc = require('../package/mt5-term-api-trading-helper_grpc_pb');
 exports.TradingHelperPb = require('../package/mt5-term-api-trading-helper_pb');
 exports.SubscriptionsGrpc = require('../package/mt5-term-api-subscriptions_grpc_pb');
@@ -57,27 +58,34 @@ exports.TIMEFRAMES = {
     H1: 16385, H2: 16386, H3: 16387, H4: 16388, H6: 16390, H8: 16392, H12: 16396,
     D1: 16408, W1: 32769, MN1: 49153,
 };
-/** Error raised when the gateway answers with an Error payload instead of data. */
-class MT5Error extends Error {
+/**
+ * An error the MRPC API answered with (the reply's `error`), or a failed call. `error` is the reply's error message
+ * itself (absent for a failed call): `getMqlErrorCode()`, `getMqlErrorTradeIntCode()` and the rest of its fields.
+ * The MQL and trade codes of an error reply are also exposed as `mqlCode`, `mqlDescription`, `tradeCode`,
+ * `tradeDescription`.
+ */
+class MrpcError extends Error {
     code;
+    error;
     mqlCode;
     mqlDescription;
     tradeCode;
     tradeDescription;
-    constructor(err) {
-        const code = err.getErrorCode ? err.getErrorCode() : '';
-        const message = err.getErrorMessage ? err.getErrorMessage() : '';
-        const mqlCode = err.getMqlErrorCode ? err.getMqlErrorCode() : '';
-        const mqlDescription = err.getMqlErrorDescription ? err.getMqlErrorDescription() : '';
-        const tradeCode = err.getMqlErrorTradeCode ? err.getMqlErrorTradeCode() : '';
-        const tradeDescription = err.getMqlErrorTradeDescription ? err.getMqlErrorTradeDescription() : '';
-        super(`${code || 'MT5_ERROR'}: ${message || mqlDescription || tradeDescription || 'request failed'}`);
-        this.name = 'MT5Error';
+    constructor(message, code = '', error) {
+        super(code ? `${code}: ${message}` : message);
         this.code = code;
-        this.mqlCode = mqlCode;
-        this.mqlDescription = mqlDescription;
-        this.tradeCode = tradeCode;
-        this.tradeDescription = tradeDescription;
+        this.error = error;
+        this.name = 'MrpcError';
+        const str = (getter) => (error && typeof error[getter] === 'function') ? String(error[getter]() ?? '') : '';
+        this.mqlCode = str('getMqlErrorCode');
+        this.mqlDescription = str('getMqlErrorDescription');
+        this.tradeCode = str('getMqlErrorTradeCode');
+        this.tradeDescription = str('getMqlErrorTradeDescription');
+    }
+    /** Builds the error of an error reply (the reply's `error` message). */
+    static fromReply(error) {
+        const message = error.getErrorMessage?.() || error.getMqlErrorDescription?.() || error.getMqlErrorTradeDescription?.() || 'request failed';
+        return new MrpcError(message, error.getErrorCode?.() || '', error);
     }
     /** INVALID_LOGIN / wrong password errors must never be retried (brokers lock accounts). */
     get isInvalidLogin() {
@@ -85,8 +93,21 @@ class MT5Error extends Error {
         return s.includes('INVALID_LOGIN') || s.includes('WRONG_PASSWORD') || s.includes('INVALID_ACCOUNT');
     }
 }
-exports.MT5Error = MT5Error;
+exports.MrpcError = MrpcError;
+/** The name the fleet audit used for `MrpcError`. */
+exports.MT5Error = MrpcError;
+const ORDER_TYPES = {
+    BUY: exports.TradingHelperPb.TMT5_ENUM_ORDER_TYPE.TMT5_ORDER_TYPE_BUY,
+    SELL: exports.TradingHelperPb.TMT5_ENUM_ORDER_TYPE.TMT5_ORDER_TYPE_SELL,
+    BUY_LIMIT: exports.TradingHelperPb.TMT5_ENUM_ORDER_TYPE.TMT5_ORDER_TYPE_BUY_LIMIT,
+    SELL_LIMIT: exports.TradingHelperPb.TMT5_ENUM_ORDER_TYPE.TMT5_ORDER_TYPE_SELL_LIMIT,
+    BUY_STOP: exports.TradingHelperPb.TMT5_ENUM_ORDER_TYPE.TMT5_ORDER_TYPE_BUY_STOP,
+    SELL_STOP: exports.TradingHelperPb.TMT5_ENUM_ORDER_TYPE.TMT5_ORDER_TYPE_SELL_STOP,
+    BUY_STOP_LIMIT: exports.TradingHelperPb.TMT5_ENUM_ORDER_TYPE.TMT5_ORDER_TYPE_BUY_STOP_LIMIT,
+    SELL_STOP_LIMIT: exports.TradingHelperPb.TMT5_ENUM_ORDER_TYPE.TMT5_ORDER_TYPE_SELL_STOP_LIMIT,
+};
 const tsToSeconds = (ts) => (ts && ts.getSeconds ? Number(ts.getSeconds()) : 0);
+const tsToMs = (ts) => (ts && ts.getSeconds ? Number(ts.getSeconds()) * 1000 + Math.floor(Number(ts.getNanos() || 0) / 1e6) : 0);
 const toTimestamp = (d) => {
     const ts = new exports.TimestampPb.Timestamp();
     const ms = d instanceof Date ? d.getTime() : Number(d) * 1000;
@@ -94,6 +115,17 @@ const toTimestamp = (d) => {
     ts.setNanos(Math.floor((ms % 1000) * 1e6));
     return ts;
 };
+/** A tick's time in ms: the UTC fields when the server fills them, the server-time ones otherwise. */
+const tickTimeMs = (t) => Number(t.getTimeMscUtc?.()) || tsToMs(t.getTimeUtc?.()) || Number(t.getTimeMsc?.()) || tsToSeconds(t.getTime?.()) * 1000;
+const mapTick = (symbol, t) => ({
+    symbol: t.getSymbol?.() || symbol,
+    bid: t.getBid(),
+    ask: t.getAsk(),
+    last: t.getLast(),
+    volume: Number(t.getVolumeReal ? t.getVolumeReal() : t.getVolume()),
+    time: tickTimeMs(t),
+    flags: Number(t.getFlags()),
+});
 class MT5Client {
     host;
     port;
@@ -103,24 +135,14 @@ class MT5Client {
     channel;
     connectionClient;
     accountClient;
+    accountInformationClient;
     tradingClient;
     subscriptionClient;
     marketInfoClient;
     tradeFunctionsClient;
     /** Default deadline for unary calls, ms. */
     callTimeoutMs = 30000;
-    lastUser;
-    lastPassword;
-    static computeDeterministicId(user, password) {
-        const hash = crypto.createHash('sha256').update(`${user}:${password}`).digest();
-        const b = hash.subarray(0, 16);
-        const h = (n) => n.toString(16).padStart(2, '0');
-        return h(b[3]) + h(b[2]) + h(b[1]) + h(b[0]) + '-' +
-            h(b[5]) + h(b[4]) + '-' +
-            h(b[7]) + h(b[6]) + '-' +
-            h(b[8]) + h(b[9]) + '-' +
-            h(b[10]) + h(b[11]) + h(b[12]) + h(b[13]) + h(b[14]) + h(b[15]);
-    }
+    lastServer;
     /** RFC 4122 UUID v5 (SHA-1) - use it to derive a stable terminal id from a strategy name. */
     static uuid5(namespace, name) {
         const nsHex = namespace.replace(/-/g, '');
@@ -134,14 +156,22 @@ class MT5Client {
         const hex = b.toString('hex');
         return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
     }
-    static async openDemoAccount(server = 'MetaQuotes-Demo', apiKey = 'TRIAL') {
-        const url = `https://mt5.mrpc.pro/DemoAccount/Open?server=${encodeURIComponent(server)}`;
+    /**
+     * Opens a new demo account through the API (GET /DemoAccount/Open) and returns its credentials.
+     * @param host the REST host of the platform, e.g. "mt5.mrpc.pro"
+     */
+    static async openDemoAccount(server = 'MetaQuotes-Demo', apiKey = 'TRIAL', host = 'mt5.mrpc.pro') {
+        const url = `https://${host}/DemoAccount/Open?server=${encodeURIComponent(server)}`;
         const res = await fetch(url, { headers: { APIKey: apiKey } });
         if (!res.ok) {
-            throw new Error(`Failed to open demo account: HTTP ${res.status} ${res.statusText}`);
+            throw new MrpcError(`Failed to open demo account: HTTP ${res.status} ${res.statusText}`);
         }
         const data = await res.json();
-        return { login: Number(data.login), password: String(data.password), server: String(data.server || server) };
+        const body = data.data || data;
+        if (data.error || !body.login) {
+            throw new MrpcError(data.error?.errorMessage || `No account opened (result code ${body.resultCode})`, data.error?.errorCode || '');
+        }
+        return { login: Number(body.login), password: String(body.password), server: String(body.server || server) };
     }
     constructor(host = 'mt5.mrpc.pro', port = 443, apiKey = null, id = null) {
         this.host = host;
@@ -149,7 +179,7 @@ class MT5Client {
         this.apiKey = apiKey || (typeof process !== 'undefined' ? process.env.MRPC_API_KEY || 'TRIAL' : 'TRIAL');
         this.id = id || null;
         const target = `${this.host}:${this.port}`;
-        const credentials = this.port === 443 || target.includes('443')
+        const credentials = this.port === 443
             ? grpc.credentials.createSsl()
             : grpc.credentials.createInsecure();
         // One shared channel for every service client (keep-alive so idle tick streams survive NAT timeouts).
@@ -162,6 +192,7 @@ class MT5Client {
         const opts = { channelOverride: this.channel };
         this.connectionClient = new exports.ConnectionGrpc.ConnectionClient(target, credentials, opts);
         this.accountClient = new exports.AccountHelperGrpc.AccountHelperClient(target, credentials, opts);
+        this.accountInformationClient = new exports.AccountInformationGrpc.AccountInformationClient(target, credentials, opts);
         this.tradingClient = new exports.TradingHelperGrpc.TradingHelperClient(target, credentials, opts);
         this.subscriptionClient = new exports.SubscriptionsGrpc.SubscriptionServiceClient(target, credentials, opts);
         this.marketInfoClient = new exports.MarketInfoGrpc.MarketInfoClient(target, credentials, opts);
@@ -182,176 +213,79 @@ class MT5Client {
         return meta;
     }
     /**
-     * Generic unary call: `client[method](req, metadata, {deadline}, cb)`. Throws MT5Error when the
-     * reply carries an Error payload, returns reply.getData() otherwise.
+     * A unary call `client[method](request, metadata, {deadline}, cb)` through one of the exported generated clients:
+     * resolves with the reply's data, rejects with the reply's error (`MrpcError`) or the call's failure.
      */
-    async call(client, method, req, timeoutMs = this.callTimeoutMs) {
-        const meta = this.getGrpcMetadata();
-        const deadline = new Date(Date.now() + timeoutMs);
-        const reply = await new Promise((resolve, reject) => {
-            client[method](req, meta, { deadline }, (err, res) => {
+    call(client, method, request, timeoutMs = this.callTimeoutMs) {
+        return new Promise((resolve, reject) => {
+            const deadline = new Date(Date.now() + timeoutMs);
+            client[method](request, this.getGrpcMetadata(), { deadline }, (err, reply) => {
                 if (err)
                     return reject(err);
-                resolve(res);
+                const error = reply?.getError?.();
+                if (error)
+                    return reject(MrpcError.fromReply(error));
+                resolve(typeof reply?.getData === 'function' ? reply.getData() : reply);
             });
         });
-        if (reply && typeof reply.getError === 'function' && reply.getError()) {
-            throw new MT5Error(reply.getError());
-        }
-        return reply && typeof reply.getData === 'function' ? reply.getData() : reply;
     }
+    /** The terminal id the server assigns to these credentials (Connection.GetId). */
     async getId(user, password) {
         if (this.id)
             return this.id;
-        const u = user || this.lastUser;
-        const p = password || this.lastPassword;
-        if (!u || !p)
-            return this.id || '';
-        try {
-            const req = new exports.ConnectionPb.GetIdRequest();
-            req.setUser(Number(u));
-            req.setPassword(String(p));
-            const meta = this.getGrpcMetadata();
-            const res = await new Promise((resolve, reject) => {
-                const deadline = new Date(Date.now() + 2000);
-                this.connectionClient.getId(req, meta, { deadline }, (err, reply) => {
-                    if (err)
-                        return reject(err);
-                    resolve(reply);
-                });
-            });
-            if (res && res.getData() && res.getData().getId()) {
-                this.id = res.getData().getId();
-                return this.id;
-            }
-        }
-        catch {
-            // Fall back to REST / deterministic ID
-        }
-        try {
-            const url = `https://${this.host}:${this.port}/GetId?user=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`;
-            const options = {
-                headers: { 'apikey': this.apiKey || 'TRIAL' },
-                timeout: 1000
-            };
-            const token = await new Promise((resolve, reject) => {
-                const req = https.get(url, options, res => {
-                    let body = '';
-                    res.on('data', chunk => body += chunk);
-                    res.on('end', () => {
-                        try {
-                            const json = JSON.parse(body);
-                            if (json && json.data && json.data.id) {
-                                resolve(json.data.id);
-                            }
-                            else {
-                                reject(new Error('Invalid response'));
-                            }
-                        }
-                        catch (e) {
-                            reject(e);
-                        }
-                    });
-                });
-                req.on('error', reject);
-                req.on('timeout', () => { req.destroy(); reject(new Error('Timeout')); });
-            });
-            this.id = token;
-            return this.id;
-        }
-        catch {
-            this.id = MT5Client.computeDeterministicId(u, String(p));
-            return this.id;
-        }
+        const req = new exports.ConnectionPb.GetIdRequest();
+        req.setUser(String(user));
+        req.setPassword(String(password));
+        const data = await this.call(this.connectionClient, 'getId', req, 30000);
+        if (!data?.getId())
+            throw new MrpcError('GetId returned no id');
+        this.id = data.getId();
+        return this.id;
     }
-    async connect(loginOrOptions, password) {
-        let user;
-        let pass;
-        let server;
-        let host;
-        let port;
-        let name;
-        let expiration;
-        if (typeof loginOrOptions === 'object') {
-            user = loginOrOptions.user;
-            pass = loginOrOptions.password;
-            server = loginOrOptions.server;
-            host = loginOrOptions.host;
-            port = loginOrOptions.port;
-            name = loginOrOptions.name;
-            expiration = loginOrOptions.expiration;
-            if (loginOrOptions.id)
-                this.id = loginOrOptions.id;
+    /**
+     * Connects by broker server name (ConnectEx: `server`, e.g. "MetaQuotes-Demo") or by address (Connect: `host`/`port`).
+     * `id` (a stable GUID) is sent with the call so the gateway reuses that terminal; `name` labels it in the Accounts
+     * listing. On success `id` is the terminal id the server answered with.
+     */
+    async connect(loginOrOptions, password, server = 'MetaQuotes-Demo') {
+        const options = typeof loginOrOptions === 'object'
+            ? loginOrOptions
+            : { user: loginOrOptions, password: password || '', server };
+        const timeoutSec = options.timeoutSeconds || 60;
+        const timeoutMs = (timeoutSec + 10) * 1000;
+        if (options.id)
+            this.id = options.id;
+        let data;
+        if (options.server) {
+            const req = new exports.ConnectionPb.ConnectExRequest();
+            req.setUser(options.user);
+            req.setPassword(options.password);
+            req.setMtClusterName(options.server);
+            req.setTimeoutSeconds(timeoutSec);
+            if (options.name)
+                req.setName(options.name);
+            if (options.expiration)
+                req.setExpiration(options.expiration);
+            data = await this.call(this.connectionClient, 'connectEx', req, timeoutMs);
+        }
+        else if (options.host) {
+            const req = new exports.ConnectionPb.ConnectRequest();
+            req.setUser(options.user);
+            req.setPassword(options.password);
+            req.setHost(options.host);
+            req.setPort(options.port || 443);
+            req.setTimeoutSeconds(timeoutSec);
+            data = await this.call(this.connectionClient, 'connect', req, timeoutMs);
         }
         else {
-            user = loginOrOptions;
-            pass = password || '';
-            server = 'MetaQuotes-Demo';
+            throw new MrpcError('connect needs a broker server name (server) or host');
         }
-        this.lastUser = user;
-        this.lastPassword = pass;
-        const timeoutSec = (typeof loginOrOptions === 'object' && loginOrOptions.timeoutSeconds) || 60;
-        try {
-            const meta = this.getGrpcMetadata();
-            const deadline = new Date(Date.now() + (timeoutSec + 10) * 1000);
-            if (server) {
-                const req = new exports.ConnectionPb.ConnectExRequest();
-                req.setUser(user);
-                req.setPassword(pass);
-                req.setMtClusterName(server);
-                req.setTimeoutSeconds(timeoutSec);
-                if (name)
-                    req.setName(name);
-                if (expiration)
-                    req.setExpiration(expiration);
-                const reply = await new Promise((resolve, reject) => {
-                    this.connectionClient.connectEx(req, meta, { deadline }, (err, res) => {
-                        if (err)
-                            return reject(err);
-                        resolve(res);
-                    });
-                });
-                if (reply?.getError()) {
-                    throw new MT5Error(reply.getError());
-                }
-                if (reply?.getData()?.getTerminalInstanceGuid()) {
-                    this.id = reply.getData().getTerminalInstanceGuid();
-                }
-            }
-            else if (host) {
-                const req = new exports.ConnectionPb.ConnectRequest();
-                req.setUser(user);
-                req.setPassword(pass);
-                req.setHost(host);
-                req.setPort(port || 443);
-                req.setTimeoutSeconds(timeoutSec);
-                const reply = await new Promise((resolve, reject) => {
-                    this.connectionClient.connect(req, meta, { deadline }, (err, res) => {
-                        if (err)
-                            return reject(err);
-                        resolve(res);
-                    });
-                });
-                if (reply?.getError()) {
-                    throw new MT5Error(reply.getError());
-                }
-                if (reply?.getData()?.getTerminalInstanceGuid()) {
-                    this.id = reply.getData().getTerminalInstanceGuid();
-                }
-            }
-            this.connected = true;
-            return true;
-        }
-        catch (err) {
-            if (this.apiKey === 'mrpc_test_key' || user === 12345678) {
-                if (!this.id) {
-                    this.id = 'demo-terminal-guid-' + (user || 'test');
-                }
-                this.connected = true;
-                return true;
-            }
-            throw err;
-        }
+        if (!data?.getTerminalInstanceGuid())
+            throw new MrpcError('Connect returned no terminal id');
+        this.id = data.getTerminalInstanceGuid();
+        this.lastServer = options.server || options.host;
+        this.connected = true;
+        return true;
     }
     static tradeModeName(code) {
         switch (code) {
@@ -362,44 +296,41 @@ class MT5Client {
         }
     }
     async getAccountInfo() {
-        const fake = () => ({
-            login: 12345678, currency: 'USD', balance: 10000.0, equity: 10000.0, credit: 0, margin: 0.0, freeMargin: 10000.0,
-            marginLevel: 0.0, leverage: 100, name: 'Demo Account', server: this.host, company: '', tradeMode: 'DEMO',
-            tradeModeCode: 0, serverTime: 0, utcServerShiftMinutes: 0
-        });
-        try {
-            const req = new exports.AccountHelperPb.AccountSummaryRequest();
-            const data = await this.call(this.accountClient, 'accountSummary', req, 15000);
-            if (data) {
-                const code = data.getAccountTradeMode ? data.getAccountTradeMode() : -1;
-                const balance = data.getAccountBalance();
-                const equity = data.getAccountEquity();
-                return {
-                    login: data.getAccountLogin(),
-                    currency: data.getAccountCurrency() || 'USD',
-                    balance,
-                    equity,
-                    credit: data.getAccountCredit ? data.getAccountCredit() : 0,
-                    margin: 0,
-                    freeMargin: equity,
-                    marginLevel: 0,
-                    leverage: data.getAccountLeverage(),
-                    name: data.getAccountUserName() || '',
-                    server: this.host,
-                    company: data.getAccountCompanyName ? data.getAccountCompanyName() : '',
-                    tradeMode: MT5Client.tradeModeName(code),
-                    tradeModeCode: code,
-                    serverTime: tsToSeconds(data.getServerTime ? data.getServerTime() : null),
-                    utcServerShiftMinutes: data.getUtcTimezoneServerTimeShiftMinutes ? data.getUtcTimezoneServerTimeShiftMinutes() : 0,
-                };
-            }
-        }
-        catch (err) {
-            if (this.apiKey === 'mrpc_test_key' || this.lastUser === 12345678)
-                return fake();
-            throw err;
-        }
-        throw new Error('AccountSummary returned no data');
+        const doubleOf = (property) => {
+            const req = new exports.AccountInformationPb.AccountInfoDoubleRequest();
+            req.setPropertyId(exports.AccountInformationPb.AccountInfoDoublePropertyType[property]);
+            return this.call(this.accountInformationClient, 'accountInfoDouble', req, 15000).then((d) => d.getRequestedValue());
+        };
+        const serverReq = new exports.AccountInformationPb.AccountInfoStringRequest();
+        serverReq.setPropertyId(exports.AccountInformationPb.AccountInfoStringPropertyType.ACCOUNT_SERVER);
+        const [summary, margin, freeMargin, marginLevel, server] = await Promise.all([
+            this.call(this.accountClient, 'accountSummary', new exports.AccountHelperPb.AccountSummaryRequest(), 15000),
+            doubleOf('ACCOUNT_MARGIN'),
+            doubleOf('ACCOUNT_MARGIN_FREE'),
+            doubleOf('ACCOUNT_MARGIN_LEVEL'),
+            this.call(this.accountInformationClient, 'accountInfoString', serverReq, 15000).then((d) => d.getRequestedValue()),
+        ]);
+        if (!summary)
+            throw new MrpcError('AccountSummary returned no data');
+        const code = summary.getAccountTradeMode();
+        return {
+            login: summary.getAccountLogin(),
+            currency: summary.getAccountCurrency(),
+            balance: summary.getAccountBalance(),
+            equity: summary.getAccountEquity(),
+            credit: summary.getAccountCredit(),
+            margin,
+            freeMargin,
+            marginLevel,
+            leverage: summary.getAccountLeverage(),
+            name: summary.getAccountUserName(),
+            server: server || this.lastServer || '',
+            company: summary.getAccountCompanyName(),
+            tradeMode: MT5Client.tradeModeName(code),
+            tradeModeCode: code,
+            serverTime: tsToSeconds(summary.getServerTime()),
+            utcServerShiftMinutes: summary.getUtcTimezoneServerTimeShiftMinutes(),
+        };
     }
     // ------------------------------------------------------------------ symbols
     /** Add (select=true) or remove a symbol from Market Watch. */
@@ -427,15 +358,9 @@ class MT5Client {
         const req = new exports.MarketInfoPb.SymbolInfoTickRequest();
         req.setSymbol(symbol);
         const t = await this.call(this.marketInfoClient, 'symbolInfoTick', req);
-        return {
-            symbol,
-            bid: t.getBid(),
-            ask: t.getAsk(),
-            last: t.getLast(),
-            volume: Number(t.getVolumeReal ? t.getVolumeReal() : t.getVolume()),
-            time: Number(t.getTimeMsc()) || tsToSeconds(t.getTime()) * 1000,
-            flags: Number(t.getFlags()),
-        };
+        if (!t)
+            throw new MrpcError(`SymbolInfoTick returned no data for ${symbol}`);
+        return mapTick(symbol, t);
     }
     static mapSymbolParams(s) {
         return {
@@ -478,7 +403,7 @@ class MT5Client {
         const list = data ? data.getSymbolInfosList() : [];
         const hit = list.find((s) => s.getName() === symbol) || list[0];
         if (!hit)
-            throw new Error(`SymbolParamsMany: symbol ${symbol} not found`);
+            throw new MrpcError(`SymbolParamsMany: symbol ${symbol} not found`);
         return MT5Client.mapSymbolParams(hit);
     }
     /** Contract specification of every symbol (one unfiltered call - paging is unreliable). */
@@ -506,7 +431,7 @@ class MT5Client {
         }
         if (last)
             return last;
-        throw new Error(`ensureSymbol: no quote for ${symbol} within ${waitMs} ms`);
+        throw new MrpcError(`ensureSymbol: no quote for ${symbol} within ${waitMs} ms`);
     }
     // --------------------------------------------------------------------- bars
     /**
@@ -516,7 +441,7 @@ class MT5Client {
     async priceHistory(symbol, timeframe, opts = {}) {
         const tf = typeof timeframe === 'number' ? timeframe : exports.TIMEFRAMES[timeframe];
         if (!tf)
-            throw new Error(`priceHistory: unknown timeframe ${timeframe}`);
+            throw new MrpcError(`priceHistory: unknown timeframe ${timeframe}`);
         const req = new exports.MarketInfoPb.PriceHistoryRequest();
         req.setSymbol(symbol);
         req.setTimeframe(tf);
@@ -534,78 +459,58 @@ class MT5Client {
         }));
     }
     // ------------------------------------------------------------------- trading
-    static orderType(action) {
-        const T = exports.TradingHelperPb.TMT5_ENUM_ORDER_TYPE;
-        switch (action) {
-            case 'BUY': return T.TMT5_ORDER_TYPE_BUY;
-            case 'SELL': return T.TMT5_ORDER_TYPE_SELL;
-            case 'BUY_LIMIT': return T.TMT5_ORDER_TYPE_BUY_LIMIT;
-            case 'SELL_LIMIT': return T.TMT5_ORDER_TYPE_SELL_LIMIT;
-            case 'BUY_STOP': return T.TMT5_ORDER_TYPE_BUY_STOP;
-            case 'SELL_STOP': return T.TMT5_ORDER_TYPE_SELL_STOP;
-            case 'BUY_STOP_LIMIT': return T.TMT5_ORDER_TYPE_BUY_STOP_LIMIT;
-            case 'SELL_STOP_LIMIT': return T.TMT5_ORDER_TYPE_SELL_STOP_LIMIT;
-            default: throw new Error(`orderSend: unknown action ${action}`);
-        }
-    }
-    static mapOrderResult(data, req) {
-        const order = data.getOrder ? Number(data.getOrder()) : 0;
-        const deal = data.getDeal ? Number(data.getDeal()) : 0;
+    static mapOrderResult(data) {
+        const order = Number(data.getOrder());
+        const deal = Number(data.getDeal());
         return {
             ticket: order || deal,
-            retcode: data.getReturnedCode ? data.getReturnedCode() : 0,
-            retcodeDescription: data.getReturnedCodeDescription ? data.getReturnedCodeDescription() : '',
+            retcode: data.getReturnedCode(),
+            retcodeDescription: data.getReturnedCodeDescription(),
             deal,
             order,
-            volume: data.getVolume ? data.getVolume() : (req ? req.volume : 0),
-            price: data.getPrice ? data.getPrice() : (req && req.price ? req.price : 0),
-            bid: data.getBid ? data.getBid() : 0,
-            ask: data.getAsk ? data.getAsk() : 0,
-            comment: data.getComment ? data.getComment() : '',
-            requestId: data.getRequestId ? data.getRequestId() : 0,
+            volume: data.getVolume(),
+            price: data.getPrice(),
+            bid: data.getBid(),
+            ask: data.getAsk(),
+            comment: data.getComment(),
+            requestId: Number(data.getRequestId()),
         };
     }
-    /** Market or pending order. Throws MT5Error when the broker rejects it (retcode != 10009 is also surfaced in the result). */
+    /**
+     * Market or pending order. An error reply rejects with `MrpcError`; a broker rejection is in the result
+     * (`retcode` is 10009 when done).
+     */
     async orderSend(req) {
-        const fake = () => ({
-            ticket: Math.floor(Math.random() * 1000000), retcode: 0, retcodeDescription: '', deal: 1, order: 1,
-            volume: req.volume, price: req.price || 0, bid: 0, ask: 0, comment: req.comment || 'Test buy', requestId: 0
-        });
-        try {
-            const grpcReq = new exports.TradingHelperPb.OrderSendRequest();
-            grpcReq.setSymbol(req.symbol);
-            grpcReq.setVolume(req.volume);
-            grpcReq.setOperation(MT5Client.orderType(req.action));
-            if (req.price !== undefined)
-                grpcReq.setPrice(req.price);
-            if (req.stopLoss !== undefined)
-                grpcReq.setStopLoss(req.stopLoss);
-            if (req.takeProfit !== undefined)
-                grpcReq.setTakeProfit(req.takeProfit);
-            if (req.comment)
-                grpcReq.setComment(req.comment);
-            if (req.slippage !== undefined)
-                grpcReq.setSlippage(req.slippage);
-            if (req.magic !== undefined)
-                grpcReq.setExpertId(req.magic);
-            if (req.stopLimitPrice !== undefined)
-                grpcReq.setStopLimitPrice(req.stopLimitPrice);
-            if (req.expirationTimeType !== undefined)
-                grpcReq.setExpirationTimeType(req.expirationTimeType);
-            if (req.expirationTime)
-                grpcReq.setExpirationTime(toTimestamp(req.expirationTime));
-            if (req.quotesWaitMs !== undefined)
-                grpcReq.setQuotesWaitMs(req.quotesWaitMs);
-            const data = await this.call(this.tradingClient, 'orderSend', grpcReq, 60000);
-            if (data)
-                return MT5Client.mapOrderResult(data, req);
-        }
-        catch (err) {
-            if (this.apiKey === 'mrpc_test_key' || this.lastUser === 12345678)
-                return fake();
-            throw err;
-        }
-        throw new Error('Order execution returned no data');
+        if (!(req.action in ORDER_TYPES))
+            throw new MrpcError(`Unknown order action ${req.action}`);
+        const grpcReq = new exports.TradingHelperPb.OrderSendRequest();
+        grpcReq.setSymbol(req.symbol);
+        grpcReq.setOperation(ORDER_TYPES[req.action]);
+        grpcReq.setVolume(req.volume);
+        if (req.price !== undefined)
+            grpcReq.setPrice(req.price);
+        if (req.stopLoss !== undefined)
+            grpcReq.setStopLoss(req.stopLoss);
+        if (req.takeProfit !== undefined)
+            grpcReq.setTakeProfit(req.takeProfit);
+        if (req.comment !== undefined)
+            grpcReq.setComment(req.comment);
+        if (req.slippage !== undefined)
+            grpcReq.setSlippage(req.slippage);
+        if (req.magic !== undefined)
+            grpcReq.setExpertId(req.magic);
+        if (req.stopLimitPrice !== undefined)
+            grpcReq.setStopLimitPrice(req.stopLimitPrice);
+        if (req.expirationTimeType !== undefined)
+            grpcReq.setExpirationTimeType(req.expirationTimeType);
+        if (req.expirationTime)
+            grpcReq.setExpirationTime(toTimestamp(req.expirationTime));
+        if (req.quotesWaitMs !== undefined)
+            grpcReq.setQuotesWaitMs(req.quotesWaitMs);
+        const data = await this.call(this.tradingClient, 'orderSend', grpcReq, 60000);
+        if (!data)
+            throw new MrpcError('Order execution returned no data');
+        return MT5Client.mapOrderResult(data);
     }
     /** Change SL/TP of a position, or SL/TP/price/expiration of a pending order. */
     async orderModify(req) {
@@ -625,7 +530,7 @@ class MT5Client {
             grpcReq.setExpirationTime(toTimestamp(req.expirationTime));
         const data = await this.call(this.tradingClient, 'orderModify', grpcReq, 60000);
         if (!data)
-            throw new Error('OrderModify returned no data');
+            throw new MrpcError('OrderModify returned no data');
         return MT5Client.mapOrderResult(data);
     }
     /** Close a position (fully or partially) or delete a pending order. */
@@ -638,11 +543,11 @@ class MT5Client {
             grpcReq.setSlippage(req.slippage);
         const data = await this.call(this.tradingClient, 'orderClose', grpcReq, 60000);
         if (!data)
-            throw new Error('OrderClose returned no data');
+            throw new MrpcError('OrderClose returned no data');
         return {
             retcode: data.getReturnedCode(),
-            retcodeDescription: data.getReturnedCodeDescription ? data.getReturnedCodeDescription() : '',
-            closeMode: data.getCloseMode ? data.getCloseMode() : 0,
+            retcodeDescription: data.getReturnedCodeDescription(),
+            closeMode: data.getCloseMode(),
         };
     }
     /** Open positions and pending orders. */
@@ -756,59 +661,46 @@ class MT5Client {
     }
     // ----------------------------------------------------------------- streaming
     /**
-     * Tick stream. `onError` fires when the stream ends or fails (including when cancelled); the
-     * caller is responsible for re-subscribing after a transport error.
+     * Streams the ticks of the symbols (every Market Watch symbol when the list is empty). `onError` receives an
+     * error reply of the stream, the stream's failure or its end (a cancelled stream - `unsubscribe()` - is not an
+     * error); the stream is not re-subscribed on its own.
      */
     subscribeQuotes(symbols, callback, onError) {
-        const meta = this.getGrpcMetadata();
         const req = new exports.SubscriptionsPb.OnSymbolTickRequest();
-        if (symbols && symbols.length > 0) {
-            req.setSymbolNamesList(symbols);
-        }
-        const stream = this.subscriptionClient.onSymbolTick(req, meta);
+        req.setSymbolNamesList(symbols || []);
+        const stream = this.subscriptionClient.onSymbolTick(req, this.getGrpcMetadata());
         let cancelled = false;
-        stream.on('data', (tickReply) => {
-            if (tickReply.getError && tickReply.getError()) {
-                if (onError)
-                    onError(new MT5Error(tickReply.getError()));
+        stream.on('data', (reply) => {
+            const error = reply.getError();
+            if (error) {
+                onError?.(MrpcError.fromReply(error));
                 return;
             }
-            const data = tickReply.getData();
-            const t = data && data.getSymbolTick ? data.getSymbolTick() : null;
-            if (t) {
-                callback({
-                    symbol: t.getSymbol(),
-                    bid: t.getBid(),
-                    ask: t.getAsk(),
-                    last: t.getLast(),
-                    volume: Number(t.getVolumeReal ? t.getVolumeReal() : t.getVolume()),
-                    time: Number(t.getTimeMsc()) || tsToSeconds(t.getTime()) * 1000,
-                    flags: Number(t.getFlags()),
-                });
-            }
+            const tick = reply.getData()?.getSymbolTick();
+            if (!tick)
+                return; // a heartbeat
+            callback(mapTick('', tick));
         });
         stream.on('error', (err) => {
-            if (cancelled && err && err.code === grpc.status.CANCELLED)
+            if (cancelled && err?.code === grpc.status.CANCELLED)
                 return;
-            if (onError)
-                onError(err);
+            onError?.(err);
         });
-        stream.on('end', () => { if (!cancelled && onError)
-            onError(new Error('tick stream ended')); });
+        stream.on('end', () => { if (!cancelled)
+            onError?.(new MrpcError('tick stream ended')); });
         return {
             unsubscribe: () => { cancelled = true; stream.cancel(); }
         };
     }
     /** Raw OnTrade event stream (order/position/deal updates). Delivers the protobuf OnTradeData. */
     subscribeTrades(callback, onError) {
-        const meta = this.getGrpcMetadata();
         const req = new exports.SubscriptionsPb.OnTradeRequest();
-        const stream = this.subscriptionClient.onTrade(req, meta);
+        const stream = this.subscriptionClient.onTrade(req, this.getGrpcMetadata());
         let cancelled = false;
         stream.on('data', (reply) => {
-            if (reply.getError && reply.getError()) {
-                if (onError)
-                    onError(new MT5Error(reply.getError()));
+            const error = reply.getError();
+            if (error) {
+                onError?.(MrpcError.fromReply(error));
                 return;
             }
             const data = reply.getData();
@@ -816,41 +708,30 @@ class MT5Client {
                 callback(data);
         });
         stream.on('error', (err) => {
-            if (cancelled && err && err.code === grpc.status.CANCELLED)
+            if (cancelled && err?.code === grpc.status.CANCELLED)
                 return;
-            if (onError)
-                onError(err);
+            onError?.(err);
         });
-        stream.on('end', () => { if (!cancelled && onError)
-            onError(new Error('trade stream ended')); });
+        stream.on('end', () => { if (!cancelled)
+            onError?.(new MrpcError('trade stream ended')); });
         return { unsubscribe: () => { cancelled = true; stream.cancel(); } };
     }
     /**
-     * Stop the terminal on the gateway and close the channel. Strategies that want their terminal
-     * kept warm between runs should NOT call this - just exit; the gateway keeps it under the id.
+     * Stops the terminal on the gateway (`true` also deletes it) and closes the channel. A strategy that wants its
+     * terminal kept warm between runs should call `close()` instead: the gateway keeps the terminal under the id.
      */
     async disconnect(deleteOnDisconnect = false) {
         this.connected = false;
         try {
-            if (this.connectionClient) {
-                const meta = this.getGrpcMetadata();
-                if (deleteOnDisconnect) {
-                    meta.set('delete', 'true');
-                }
-                const deadline = new Date(Date.now() + 5000);
+            if (this.id) {
                 const req = new exports.ConnectionPb.DisconnectRequest();
-                if (typeof req.setDelete === 'function') {
-                    req.setDelete(deleteOnDisconnect);
-                }
-                await new Promise((resolve) => {
-                    this.connectionClient.disconnect(req, meta, { deadline }, () => {
-                        resolve(true);
-                    });
-                });
+                req.setDelete(deleteOnDisconnect);
+                await this.call(this.connectionClient, 'disconnect', req, 10000);
             }
         }
-        catch { }
-        this.close();
+        finally {
+            this.close();
+        }
     }
     /** Close the gRPC channel without touching the terminal on the gateway. */
     close() {

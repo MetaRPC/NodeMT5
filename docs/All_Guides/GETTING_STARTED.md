@@ -1,72 +1,72 @@
 # Getting Started with NodeMT5
 
-> **Quick Setup & Overview** - Start automating your trading with NodeMT5 (Node.js for MetaTrader 5) in minutes.
+> **Quick Setup & Overview** - Connect to MetaTrader 5 from Node.js in a few minutes.
 
 ---
 
-## 🎯 What is NodeMT5?
+## What is NodeMT5?
 
-**NodeMT5** is an industrial-grade, type-safe Node.js client library for interacting with **MetaTrader 5** terminals via high-performance **gRPC**. It eliminates complex C++ DLL wrappers and provides direct, reliable programmatic trading.
+**NodeMT5** is a Node.js and TypeScript client for MetaTrader 5 accounts through the MRPC gRPC API (`mt5.mrpc.pro:443`). It has
+two parts:
 
-### 🌟 Key Advantages
-- 🚀 **High Throughput**: Native gRPC streaming for sub-millisecond price ticks and trade execution.
-- 🛡️ **Three-Layer Architecture**: Low-level gRPC (`MT5Account`), typed wrapper methods (`MT5Service`), and high-level convenience (`MT5Sugar`).
-- 🔄 **Resilient Connection**: Auto-reconnect, exponential backoff, and transparent channel healing.
-- 💼 **Production Ready**: Fully verified across institutional accounts, hedge fund systems, and automated retail bots.
+- **`MT5Client`**: connect, account, market orders, tick stream, disconnect (see [API Reference](../api.md)).
+- **The generated gRPC clients** of the whole API (`ConnectionGrpc`, `AccountHelperGrpc`, `TradingHelperGrpc`,
+  `SubscriptionsGrpc`, `MarketInfoGrpc`, ...), exported by the package, for everything else.
+
+The other pages of these guides describe the API itself (methods, enums, return codes, streams); some of their code
+samples are in Python, the calls and messages are the same from Node.
 
 ---
 
-## 📦 Installation
-
-Install NodeMT5 via your standard Node.js package manager:
+## Installation
 
 ```bash
-npm install @metarpc/mt5
+npm install github:MetaRPC/NodeMT5 @grpc/grpc-js
 ```
 
+The package is installed from GitHub; it is not on the npm registry. It is named `@metarpc/nodemt5`, so `require('@metarpc/nodemt5')` works as usual.
 ---
 
-## 🔑 API Key & Authentication
+## API key
 
-Connecting to MetaRPC production endpoints (`mt5.mrpc.pro:443`) requires an API key:
-
-1. **Sign Up**: Create an account for free at [https://mrpc.pro/signup](https://mrpc.pro/signup).
-2. **Generate API Key**: In your MetaRPC Portal dashboard at [https://mrpc.pro/my](https://mrpc.pro/my), go to **API Keys** to generate and copy your personal API token.
-3. **Configure Connection**: Pass your API key / token along with the server address (`mt5.mrpc.pro:443`) in your connection settings.
-
----
-
+1. **Sign up** free at [https://mrpc.pro/signup](https://mrpc.pro/signup).
+2. **Create a key** at [https://mrpc.pro/my](https://mrpc.pro/my) under **API Keys**.
+3. Pass it to `new MT5Client(host, 443, apiKey)` or set `MRPC_API_KEY`.
 
 ---
 
-## 🆔 Automatic Account ID & Authentication
+## API key and terminal id
 
-MetaRPC endpoints require authentication and session management:
-1. **`APIKey`**: Your personal authentication token from [https://mrpc.pro/my](https://mrpc.pro/my) (obtained by registering at [https://mrpc.pro/signup](https://mrpc.pro/signup)). Sent in the `APIKey` header.
-2. **`id`**: A terminal session GUID returned by `Connect` / `ConnectEx` (`terminalInstanceGuid`).
+- **`APIKey`**: your key from [https://mrpc.pro/my](https://mrpc.pro/my) (sign up free at [https://mrpc.pro/signup](https://mrpc.pro/signup)).
+  Pass it to the constructor or set `MRPC_API_KEY`; without one the client sends `TRIAL`.
+- **`id`**: the terminal id. `connect()` receives it from the server (`terminalInstanceGuid`), keeps it in `client.id` and
+  sends it with every later call and stream. You don't need to call `getId()` first.
+## Minimal example
 
-> 💡 **Seamless Automation**: You do not need to call `GetId` or provide an `id` header when connecting. The server automatically generates a session GUID upon connection and returns it to the caller. The SDK automatically captures this session ID and attaches it alongside your `APIKey` to all subsequent requests and streaming subscriptions.
+```javascript
+const { MT5Client } = require('@metarpc/nodemt5');
 
-## 🔌 Minimal Connection Example
+async function main() {
+  const client = new MT5Client('mt5.mrpc.pro', 443, process.env.MRPC_API_KEY);
+  await client.connect({ user: Number(process.env.MT5_LOGIN), password: process.env.MT5_PASSWORD, server: 'MetaQuotes-Demo' });
+  try {
+    const account = await client.getAccountInfo();
+    console.log(`Balance: ${account.balance} ${account.currency}, equity ${account.equity}, leverage 1:${account.leverage}`);
 
-Here is how easy it is to initialize `MT5Account`, connect to your MetaTrader terminal, and retrieve your account balance:
+    const order = await client.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.01, comment: 'first order' });
+    console.log(`Deal #${order.deal}, position #${order.order} at ${order.price} (return code ${order.retcode})`);
+  } finally {
+    await client.disconnect();
+  }
+}
 
+main().catch((err) => { console.error(err.message); process.exit(1); });
 ```
-const account = new MT5Account({ user, password, server: grpcServer });
-await account.connectByServerName(serverName, 'EURUSD', 30);
-const summary = await account.accountSummary();
-console.log(`Balance: ${summary.accountBalance}, Equity: ${summary.accountEquity}`);
-```
-
 ---
 
-## 🗺️ Documentation Road Map
+## Reading order
 
-To get the most out of NodeMT5, follow this suggested reading order:
-
-1. 🚀 **[Your First Project](Your_First_Project.md)** - Build and run a working project in 10 minutes.
-2. 🗺️ **[Project Map](PROJECT_MAP.md)** - Understand the 3 architectural layers and interaction flow.
-3. 📖 **[Glossary](GLOSSARY.md)** - Essential MetaTrader 5 and algorithmic trading terminology.
-4. 🐣 **[MT5 for Beginners](MT5_For_Beginners.md)** - Step-by-step terminal setup and demo account guide.
-5. 📡 **[gRPC Streaming](GRPC_STREAM_MANAGEMENT.md)** - Subscribe to ticks, trades, DOM, and position updates.
-6. 📊 **[Return Codes](RETURN_CODES_REFERENCE.md)** - Complete reference of broker and gateway return codes.
+1. **[Your First Project](Your_First_Project.md)** - a working project in 10 minutes.
+2. **[API Reference](../api.md)** - what `MT5Client` does, and how to call the rest of the API.
+3. **[Streams](STREAMS.md)** - ticks, trades, profit and the other streams.
+4. **[Errors](ERRORS.md)** - what a refused call looks like, and its codes.

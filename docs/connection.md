@@ -1,42 +1,27 @@
+# Connection
 
-## 🆔 Automatic Account ID & Authentication
+```javascript
+const { MT5Client } = require('@metarpc/nodemt5');
 
-MetaRPC endpoints route calls using a terminal session GUID (`id`).
-When connecting via `Connect` / `ConnectEx`, the server automatically generates and returns your session GUID (`terminalInstanceGuid`). The SDK captures this ID and attaches both your `id` and `APIKey` headers to all subsequent terminal calls — no manual `GetId` or curl steps required.
+const client = new MT5Client('mt5.mrpc.pro', 443, 'your-api-key');
+await client.connect({ user: 5057401134, password: 'your-password', server: 'MetaQuotes-Demo' });
+console.log('terminal', client.id);
 
-# Connection & Authentication
+// ... calls ...
 
-Managing connections and sessions with MetaTrader 5.
-
-## Basic Connection
-
-```typescript
-import { MT5Client } from '@metarpc/nodemt5';
-
-const client = new MT5Client('mt5.mrpc.pro', 443);
-await client.connect(12345678, 'investor_or_master_password');
+await client.disconnect();        // or disconnect(true): stop the terminal and delete it
 ```
 
-## Session Management & Auto-Reconnect
+`connect()` resolves once the terminal is connected and rejects with an `MrpcError` when the server refuses (wrong
+password, unknown server, ...). To connect by address instead of broker server name, pass `host` and `port` instead of
+`server`.
 
-```typescript
-client.on('disconnected', async (reason) => {
-  console.warn('Disconnected:', reason);
-  console.log('Reconnecting in 5 seconds...');
-  setTimeout(() => client.connect(12345678, 'password'), 5000);
-});
-```
+There is no automatic reconnect in the client: if a call rejects with `TERMINAL_INSTANCE_NOT_FOUND` or the channel fails,
+call `connect()` again.
 
-## Graceful Shutdown
+## API key and terminal id
 
-```typescript
-process.on('SIGINT', () => {
-  console.log('Shutting down...');
-  client.disconnect();
-  process.exit(0);
-});
-```
-
-
-> **Authentication Note**: Connecting to `mt5.mrpc.pro:443` requires a valid MetaRPC API key. Register for free at [https://mrpc.pro/signup](https://mrpc.pro/signup) and generate your token in [https://mrpc.pro/my](https://mrpc.pro/my).
-
+- **`APIKey`**: your key from [https://mrpc.pro/my](https://mrpc.pro/my) (sign up free at [https://mrpc.pro/signup](https://mrpc.pro/signup)).
+  Pass it to the constructor or set `MRPC_API_KEY`; without one the client sends `TRIAL`.
+- **`id`**: the terminal id. `connect()` receives it from the server (`terminalInstanceGuid`), keeps it in `client.id` and
+  sends it with every later call and stream. You don't need to call `getId()` first.

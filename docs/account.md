@@ -1,23 +1,13 @@
-# Account Information
+# Account
 
-Inspect account summary, margin, leverage, and position history.
-
-## Fetching Account Balance
-
-```typescript
-const acc = await client.getAccountInfo();
-console.log('Login:', acc.login);
-console.log('Balance:', acc.balance);
-console.log('Equity:', acc.equity);
-console.log('Free Margin:', acc.freeMargin);
-console.log('Leverage: 1:' + acc.leverage);
+```javascript
+const account = await client.getAccountInfo();
+console.log(account.login, account.name, account.server);
+console.log(`Balance ${account.balance} ${account.currency}, equity ${account.equity}, leverage 1:${account.leverage}`);
 ```
 
-## Active Positions
-
-```typescript
-const positions = await client.getPositions();
-for (const pos of positions) {
-  console.log(`#${pos.ticket} ${pos.symbol} ${pos.type} vol:${pos.volume} P/L:${pos.profit}`);
-}
-```
+| Field | Source |
+|---|---|
+| `login`, `name`, `server` | account number, owner name, broker server (`AccountInfoString(ACCOUNT_SERVER)`) |
+| `balance`, `equity`, `currency`, `leverage` | `AccountSummary` |
+| `margin`, `freeMargin`, `marginLevel` | `AccountInfoDouble(ACCOUNT_MARGIN / ACCOUNT_MARGIN_FREE / ACCOUNT_MARGIN_LEVEL)` |

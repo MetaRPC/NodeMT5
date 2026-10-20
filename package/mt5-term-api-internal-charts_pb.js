@@ -1926,7 +1926,8 @@ proto.mt5_term_api.ChartExpertMode = {
   ON_TRADE: 1,
   ON_ORDER_PROFIT: 2,
   ON_OPENED_ORDERS_TICKETS: 3,
-  ON_TRADE_TRANSACTION: 4
+  ON_TRADE_TRANSACTION: 4,
+  EVENTS: 5
 };
 
 goog.object.extend(exports, proto.mt5_term_api);

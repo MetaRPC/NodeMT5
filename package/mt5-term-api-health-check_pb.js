@@ -447,7 +447,8 @@ proto.mt5_term_api.HealthCheckReply.prototype.toObject = function(opt_includeIns
 proto.mt5_term_api.HealthCheckReply.toObject = function(includeInstance, msg) {
   var f, obj = {
     isConnectedToServer: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-    serverTimeSeconds: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    serverTimeSeconds: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    serverTimeSecondsUtc: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -492,6 +493,10 @@ proto.mt5_term_api.HealthCheckReply.deserializeBinaryFromReader = function(msg, 
       var value = /** @type {number} */ (reader.readInt64());
       msg.setServerTimeSeconds(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setServerTimeSecondsUtc(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -535,6 +540,13 @@ proto.mt5_term_api.HealthCheckReply.serializeBinaryToWriter = function(message, 
       f
     );
   }
+  f = message.getServerTimeSecondsUtc();
+  if (f !== 0) {
+    writer.writeInt64(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -571,6 +583,24 @@ proto.mt5_term_api.HealthCheckReply.prototype.getServerTimeSeconds = function() 
  */
 proto.mt5_term_api.HealthCheckReply.prototype.setServerTimeSeconds = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional int64 server_time_seconds_utc = 3;
+ * @return {number}
+ */
+proto.mt5_term_api.HealthCheckReply.prototype.getServerTimeSecondsUtc = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.mt5_term_api.HealthCheckReply} returns this
+ */
+proto.mt5_term_api.HealthCheckReply.prototype.setServerTimeSecondsUtc = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 

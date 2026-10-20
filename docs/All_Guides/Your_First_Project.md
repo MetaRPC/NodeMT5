@@ -1,65 +1,67 @@
 # Your First Project in 10 Minutes (Node.js)
 
-> **Hands-on Quick Start** - Create a working trading project with MetaTrader 5 and NodeMT5 from scratch.
+> **Hands-on Quick Start** - A working MetaTrader 5 project with NodeMT5 from scratch.
 
 ---
 
-## Step 0: Obtain Your API Key
+## Step 0: API key
 
-To connect to MetaRPC endpoints (`mt5.mrpc.pro:443`), obtain your API key:
-1. Register for free at [https://mrpc.pro/signup](https://mrpc.pro/signup).
-2. Generate your API token in your dashboard at [https://mrpc.pro/my](https://mrpc.pro/my).
-3. Set your token in your environment or connection config.
+1. Register free at [https://mrpc.pro/signup](https://mrpc.pro/signup).
+2. Create your API key at [https://mrpc.pro/my](https://mrpc.pro/my).
+3. Put it in `MRPC_API_KEY`.
 
 ---
 
-## Step 1: Create Your Project
-
-Create a new directory for your trading bot:
+## Step 1: Create the project
 
 ```bash
-mkdir my_nodemt5_bot
-cd my_nodemt5_bot
+mkdir my-mt5-bot
+cd my-mt5-bot
+npm init -y
+npm install github:MetaRPC/NodeMT5 @grpc/grpc-js
 ```
 
-Install the package:
+---
+
+## Step 2: Write the program
+
+Save as `index.js` (it connects, reads the account, buys 0.01 lot of EURUSD and disconnects):
+
+```javascript
+const { MT5Client } = require('@metarpc/nodemt5');
+
+async function main() {
+  const client = new MT5Client('mt5.mrpc.pro', 443, process.env.MRPC_API_KEY);
+  await client.connect({ user: Number(process.env.MT5_LOGIN), password: process.env.MT5_PASSWORD, server: 'MetaQuotes-Demo' });
+  try {
+    const account = await client.getAccountInfo();
+    console.log(`Balance: ${account.balance} ${account.currency}, equity ${account.equity}, leverage 1:${account.leverage}`);
+
+    const order = await client.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.01, comment: 'first order' });
+    console.log(`Deal #${order.deal}, position #${order.order} at ${order.price} (return code ${order.retcode})`);
+  } finally {
+    await client.disconnect();
+  }
+}
+
+main().catch((err) => { console.error(err.message); process.exit(1); });
+```
+---
+
+## Step 3: Run it
 
 ```bash
-npm install @metarpc/mt5
+export MRPC_API_KEY=your-api-key MT5_LOGIN=your-login MT5_PASSWORD=your-password
+node index.js
 ```
+
+No account yet? `MT5Client.openDemoAccount('MetaQuotes-Demo', apiKey)` opens a demo account and returns its login and password;
+[`examples/quickstart.js`](https://github.com/MetaRPC/NodeMT5/blob/main/examples/quickstart.js) does that when no login is set.
 
 ---
 
-## Step 2: Write Your Trading Code
+## Next steps
 
-Create your main application file and paste the following snippet:
-
-```
-import { MT5Account } from '@metarpc/mt5';
-
-// Session ID generation on Connect and authentication are handled automatically
-const account = new MT5Account({ user, password, server: grpcServer, apiKey });
-await account.connectByServerName(serverName, 'EURUSD', 30);
-const summary = await account.accountSummary();
-console.log(`Balance: ${summary.accountBalance}, Equity: ${summary.accountEquity}`);
-```
-
----
-
-## Step 3: Run the Program
-
-Run your application:
-
-```bash
-# Verify connection output
-# Balance: 10000.00, Equity: 10000.00
-```
-
----
-
-## 🚀 Next Steps
-
-Congratulations! You have successfully established a direct gRPC connection to MetaTrader 5. Next:
-- Explore **[gRPC Streaming](GRPC_STREAM_MANAGEMENT.md)** to listen to live ticks.
-- Check the **[API Reference](../API_Reference/MT5Account.md)** for all 40+ available terminal methods.
-- Learn about high-level risk management and auto-normalization in **[MT5Sugar](../API_Reference/MT5Sugar.md)**.
+- **[Quotes](../quotes.md)** - stream ticks with `subscribeQuotes`.
+- **[API Reference](../api.md)** - everything `MT5Client` does, and the generated clients for the rest of the API.
+- **[Streams](STREAMS.md)** - the other streams.

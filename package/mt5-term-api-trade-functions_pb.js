@@ -2085,6 +2085,7 @@ proto.mt5_term_api.MrpcMqlTradeRequest.toObject = function(includeInstance, msg)
     typeFilling: jspb.Message.getFieldWithDefault(msg, 12, 0),
     typeTime: jspb.Message.getFieldWithDefault(msg, 13, 0),
     expiration: (f = msg.getExpiration()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    expirationUtc: (f = msg.getExpirationUtc()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     comment: jspb.Message.getFieldWithDefault(msg, 15, ""),
     position: jspb.Message.getFieldWithDefault(msg, 16, 0),
     positionBy: jspb.Message.getFieldWithDefault(msg, 17, 0)
@@ -2180,6 +2181,11 @@ proto.mt5_term_api.MrpcMqlTradeRequest.deserializeBinaryFromReader = function(ms
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setExpiration(value);
+      break;
+    case 18:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setExpirationUtc(value);
       break;
     case 15:
       var value = /** @type {string} */ (reader.readString());
@@ -2317,6 +2323,14 @@ proto.mt5_term_api.MrpcMqlTradeRequest.serializeBinaryToWriter = function(messag
   if (f != null) {
     writer.writeMessage(
       14,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getExpirationUtc();
+  if (f != null) {
+    writer.writeMessage(
+      18,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -2613,6 +2627,43 @@ proto.mt5_term_api.MrpcMqlTradeRequest.prototype.clearExpiration = function() {
  */
 proto.mt5_term_api.MrpcMqlTradeRequest.prototype.hasExpiration = function() {
   return jspb.Message.getField(this, 14) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp expiration_utc = 18;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.mt5_term_api.MrpcMqlTradeRequest.prototype.getExpirationUtc = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 18));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.mt5_term_api.MrpcMqlTradeRequest} returns this
+*/
+proto.mt5_term_api.MrpcMqlTradeRequest.prototype.setExpirationUtc = function(value) {
+  return jspb.Message.setWrapperField(this, 18, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.mt5_term_api.MrpcMqlTradeRequest} returns this
+ */
+proto.mt5_term_api.MrpcMqlTradeRequest.prototype.clearExpirationUtc = function() {
+  return this.setExpirationUtc(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.MrpcMqlTradeRequest.prototype.hasExpirationUtc = function() {
+  return jspb.Message.getField(this, 18) != null;
 };
 
 
