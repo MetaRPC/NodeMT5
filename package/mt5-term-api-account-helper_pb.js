@@ -12531,7 +12531,9 @@ proto.mt5_term_api.AccountSummaryData.toObject = function(includeInstance, msg) 
     accountMarginLevel: jspb.Message.getFloatingPointFieldWithDefault(msg, 16, 0.0),
     accountMarginMode: jspb.Message.getFieldWithDefault(msg, 17, 0),
     accountTradeAllowed: jspb.Message.getBooleanFieldWithDefault(msg, 18, false),
-    accountTradeExpert: jspb.Message.getBooleanFieldWithDefault(msg, 19, false)
+    accountTradeExpert: jspb.Message.getBooleanFieldWithDefault(msg, 19, false),
+    terminalConnected: jspb.Message.getBooleanFieldWithDefault(msg, 20, false),
+    terminalTradeAllowed: jspb.Message.getBooleanFieldWithDefault(msg, 21, false)
   };
 
   if (includeInstance) {
@@ -12645,6 +12647,14 @@ proto.mt5_term_api.AccountSummaryData.deserializeBinaryFromReader = function(msg
     case 19:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setAccountTradeExpert(value);
+      break;
+    case 20:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setTerminalConnected(value);
+      break;
+    case 21:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setTerminalTradeAllowed(value);
       break;
     default:
       reader.skipField();
@@ -12807,6 +12817,20 @@ proto.mt5_term_api.AccountSummaryData.serializeBinaryToWriter = function(message
   if (f) {
     writer.writeBool(
       19,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 20));
+  if (f != null) {
+    writer.writeBool(
+      20,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 21));
+  if (f != null) {
+    writer.writeBool(
+      21,
       f
     );
   }
@@ -13190,6 +13214,78 @@ proto.mt5_term_api.AccountSummaryData.prototype.getAccountTradeExpert = function
  */
 proto.mt5_term_api.AccountSummaryData.prototype.setAccountTradeExpert = function(value) {
   return jspb.Message.setProto3BooleanField(this, 19, value);
+};
+
+
+/**
+ * optional bool terminal_connected = 20;
+ * @return {boolean}
+ */
+proto.mt5_term_api.AccountSummaryData.prototype.getTerminalConnected = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 20, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.mt5_term_api.AccountSummaryData} returns this
+ */
+proto.mt5_term_api.AccountSummaryData.prototype.setTerminalConnected = function(value) {
+  return jspb.Message.setField(this, 20, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.mt5_term_api.AccountSummaryData} returns this
+ */
+proto.mt5_term_api.AccountSummaryData.prototype.clearTerminalConnected = function() {
+  return jspb.Message.setField(this, 20, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.AccountSummaryData.prototype.hasTerminalConnected = function() {
+  return jspb.Message.getField(this, 20) != null;
+};
+
+
+/**
+ * optional bool terminal_trade_allowed = 21;
+ * @return {boolean}
+ */
+proto.mt5_term_api.AccountSummaryData.prototype.getTerminalTradeAllowed = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 21, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.mt5_term_api.AccountSummaryData} returns this
+ */
+proto.mt5_term_api.AccountSummaryData.prototype.setTerminalTradeAllowed = function(value) {
+  return jspb.Message.setField(this, 21, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.mt5_term_api.AccountSummaryData} returns this
+ */
+proto.mt5_term_api.AccountSummaryData.prototype.clearTerminalTradeAllowed = function() {
+  return jspb.Message.setField(this, 21, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.mt5_term_api.AccountSummaryData.prototype.hasTerminalTradeAllowed = function() {
+  return jspb.Message.getField(this, 21) != null;
 };
 
 
