@@ -248,6 +248,28 @@ function deserialize_mrpc_admin_RefreshMrpcRestReply(buffer_arg) {
   return mt5$term$api$admin_pb.RefreshMrpcRestReply.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_mrpc_admin_SetDedicatedIpEntitlementReply(arg) {
+  if (!(arg instanceof mt5$term$api$admin_pb.SetDedicatedIpEntitlementReply)) {
+    throw new Error('Expected argument of type mrpc_admin.SetDedicatedIpEntitlementReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_mrpc_admin_SetDedicatedIpEntitlementReply(buffer_arg) {
+  return mt5$term$api$admin_pb.SetDedicatedIpEntitlementReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_mrpc_admin_SetDedicatedIpEntitlementRequest(arg) {
+  if (!(arg instanceof mt5$term$api$admin_pb.SetDedicatedIpEntitlementRequest)) {
+    throw new Error('Expected argument of type mrpc_admin.SetDedicatedIpEntitlementRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_mrpc_admin_SetDedicatedIpEntitlementRequest(buffer_arg) {
+  return mt5$term$api$admin_pb.SetDedicatedIpEntitlementRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_mrpc_admin_StopTerminalLocalReply(arg) {
   if (!(arg instanceof mt5$term$api$admin_pb.StopTerminalLocalReply)) {
     throw new Error('Expected argument of type mrpc_admin.StopTerminalLocalReply');
@@ -559,6 +581,23 @@ stopTerminalLocal: {
     requestDeserialize: deserialize_mrpc_admin_StopTerminalLocalRequest,
     responseSerialize: serialize_mrpc_admin_StopTerminalLocalReply,
     responseDeserialize: deserialize_mrpc_admin_StopTerminalLocalReply,
+  },
+  // Grants or revokes the dedicated-IP add-on entitlement for ONE terminal (UserTerminals.DedicatedIpEntitled).
+// The trusted write path for the add-on: the dedicated-IP connect header assigns an IP and bills the 6 USD per 720 h only
+// when the terminal is entitled (default deny), so this gate must be set first. Called with the ADMIN_KEY (the
+// mrpc-rest gateway maps its X-Admin-Key header onto admin_key), or by mrpc-back after a confirmed purchase.
+// Persisted in Mongo; any pod honours it. Set entitled=false to revoke (a running terminal keeps its current IP
+// until it is stopped/released).
+setDedicatedIpEntitlement: {
+    path: '/mrpc_admin.AdminApi/SetDedicatedIpEntitlement',
+    requestStream: false,
+    responseStream: false,
+    requestType: mt5$term$api$admin_pb.SetDedicatedIpEntitlementRequest,
+    responseType: mt5$term$api$admin_pb.SetDedicatedIpEntitlementReply,
+    requestSerialize: serialize_mrpc_admin_SetDedicatedIpEntitlementRequest,
+    requestDeserialize: deserialize_mrpc_admin_SetDedicatedIpEntitlementRequest,
+    responseSerialize: serialize_mrpc_admin_SetDedicatedIpEntitlementReply,
+    responseDeserialize: deserialize_mrpc_admin_SetDedicatedIpEntitlementReply,
   },
 };
 
