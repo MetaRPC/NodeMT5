@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MT5Client = exports.MT5Error = exports.MrpcError = exports.TIMEFRAMES = exports.TimestampPb = exports.TradeFunctionsPb = exports.TradeFunctionsGrpc = exports.MarketInfoPb = exports.MarketInfoGrpc = exports.SubscriptionsPb = exports.SubscriptionsGrpc = exports.TradingHelperPb = exports.TradingHelperGrpc = exports.AccountInformationPb = exports.AccountInformationGrpc = exports.AccountHelperPb = exports.AccountHelperGrpc = exports.ConnectionPb = exports.ConnectionGrpc = void 0;
+exports.MT5Client = exports.MT5Error = exports.TradeOutcomeUnknownError = exports.MrpcError = exports.TIMEFRAMES = exports.TimestampPb = exports.TradeFunctionsPb = exports.TradeFunctionsGrpc = exports.MarketInfoPb = exports.MarketInfoGrpc = exports.SubscriptionsPb = exports.SubscriptionsGrpc = exports.TradingHelperPb = exports.TradingHelperGrpc = exports.AccountInformationPb = exports.AccountInformationGrpc = exports.AccountHelperPb = exports.AccountHelperGrpc = exports.ConnectionPb = exports.ConnectionGrpc = void 0;
 const grpc = __importStar(require("@grpc/grpc-js"));
 const crypto = __importStar(require("crypto"));
 // Low-level gRPC and Protobuf bindings (generated from the MetaRPC MT5 protos)
@@ -92,8 +92,75 @@ class MrpcError extends Error {
         const s = `${this.code} ${this.message}`.toUpperCase();
         return s.includes('INVALID_LOGIN') || s.includes('WRONG_PASSWORD') || s.includes('INVALID_ACCOUNT');
     }
+    /** The API key was refused (API_KEY_INVALID / API_KEY_REQUIRED): retrying or reconnecting does not help. */
+    get isApiKeyError() {
+        return isApiKeyText(`${this.code} ${this.message}`);
+    }
+    /** The trade call this error came from (`OrderSend`, `OrderModify`, `OrderClose`); unset for other calls. */
+    operation;
+    /**
+     * The outcome of the trade call is unknown: it timed out on the gateway or in the terminal (MRPC_TIMEOUT,
+     * TERMINAL_API_TIMEOUT, ...) or the trade server answered 10012 TIMEOUT / 10028 LOCKED / 10031 CONNECTION. The
+     * trade may or may not have been executed: check the open positions / orders before sending it again.
+     */
+    get isTradeOutcomeUnknown() {
+        if (this.code === TRADE_OUTCOME_UNKNOWN)
+            return true;
+        if (!this.operation)
+            return false;
+        if (IN_BAND_TIMEOUT_CODES.includes(this.code))
+            return true;
+        const type = Number(this.error?.getType?.() ?? 0);
+        if (type === 3 || type === 4)
+            return true; // ErrorType MRPC_TIMEOUT / TERMINAL_API_TIMEOUT
+        const trade = Number(this.error?.getMqlErrorTradeIntCode?.() || this.tradeCode || 0);
+        return trade === 10012 || trade === 10028 || trade === 10031;
+    }
 }
 exports.MrpcError = MrpcError;
+const TRADE_OUTCOME_UNKNOWN = 'TRADE_OUTCOME_UNKNOWN';
+const IN_BAND_TIMEOUT_CODES = ['MRPC_TIMEOUT', 'TERMINAL_API_TIMEOUT', 'COMMAND_TIMEOUT_EXCEEDED', 'TERMINAL_API_CALL_TIMEOUT'];
+const isApiKeyText = (s) => /API_KEY_(INVALID|REQUIRED)/i.test(s);
+/**
+ * A trade call (`orderSend`, `orderModify`, `orderClose`) failed at the transport level - gRPC UNAVAILABLE,
+ * DEADLINE_EXCEEDED, UNKNOWN or INTERNAL - after the request may already have reached the terminal: the trade may or
+ * may not have been executed. The SDK never re-sends a trade: check the open positions / orders (and the history)
+ * before sending it again.
+ * It keeps the shape of the gRPC error it stands for: `code` is still the gRPC status number (also in `grpcCode`),
+ * `details` and `metadata` are the original ones and `cause` is the original error, so existing
+ * `err.code === grpc.status.UNAVAILABLE` checks keep working. `errorCode` is `TRADE_OUTCOME_UNKNOWN`, `operation` the
+ * trade call (e.g. `OrderSend`).
+ */
+class TradeOutcomeUnknownError extends Error {
+    /** The error code of this condition, the same in every MetaRPC SDK. */
+    static CODE = TRADE_OUTCOME_UNKNOWN;
+    errorCode = TRADE_OUTCOME_UNKNOWN;
+    isTradeOutcomeUnknown = true;
+    /** The gRPC status number of the transport failure (unchanged, as on the original error). */
+    code;
+    grpcCode;
+    details;
+    metadata;
+    operation;
+    constructor(operation, transportError) {
+        const grpcCode = Number(transportError?.code);
+        super(`${TRADE_OUTCOME_UNKNOWN}: ${operation} failed with gRPC ${grpc.status[grpcCode] ?? grpcCode} after the request may have reached the terminal; ` +
+            'the trade may or may not have been executed. It was NOT re-sent automatically: check open positions/orders before retrying. ' +
+            `(${transportError?.details ?? transportError?.message ?? ''})`, { cause: transportError });
+        this.name = 'TradeOutcomeUnknownError';
+        this.code = grpcCode;
+        this.grpcCode = grpcCode;
+        this.details = transportError?.details ?? '';
+        this.metadata = transportError?.metadata;
+        this.operation = operation;
+    }
+    /** True for the gRPC status codes after which a trade's outcome is unknown. */
+    static isUnknownOutcome(code) {
+        return code === grpc.status.UNAVAILABLE || code === grpc.status.DEADLINE_EXCEEDED
+            || code === grpc.status.UNKNOWN || code === grpc.status.INTERNAL;
+    }
+}
+exports.TradeOutcomeUnknownError = TradeOutcomeUnknownError;
 /** The name the fleet audit used for `MrpcError`. */
 exports.MT5Error = MrpcError;
 const ORDER_TYPES = {
@@ -115,6 +182,8 @@ const toTimestamp = (d) => {
     ts.setNanos(Math.floor((ms % 1000) * 1e6));
     return ts;
 };
+/** `{ [key]: seconds }` of the message's optional UTC Timestamp `field` when the server sent it, `{}` otherwise. */
+const utcSeconds = (key, msg, field) => (msg && typeof msg[`has${field}`] === 'function' && msg[`has${field}`]() ? { [key]: tsToSeconds(msg[`get${field}`]()) } : {});
 /** A tick's time in ms: the UTC fields when the server fills them, the server-time ones otherwise. */
 const tickTimeMs = (t) => Number(t.getTimeMscUtc?.()) || tsToMs(t.getTimeUtc?.()) || Number(t.getTimeMsc?.()) || tsToSeconds(t.getTime?.()) * 1000;
 const mapTick = (symbol, t) => ({
@@ -229,6 +298,25 @@ class MT5Client {
             });
         });
     }
+    /**
+     * A trade call through `call()`: sent exactly once, never re-sent. An error reply gets the trade call in its
+     * `operation`; a transport failure after which the trade may have been executed becomes a
+     * `TradeOutcomeUnknownError` (same gRPC `code`).
+     */
+    async tradeCall(operation, method, request, timeoutMs) {
+        try {
+            return await this.call(this.tradingClient, method, request, timeoutMs);
+        }
+        catch (err) {
+            if (err instanceof MrpcError) {
+                err.operation = operation;
+            }
+            else if (err && TradeOutcomeUnknownError.isUnknownOutcome(err.code) && !isApiKeyText(`${err.details ?? ''} ${err.message ?? ''}`)) {
+                throw new TradeOutcomeUnknownError(operation, err);
+            }
+            throw err;
+        }
+    }
     /** The terminal id the server assigns to these credentials (Connection.GetId). */
     async getId(user, password) {
         if (this.id)
@@ -330,6 +418,7 @@ class MT5Client {
             tradeModeCode: code,
             serverTime: tsToSeconds(summary.getServerTime()),
             utcServerShiftMinutes: summary.getUtcTimezoneServerTimeShiftMinutes(),
+            ...utcSeconds('serverTimeUtc', summary, 'ServerTimeUtc'),
         };
     }
     // ------------------------------------------------------------------ symbols
@@ -454,6 +543,7 @@ class MT5Client {
         const bars = data ? data.getBarsList() : [];
         return bars.map((b) => ({
             time: Number(b.getTime()),
+            ...(Number(b.getTimeUtc?.()) ? { timeUtc: Number(b.getTimeUtc()) } : {}),
             open: b.getOpen(), high: b.getHigh(), low: b.getLow(), close: b.getClose(),
             tickVolume: Number(b.getTickVolume()), spread: Number(b.getSpread()), realVolume: Number(b.getRealVolume()),
         }));
@@ -507,7 +597,7 @@ class MT5Client {
             grpcReq.setExpirationTime(toTimestamp(req.expirationTime));
         if (req.quotesWaitMs !== undefined)
             grpcReq.setQuotesWaitMs(req.quotesWaitMs);
-        const data = await this.call(this.tradingClient, 'orderSend', grpcReq, 60000);
+        const data = await this.tradeCall('OrderSend', 'orderSend', grpcReq, 60000);
         if (!data)
             throw new MrpcError('Order execution returned no data');
         return MT5Client.mapOrderResult(data);
@@ -528,7 +618,7 @@ class MT5Client {
             grpcReq.setExpirationTimeType(req.expirationTimeType);
         if (req.expirationTime)
             grpcReq.setExpirationTime(toTimestamp(req.expirationTime));
-        const data = await this.call(this.tradingClient, 'orderModify', grpcReq, 60000);
+        const data = await this.tradeCall('OrderModify', 'orderModify', grpcReq, 60000);
         if (!data)
             throw new MrpcError('OrderModify returned no data');
         return MT5Client.mapOrderResult(data);
@@ -541,7 +631,7 @@ class MT5Client {
             grpcReq.setVolume(req.volume);
         if (req.slippage !== undefined)
             grpcReq.setSlippage(req.slippage);
-        const data = await this.call(this.tradingClient, 'orderClose', grpcReq, 60000);
+        const data = await this.tradeCall('OrderClose', 'orderClose', grpcReq, 60000);
         if (!data)
             throw new MrpcError('OrderClose returned no data');
         return {
@@ -569,6 +659,7 @@ class MT5Client {
             magic: Number(p.getMagicNumber()),
             comment: p.getComment(),
             openTime: tsToSeconds(p.getOpenTime()),
+            ...utcSeconds('openTimeUtc', p, 'OpenTimeUtc'),
             identifier: Number(p.getIdentifier()),
         }));
         const orders = (data ? data.getOpenedOrdersList() : []).map((o) => ({
@@ -587,6 +678,8 @@ class MT5Client {
             comment: o.getComment(),
             timeSetup: tsToSeconds(o.getTimeSetup()),
             timeExpiration: tsToSeconds(o.getTimeExpiration()),
+            ...utcSeconds('timeSetupUtc', o, 'TimeSetupUtc'),
+            ...utcSeconds('timeExpirationUtc', o, 'TimeExpirationUtc'),
             positionId: Number(o.getPositionId()),
         }));
         return { positions, orders };
@@ -622,6 +715,7 @@ class MT5Client {
                     stopLoss: o.getStopLoss(), takeProfit: o.getTakeProfit(), magic: Number(o.getMagicNumber()),
                     positionId: Number(o.getPositionId()), comment: o.getComment(),
                     timeSetup: tsToSeconds(o.getSetupTime()), timeDone: tsToSeconds(o.getDoneTime()),
+                    ...utcSeconds('timeSetupUtc', o, 'SetupTimeUtc'), ...utcSeconds('timeDoneUtc', o, 'DoneTimeUtc'),
                 });
             }
             const d = h.getHistoryDeal && h.getHistoryDeal();
@@ -630,7 +724,7 @@ class MT5Client {
                     ticket: Number(d.getTicket()), symbol: d.getSymbol(), type: d.getType(), entry: d.getEntryType(),
                     volume: d.getVolume(), price: d.getPrice(), profit: d.getProfit(), commission: d.getCommission(),
                     swap: d.getSwap(), fee: d.getFee(), positionId: Number(d.getPositionId()), comment: d.getComment(),
-                    time: tsToSeconds(d.getTime()),
+                    time: tsToSeconds(d.getTime()), ...utcSeconds('timeUtc', d, 'TimeUtc'),
                 });
             }
         }
@@ -650,6 +744,7 @@ class MT5Client {
         return (data ? data.getHistoryPositionsList() : []).map((p) => ({
             ticket: Number(p.getPositionTicket()), symbol: p.getSymbol(), type: p.getOrderType(), volume: p.getVolume(),
             openTime: tsToSeconds(p.getOpenTime()), closeTime: tsToSeconds(p.getCloseTime()),
+            ...utcSeconds('openTimeUtc', p, 'OpenTimeUtc'), ...utcSeconds('closeTimeUtc', p, 'CloseTimeUtc'),
             openPrice: p.getOpenPrice(), closePrice: p.getClosePrice(), stopLoss: p.getStopLoss(), takeProfit: p.getTakeProfit(),
             profit: p.getProfit(), commission: p.getCommission(), swap: p.getSwap(), fee: p.getFee(),
             magic: Number(p.getMagic()), comment: p.getComment(),

@@ -40,6 +40,8 @@ export interface AccountInfo {
     serverTime: number;
     /** server_time = utc + utcServerShiftMinutes * 60. Use it to build server-time history windows. */
     utcServerShiftMinutes: number;
+    /** The same instant in UTC (seconds since epoch, server_time_utc); absent when the server does not send it. */
+    serverTimeUtc?: number;
 }
 export interface Quote {
     symbol: string;
@@ -85,6 +87,8 @@ export interface SymbolParams {
 export interface Bar {
     /** Bar open time in seconds since epoch (server timezone). */
     time: number;
+    /** Bar open time in seconds since epoch, UTC (time_utc); absent when the server does not send it. */
+    timeUtc?: number;
     open: number;
     high: number;
     low: number;
@@ -164,6 +168,8 @@ export interface Position {
     comment: string;
     /** Position open time (seconds since epoch). */
     openTime: number;
+    /** Position open time in UTC (seconds since epoch, open_time_utc); absent when the server does not send it. */
+    openTimeUtc?: number;
     identifier: number;
 }
 export interface PendingOrder {
@@ -182,6 +188,9 @@ export interface PendingOrder {
     comment: string;
     timeSetup: number;
     timeExpiration: number;
+    /** `timeSetup` / `timeExpiration` in UTC (seconds since epoch); absent when the server does not send them. */
+    timeSetupUtc?: number;
+    timeExpirationUtc?: number;
     positionId: number;
 }
 export interface HistoryDeal {
@@ -201,6 +210,8 @@ export interface HistoryDeal {
     comment: string;
     /** Deal time (seconds since epoch). */
     time: number;
+    /** Deal time in UTC (seconds since epoch, time_utc); absent when the server does not send it. */
+    timeUtc?: number;
 }
 export interface HistoryOrder {
     ticket: number;
@@ -217,6 +228,9 @@ export interface HistoryOrder {
     comment: string;
     timeSetup: number;
     timeDone: number;
+    /** `timeSetup` / `timeDone` in UTC (seconds since epoch); absent when the server does not send them. */
+    timeSetupUtc?: number;
+    timeDoneUtc?: number;
 }
 export interface HistoryPosition {
     ticket: number;
@@ -225,6 +239,9 @@ export interface HistoryPosition {
     volume: number;
     openTime: number;
     closeTime: number;
+    /** `openTime` / `closeTime` in UTC (seconds since epoch); absent when the server does not send them. */
+    openTimeUtc?: number;
+    closeTimeUtc?: number;
     openPrice: number;
     closePrice: number;
     stopLoss: number;
@@ -276,6 +293,41 @@ export declare class MrpcError extends Error {
     static fromReply(error: any): MrpcError;
     /** INVALID_LOGIN / wrong password errors must never be retried (brokers lock accounts). */
     get isInvalidLogin(): boolean;
+    /** The API key was refused (API_KEY_INVALID / API_KEY_REQUIRED): retrying or reconnecting does not help. */
+    get isApiKeyError(): boolean;
+    /** The trade call this error came from (`OrderSend`, `OrderModify`, `OrderClose`); unset for other calls. */
+    operation?: string;
+    /**
+     * The outcome of the trade call is unknown: it timed out on the gateway or in the terminal (MRPC_TIMEOUT,
+     * TERMINAL_API_TIMEOUT, ...) or the trade server answered 10012 TIMEOUT / 10028 LOCKED / 10031 CONNECTION. The
+     * trade may or may not have been executed: check the open positions / orders before sending it again.
+     */
+    get isTradeOutcomeUnknown(): boolean;
+}
+/**
+ * A trade call (`orderSend`, `orderModify`, `orderClose`) failed at the transport level - gRPC UNAVAILABLE,
+ * DEADLINE_EXCEEDED, UNKNOWN or INTERNAL - after the request may already have reached the terminal: the trade may or
+ * may not have been executed. The SDK never re-sends a trade: check the open positions / orders (and the history)
+ * before sending it again.
+ * It keeps the shape of the gRPC error it stands for: `code` is still the gRPC status number (also in `grpcCode`),
+ * `details` and `metadata` are the original ones and `cause` is the original error, so existing
+ * `err.code === grpc.status.UNAVAILABLE` checks keep working. `errorCode` is `TRADE_OUTCOME_UNKNOWN`, `operation` the
+ * trade call (e.g. `OrderSend`).
+ */
+export declare class TradeOutcomeUnknownError extends Error {
+    /** The error code of this condition, the same in every MetaRPC SDK. */
+    static readonly CODE = "TRADE_OUTCOME_UNKNOWN";
+    readonly errorCode: string;
+    readonly isTradeOutcomeUnknown: boolean;
+    /** The gRPC status number of the transport failure (unchanged, as on the original error). */
+    readonly code: number;
+    readonly grpcCode: number;
+    readonly details: string;
+    readonly metadata: any;
+    readonly operation: string;
+    constructor(operation: string, transportError: any);
+    /** True for the gRPC status codes after which a trade's outcome is unknown. */
+    static isUnknownOutcome(code: number): boolean;
 }
 /** The name the fleet audit used for `MrpcError`. */
 export declare const MT5Error: typeof MrpcError;
@@ -316,6 +368,12 @@ export declare class MT5Client {
      * resolves with the reply's data, rejects with the reply's error (`MrpcError`) or the call's failure.
      */
     call(client: any, method: string, request: any, timeoutMs?: number): Promise<any>;
+    /**
+     * A trade call through `call()`: sent exactly once, never re-sent. An error reply gets the trade call in its
+     * `operation`; a transport failure after which the trade may have been executed becomes a
+     * `TradeOutcomeUnknownError` (same gRPC `code`).
+     */
+    private tradeCall;
     /** The terminal id the server assigns to these credentials (Connection.GetId). */
     getId(user: number | string, password: string): Promise<string>;
     /**
