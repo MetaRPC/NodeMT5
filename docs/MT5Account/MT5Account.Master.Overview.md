@@ -67,7 +67,7 @@ const pb = MT5Account; // the generated *Pb bindings are exported from the modul
 const account = new MT5Account('mt5.mrpc.pro', 443);
 
 // Connect the terminal (ConnectEx by broker server name)
-await account.connect({ user: 500000, password: 'password', server: 'MetaQuotes-Demo' });
+await account.connect({ user: 5057947437, password: 'password', server: 'MetaQuotes-Demo' });
 // The gateway returns a terminal session GUID; later calls reuse it automatically.
 
 // Call a method: returns the Data payload, or throws MrpcError / a transport error

@@ -77,7 +77,7 @@ console.log(`today: ${stats.totalDeals} deals, net ${stats.totalProfit.toFixed(2
 ## 6 · Run it
 
 ```bash
-MT5_LOGIN=500000 MT5_PASSWORD=secret MT5_SERVER=MetaQuotes-Demo \
+MT5_LOGIN=5057947437 MT5_PASSWORD=secret MT5_SERVER=MetaQuotes-Demo \
 MRPC_API_KEY=YOUR_KEY node index.mjs
 ```
 

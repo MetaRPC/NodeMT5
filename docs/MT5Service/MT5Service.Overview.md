@@ -40,11 +40,11 @@ Both layers are equally valid — pick the altitude you prefer. For one-liners, 
 
 ```
 ┌─────────────────────────────────────────────┐
-│  MT5Sugar      one-liners, risk-based sizing  │  ← highest
+│  MT5Sugar      one-liners, risk-based sizing│  ← highest
 ├─────────────────────────────────────────────┤
-│  MT5Service    plain args → typed objects     │  ← YOU ARE HERE
+│  MT5Service    plain args → typed objects   │  ← YOU ARE HERE
 ├─────────────────────────────────────────────┤
-│  MT5Account    raw protobuf / gRPC            │  ← lowest
+│  MT5Account    raw protobuf / gRPC          │  ← lowest
 └─────────────────────────────────────────────┘
 ```
 

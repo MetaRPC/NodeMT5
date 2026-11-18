@@ -84,7 +84,7 @@ You never call `GetId` or supply an `id` header. On `connect` / `connectEx` the 
 import { MT5Sugar } from '@metarpc/nodemt5';
 
 const sugar = MT5Sugar.create('mt5.mrpc.pro', 443, 'YOUR_API_KEY');
-await sugar.quickConnect(500000, 'password', 'MetaQuotes-Demo');
+await sugar.quickConnect(5057947437, 'password', 'MetaQuotes-Demo');
 
 const info = await sugar.getAccountInfo();
 console.log(`${info.name} #${info.login} — ${info.balance} ${info.currency} on ${info.server}`);
