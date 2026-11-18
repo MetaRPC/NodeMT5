@@ -20,6 +20,8 @@ export interface AccountInfo {
     tradeModeCode: number;
     /** Broker server time (seconds since epoch, server timezone) at the time of the call. */
     serverTime: number;
+    /** The same instant in UTC (seconds since epoch); absent when the server does not send it. */
+    serverTimeUtc?: number;
     /** server_time = utc + utcServerShiftMinutes * 60. Build server-time history windows with it. */
     utcServerShiftMinutes: number;
 }
@@ -77,6 +79,8 @@ export interface Bar {
     tickVolume: number;
     spread: number;
     realVolume: number;
+    /** Bar open time in seconds since epoch, UTC; absent when the server does not send it. */
+    timeUtc?: number;
 }
 /** What you pass to {@link MT5Service.placeOrder}. */
 export interface OrderRequest {
@@ -155,6 +159,8 @@ export interface Position {
     comment: string;
     /** Position open time (seconds since epoch). */
     openTime: number;
+    /** Position open time in UTC (seconds since epoch); absent when the server does not send it. */
+    openTimeUtc?: number;
     identifier: number;
 }
 /** A working pending order, from {@link MT5Service.getOpenedOrders}. */
@@ -174,6 +180,9 @@ export interface PendingOrder {
     comment: string;
     timeSetup: number;
     timeExpiration: number;
+    /** `timeSetup` / `timeExpiration` in UTC (seconds since epoch); absent when the server does not send them. */
+    timeSetupUtc?: number;
+    timeExpirationUtc?: number;
     positionId: number;
 }
 /** A historical deal, from {@link MT5Service.getOrderHistory}. */
@@ -194,6 +203,8 @@ export interface HistoryDeal {
     comment: string;
     /** Deal time (seconds since epoch). */
     time: number;
+    /** Deal time in UTC (seconds since epoch); absent when the server does not send it. */
+    timeUtc?: number;
 }
 /** A historical order, from {@link MT5Service.getOrderHistory}. */
 export interface HistoryOrder {
@@ -211,6 +222,9 @@ export interface HistoryOrder {
     comment: string;
     timeSetup: number;
     timeDone: number;
+    /** `timeSetup` / `timeDone` in UTC (seconds since epoch); absent when the server does not send them. */
+    timeSetupUtc?: number;
+    timeDoneUtc?: number;
 }
 /** A closed position, from {@link MT5Service.getPositionsHistory}. */
 export interface HistoryPosition {
@@ -220,6 +234,9 @@ export interface HistoryPosition {
     volume: number;
     openTime: number;
     closeTime: number;
+    /** `openTime` / `closeTime` in UTC (seconds since epoch); absent when the server does not send them. */
+    openTimeUtc?: number;
+    closeTimeUtc?: number;
     openPrice: number;
     closePrice: number;
     stopLoss: number;

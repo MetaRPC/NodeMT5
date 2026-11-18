@@ -179,6 +179,12 @@ export declare class MT5Account {
     marketBookRelease(req: any): Promise<any>;
     /** Current market-depth snapshot (MarketInfo.MarketBookGet) — pass a built request. */
     marketBookGet(req: any): Promise<any>;
+    /**
+     * A trade call through `call()`: sent exactly once, never re-sent. An error reply gets the trade call tagged in
+     * its `operation`; a transport failure after which the trade may have executed becomes a `TradeOutcomeUnknownError`
+     * (same gRPC `code`), so the caller can tell a trade whose outcome is unknown from a plain read failure.
+     */
+    private tradeCall;
     /** Place a market or pending order (TradingHelper.OrderSend) — pass a built `OrderSendRequest`. */
     orderSend(req: any): Promise<any>;
     /** Modify SL/TP/price/expiration of a position or pending order (TradingHelper.OrderModify). */

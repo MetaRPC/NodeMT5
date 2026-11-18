@@ -50,6 +50,8 @@ const tsToSeconds = (ts) => (ts && ts.getSeconds ? Number(ts.getSeconds()) : 0);
 const tsToMs = (ts) => (ts && ts.getSeconds ? Number(ts.getSeconds()) * 1000 + Math.floor(Number(ts.getNanos() || 0) / 1e6) : 0);
 /** A tick's time in ms: the UTC fields when the server fills them, the server-time ones otherwise. */
 const tickTimeMs = (t) => Number(t.getTimeMscUtc?.()) || tsToMs(t.getTimeUtc?.()) || Number(t.getTimeMsc?.()) || tsToSeconds(t.getTime?.()) * 1000;
+/** `{ [key]: seconds }` of the message's optional UTC Timestamp `field` when the server sent it, `{}` otherwise. */
+const utcSeconds = (key, msg, field) => (msg && typeof msg[`has${field}`] === 'function' && msg[`has${field}`]() ? { [key]: tsToSeconds(msg[`get${field}`]()) } : {});
 const mapTick = (symbol, t) => ({
     symbol: t.getSymbol?.() || symbol,
     bid: t.getBid(),
@@ -122,6 +124,7 @@ class MT5Service {
             name: summary.getAccountUserName(), server: server || this.acc.lastServer || '',
             company: summary.getAccountCompanyName(), tradeMode: tradeModeName(code), tradeModeCode: code,
             serverTime: tsToSeconds(summary.getServerTime()),
+            ...utcSeconds('serverTimeUtc', summary, 'ServerTimeUtc'),
             utcServerShiftMinutes: summary.getUtcTimezoneServerTimeShiftMinutes(),
         };
     }
@@ -238,6 +241,7 @@ class MT5Service {
         return bars.map((b) => ({
             time: Number(b.getTime()), open: b.getOpen(), high: b.getHigh(), low: b.getLow(), close: b.getClose(),
             tickVolume: Number(b.getTickVolume()), spread: Number(b.getSpread()), realVolume: Number(b.getRealVolume()),
+            ...(Number(b.getTimeUtc?.()) ? { timeUtc: Number(b.getTimeUtc()) } : {}),
         }));
     }
     /**
@@ -276,7 +280,7 @@ class MT5Service {
             priceOpen: p.getPriceOpen(), priceCurrent: p.getPriceCurrent(), stopLoss: p.getStopLoss(), takeProfit: p.getTakeProfit(),
             swap: p.getSwap(), profit: p.getProfit(), commission: p.getPositionCommission ? p.getPositionCommission() : 0,
             magic: Number(p.getMagicNumber()), comment: p.getComment(),
-            openTime: tsToSeconds(p.getOpenTime()), identifier: Number(p.getIdentifier()),
+            openTime: tsToSeconds(p.getOpenTime()), ...utcSeconds('openTimeUtc', p, 'OpenTimeUtc'), identifier: Number(p.getIdentifier()),
         }));
         const orders = (data ? data.getOpenedOrdersList() : []).map((o) => ({
             ticket: Number(o.getTicket()), symbol: o.getSymbol(), type: o.getType(), state: o.getState(),
@@ -285,6 +289,7 @@ class MT5Service {
             stopLoss: o.getStopLoss(), takeProfit: o.getTakeProfit(), stopLimit: o.getStopLimit(),
             magic: Number(o.getMagicNumber()), comment: o.getComment(),
             timeSetup: tsToSeconds(o.getTimeSetup()), timeExpiration: tsToSeconds(o.getTimeExpiration()),
+            ...utcSeconds('timeSetupUtc', o, 'TimeSetupUtc'), ...utcSeconds('timeExpirationUtc', o, 'TimeExpirationUtc'),
             positionId: Number(o.getPositionId()),
         }));
         return { positions, orders };
@@ -316,6 +321,7 @@ class MT5Service {
                     stopLoss: o.getStopLoss(), takeProfit: o.getTakeProfit(), magic: Number(o.getMagicNumber()),
                     positionId: Number(o.getPositionId()), comment: o.getComment(),
                     timeSetup: tsToSeconds(o.getSetupTime()), timeDone: tsToSeconds(o.getDoneTime()),
+                    ...utcSeconds('timeSetupUtc', o, 'SetupTimeUtc'), ...utcSeconds('timeDoneUtc', o, 'DoneTimeUtc'),
                 });
             const d = h.getHistoryDeal && h.getHistoryDeal();
             if (d)
@@ -323,7 +329,7 @@ class MT5Service {
                     ticket: Number(d.getTicket()), symbol: d.getSymbol(), type: d.getType(), entry: d.getEntryType(),
                     volume: d.getVolume(), price: d.getPrice(), profit: d.getProfit(), commission: d.getCommission(),
                     swap: d.getSwap(), fee: d.getFee(), positionId: Number(d.getPositionId()), comment: d.getComment(),
-                    time: tsToSeconds(d.getTime()),
+                    time: tsToSeconds(d.getTime()), ...utcSeconds('timeUtc', d, 'TimeUtc'),
                 });
         }
         return { orders, deals };
@@ -334,6 +340,7 @@ class MT5Service {
         return (data ? data.getHistoryPositionsList() : []).map((p) => ({
             ticket: Number(p.getPositionTicket()), symbol: p.getSymbol(), type: p.getOrderType(), volume: p.getVolume(),
             openTime: tsToSeconds(p.getOpenTime()), closeTime: tsToSeconds(p.getCloseTime()),
+            ...utcSeconds('openTimeUtc', p, 'OpenTimeUtc'), ...utcSeconds('closeTimeUtc', p, 'CloseTimeUtc'),
             openPrice: p.getOpenPrice(), closePrice: p.getClosePrice(), stopLoss: p.getStopLoss(), takeProfit: p.getTakeProfit(),
             profit: p.getProfit(), commission: p.getCommission(), swap: p.getSwap(), fee: p.getFee(),
             magic: Number(p.getMagic()), comment: p.getComment(),

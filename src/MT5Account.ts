@@ -69,7 +69,7 @@
 
 import * as grpc from '@grpc/grpc-js';
 import * as crypto from 'crypto';
-import { MrpcError, NotConnectedError } from './errors';
+import { MrpcError, NotConnectedError, TradeOutcomeUnknownError, isApiKeyText } from './errors';
 
 // ── Generated gRPC + protobuf bindings (from the MetaRPC MT5 protos) ──────────
 export const ConnectionGrpc = require('../package/mt5-term-api-connection_grpc_pb');
@@ -593,10 +593,28 @@ export class MT5Account {
 
   // #region 6. TRADING OPERATIONS ────────────────────────────────────────────────
 
+  /**
+   * A trade call through `call()`: sent exactly once, never re-sent. An error reply gets the trade call tagged in
+   * its `operation`; a transport failure after which the trade may have executed becomes a `TradeOutcomeUnknownError`
+   * (same gRPC `code`), so the caller can tell a trade whose outcome is unknown from a plain read failure.
+   */
+  private async tradeCall(operation: string, method: string, request: any, timeoutMs: number): Promise<any> {
+    try {
+      return await this.call(this.tradingClient, method, request, timeoutMs);
+    } catch (err: any) {
+      if (err instanceof MrpcError) {
+        err.operation = operation;
+      } else if (err && TradeOutcomeUnknownError.isUnknownOutcome(err.code) && !isApiKeyText(`${err.details ?? ''} ${err.message ?? ''}`)) {
+        throw new TradeOutcomeUnknownError(operation, err);
+      }
+      throw err;
+    }
+  }
+
   /** Place a market or pending order (TradingHelper.OrderSend) — pass a built `OrderSendRequest`. */
   async orderSend(req: any): Promise<any> {
     this.ensureConnected();
-    const d = await this.call(this.tradingClient, 'orderSend', req, 60000);
+    const d = await this.tradeCall('OrderSend', 'orderSend', req, 60000);
     if (!d) throw new MrpcError('OrderSend returned no data');
     return d;
   }
@@ -604,7 +622,7 @@ export class MT5Account {
   /** Modify SL/TP/price/expiration of a position or pending order (TradingHelper.OrderModify). */
   async orderModify(req: any): Promise<any> {
     this.ensureConnected();
-    const d = await this.call(this.tradingClient, 'orderModify', req, 60000);
+    const d = await this.tradeCall('OrderModify', 'orderModify', req, 60000);
     if (!d) throw new MrpcError('OrderModify returned no data');
     return d;
   }
@@ -612,7 +630,7 @@ export class MT5Account {
   /** Close a position (full/partial) or delete a pending order (TradingHelper.OrderClose). */
   async orderClose(req: any): Promise<any> {
     this.ensureConnected();
-    const d = await this.call(this.tradingClient, 'orderClose', req, 60000);
+    const d = await this.tradeCall('OrderClose', 'orderClose', req, 60000);
     if (!d) throw new MrpcError('OrderClose returned no data');
     return d;
   }
