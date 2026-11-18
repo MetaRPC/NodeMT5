@@ -1,55 +1,47 @@
-/**
- * MetaRPC NodeMT5 Quickstart Example
- * Demonstrates:
- * 1. Initializing the client with an API key
- * 2. Using your MT5 credentials (MT5_LOGIN / MT5_PASSWORD / MT5_SERVER) or opening a new demo account
- * 3. Connecting to mt5.mrpc.pro:443 (MRPC_GRPC_HOST overrides the host)
- * 4. Reading the account and placing a 0.01 lot buy
- * 5. Disconnecting
- */
+/*══════════════════════════════════════════════════════════════════════════════
+ FILE: quickstart.js - the smallest end-to-end NodeMT5 program
 
-const { MT5Client } = require('../src/index.js');
+ Connect → read balance & price → open a tiny demo order → close it.
+
+ RUN:
+   npm run build                                  # compile the SDK (emits src/*.js)
+   MT5_LOGIN=... MT5_PASSWORD=... MT5_SERVER=MetaQuotes-Demo node examples/quickstart.js
+   # or pass an API key:  node examples/quickstart.js <API_KEY>
+══════════════════════════════════════════════════════════════════════════════*/
+
+'use strict';
+
+const { MT5Sugar } = require('../src');
 
 async function main() {
-  const apiKey = process.argv[2] || process.env.MRPC_API_KEY || 'TRIAL';
-  const host = (process.env.MRPC_GRPC_HOST || 'mt5.mrpc.pro').replace(/:443$/, '');
-  const client = new MT5Client(host, 443, apiKey);
+  const apiKey = process.argv[2] || process.env.MRPC_API_KEY || null; // null → TRIAL
+  const login = Number(process.env.MT5_LOGIN);
+  const password = process.env.MT5_PASSWORD;
+  const server = process.env.MT5_SERVER || 'MetaQuotes-Demo';
+  const symbol = process.env.MT5_SYMBOL || 'EURUSD';
 
-  const login = process.env.MT5_LOGIN || process.env.MT5_USER;
-  let user = login ? parseInt(login, 10) : null;
-  let password = process.env.MT5_PASSWORD || null;
-  let server = process.env.MT5_SERVER || 'MetaQuotes-Demo';
-
-  if (!user || !password) {
-    console.log('--- Step 0: Opening a demo account ---');
-    const demo = await MT5Client.openDemoAccount(server, apiKey, host);
-    user = demo.login;
-    password = demo.password;
-    server = demo.server;
-    console.log(`Demo account opened: #${user} (server ${server})`);
+  if (!login || !password) {
+    console.error('Set MT5_LOGIN and MT5_PASSWORD (and optionally MT5_SERVER / MT5_SYMBOL).');
+    process.exit(2);
   }
 
-  console.log('\n--- Step 1: Connect ---');
-  await client.connect({ user, password, server });
-  console.log(`Connected to ${host}:443 (terminal ${client.id})`);
+  const sugar = MT5Sugar.create('mt5.mrpc.pro', 443, apiKey);
+  await sugar.quickConnect(login, password, server);
+  console.log('✓ connected to', server);
+
+  console.log(`balance ${(await sugar.getBalance()).toFixed(2)}   equity ${(await sugar.getEquity()).toFixed(2)}`);
+  console.log(`${symbol}  bid ${await sugar.getBid(symbol)}  ask ${await sugar.getAsk(symbol)}`);
+
   try {
-    console.log('\n--- Step 2: Account ---');
-    const account = await client.getAccountInfo();
-    console.log(`Account:  ${account.login} (${account.name}) on ${account.server}`);
-    console.log(`Balance:  ${account.balance} ${account.currency}, equity ${account.equity}, free margin ${account.freeMargin}`);
-    console.log(`Leverage: 1:${account.leverage}`);
-
-    console.log('\n--- Step 3: Market order ---');
-    const order = await client.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.01, comment: 'MetaRPC Node quickstart' });
-    console.log(`Order placed: deal #${order.deal}, position #${order.order} at ${order.price} (return code ${order.retcode})`);
-  } finally {
-    console.log('\n--- Step 4: Disconnect ---');
-    await client.disconnect();
-    console.log('Disconnected.');
+    const ticket = await sugar.buyMarket(symbol, 0.01);   // ⚠ tiny demo order
+    console.log(`opened #${ticket}`);
+    await sugar.closePosition(ticket);
+    console.log('closed');
+  } catch (e) {
+    console.log(`order rejected: ${e.message} (market closed? try a 24/7 symbol like BTCUSD)`);
   }
+
+  sugar.account().close();
 }
 
-main().catch((err) => {
-  console.error(err.message || err);
-  process.exit(1);
-});
+main().catch((e) => { console.error('error:', e.message || e); process.exit(1); });

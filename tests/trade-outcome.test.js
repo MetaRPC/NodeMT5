@@ -4,7 +4,7 @@
 const { test, before, after } = require('node:test');
 const assert = require('node:assert');
 const grpc = require('@grpc/grpc-js');
-const { MT5Client, MrpcError, TradeOutcomeUnknownError } = require('../src/index.js');
+const { MT5Service, MrpcError, TradeOutcomeUnknownError } = require('../src/index.js');
 const ConnectionGrpc = require('../package/mt5-term-api-connection_grpc_pb');
 const ConnectionPb = require('../package/mt5-term-api-connection_pb');
 const AccountHelperGrpc = require('../package/mt5-term-api-account-helper_grpc_pb');
@@ -100,16 +100,16 @@ before(async () => {
 after(() => server.forceShutdown());
 
 const connected = async () => {
-  const c = new MT5Client('127.0.0.1', port, 'key-1');
+  const c = MT5Service.create('127.0.0.1', port, 'key-1');
   await c.connect({ user: 1, password: 'p', server: 'MetaQuotes-Demo' });
   for (const k of Object.keys(calls)) delete calls[k];
   return c;
 };
 
 for (const [name, method, run] of [
-  ['OrderSend', 'orderSend', (c) => c.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 })],
-  ['OrderModify', 'orderModify', (c) => c.orderModify({ ticket: 88, stopLoss: 1.0 })],
-  ['OrderClose', 'orderClose', (c) => c.orderClose({ ticket: 88, volume: 0.05 })],
+  ['OrderSend', 'orderSend', (c) => c.placeOrder({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 })],
+  ['OrderModify', 'orderModify', (c) => c.modifyOrder({ ticket: 88, stopLoss: 1.0 })],
+  ['OrderClose', 'orderClose', (c) => c.closeOrder({ ticket: 88, volume: 0.05 })],
 ]) {
   for (const code of [grpc.status.UNAVAILABLE, grpc.status.DEADLINE_EXCEEDED, grpc.status.UNKNOWN, grpc.status.INTERNAL]) {
     test(`${name} failing with gRPC ${grpc.status[code]} is sent once and is TRADE_OUTCOME_UNKNOWN`, async () => {
@@ -135,7 +135,7 @@ for (const [name, method, run] of [
 test('a trade refused before the terminal (TERMINAL_INSTANCE_NOT_FOUND) is an MrpcError of that code, outcome known', async () => {
   const c = await connected();
   replyError = { code: 'TERMINAL_INSTANCE_NOT_FOUND', message: 'no terminal' };
-  const err = await c.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }).then(() => null, (e) => e);
+  const err = await c.placeOrder({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }).then(() => null, (e) => e);
   assert.strictEqual(calls.orderSend, 1);
   assert.ok(err instanceof MrpcError);
   assert.strictEqual(err.code, 'TERMINAL_INSTANCE_NOT_FOUND');
@@ -147,7 +147,7 @@ test('a trade refused before the terminal (TERMINAL_INSTANCE_NOT_FOUND) is an Mr
 test('a refused API key is one call, keeps its code and is flagged', async () => {
   const c = await connected();
   replyError = { code: 'API_KEY_INVALID', message: 'Unknown API key' };
-  const err = await c.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }).then(() => null, (e) => e);
+  const err = await c.placeOrder({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }).then(() => null, (e) => e);
   assert.strictEqual(calls.orderSend, 1);
   assert.strictEqual(calls.connectEx, undefined);
   assert.ok(err instanceof MrpcError);
@@ -155,13 +155,13 @@ test('a refused API key is one call, keeps its code and is flagged', async () =>
   assert.strictEqual(err.isApiKeyError, true);
   assert.strictEqual(err.isTradeOutcomeUnknown, false);
   replyError = { code: 'API_KEY_REQUIRED', message: 'no key' };
-  await assert.rejects(c.positionsHistory(new Date(0), new Date()), (e) => e.isApiKeyError && e.code === 'API_KEY_REQUIRED');
+  await assert.rejects(c.getPositionsHistory(new Date(0), new Date()), (e) => e.isApiKeyError && e.code === 'API_KEY_REQUIRED');
 });
 
 test('a transport failure whose status names a refused API key is not wrapped (the trade was refused)', async () => {
   const c = await connected();
   transportFail = { code: grpc.status.UNKNOWN, details: 'API_KEY_INVALID' };
-  const err = await c.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }).then(() => null, (e) => e);
+  const err = await c.placeOrder({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }).then(() => null, (e) => e);
   assert.strictEqual(calls.orderSend, 1);
   assert.ok(!(err instanceof TradeOutcomeUnknownError));
   assert.strictEqual(err.code, grpc.status.UNKNOWN);
@@ -170,24 +170,24 @@ test('a transport failure whose status names a refused API key is not wrapped (t
 test('an in-band timeout of a trade is an unknown outcome; the same on a read is not', async () => {
   const c = await connected();
   replyError = { code: 'MRPC_TIMEOUT', message: 'timed out', type: ErrorPb.ErrorType.MRPC_TIMEOUT };
-  await assert.rejects(c.orderClose({ ticket: 88 }), (e) => e instanceof MrpcError && e.isTradeOutcomeUnknown && e.operation === 'OrderClose');
+  await assert.rejects(c.closeOrder({ ticket: 88 }), (e) => e instanceof MrpcError && e.isTradeOutcomeUnknown && e.operation === 'OrderClose');
   replyError = { code: 'MQL5_SIDE_TRADE_ERROR', message: 'Request timeout', tradeIntCode: 10031 };
-  await assert.rejects(c.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }), (e) => e.isTradeOutcomeUnknown && e.code === 'MQL5_SIDE_TRADE_ERROR');
+  await assert.rejects(c.placeOrder({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }), (e) => e.isTradeOutcomeUnknown && e.code === 'MQL5_SIDE_TRADE_ERROR');
   replyError = { code: 'MQL5_SIDE_TRADE_ERROR', message: 'No money', tradeIntCode: 10019 };
-  await assert.rejects(c.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }), (e) => e instanceof MrpcError && !e.isTradeOutcomeUnknown);
+  await assert.rejects(c.placeOrder({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }), (e) => e instanceof MrpcError && !e.isTradeOutcomeUnknown);
   replyError = { code: 'MRPC_TIMEOUT', message: 'timed out', type: ErrorPb.ErrorType.MRPC_TIMEOUT };
-  await assert.rejects(c.openedOrders(), (e) => e instanceof MrpcError && !e.isTradeOutcomeUnknown && e.operation === undefined);
+  await assert.rejects(c.getOpenedOrders(), (e) => e instanceof MrpcError && !e.isTradeOutcomeUnknown && e.operation === undefined);
 });
 
 test('a read failing at the transport level rejects with the gRPC error itself, as before', async () => {
   const c = await connected();
   transportFail = { code: grpc.status.UNAVAILABLE, details: 'down' };
-  const err = await c.openedOrders().then(() => null, (e) => e);
+  const err = await c.getOpenedOrders().then(() => null, (e) => e);
   assert.strictEqual(calls.openedOrders, 1);
   assert.ok(!(err instanceof TradeOutcomeUnknownError) && !(err instanceof MrpcError));
   assert.strictEqual(err.code, grpc.status.UNAVAILABLE);
   assert.strictEqual(err.isTradeOutcomeUnknown, undefined);
-  assert.strictEqual((await c.openedOrders()).positions.length, 2); // the next call works
+  assert.strictEqual((await c.getOpenedOrders()).positions.length, 2); // the next call works
 });
 
 test('the *_utc times are mapped when the server sends them and absent otherwise', async () => {
@@ -196,13 +196,13 @@ test('the *_utc times are mapped when the server sends them and absent otherwise
   assert.strictEqual(bars[0].time, 1700010800);
   assert.strictEqual(bars[0].timeUtc, 1700000000);
   assert.ok(!('timeUtc' in bars[1]));
-  const { positions, orders } = await c.openedOrders();
+  const { positions, orders } = await c.getOpenedOrders();
   assert.strictEqual(positions[0].openTimeUtc, 1700000000);
   assert.ok(!('openTimeUtc' in positions[1]));
   assert.strictEqual(orders[0].timeSetupUtc, 1700000000);
   assert.ok(!('timeExpirationUtc' in orders[0]));
-  const [h] = await c.positionsHistory(new Date(0), new Date());
+  const [h] = await c.getPositionsHistory(new Date(0), new Date());
   assert.deepStrictEqual([h.openTime, h.closeTime, h.openTimeUtc, h.closeTimeUtc], [1700010800, 1700014400, 1700000000, 1700003600]);
-  const { deals } = await c.orderHistory(new Date(0), new Date());
+  const { deals } = await c.getOrderHistory(new Date(0), new Date());
   assert.deepStrictEqual([deals[0].time, deals[0].timeUtc], [1700010800, 1700000000]);
 });

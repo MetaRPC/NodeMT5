@@ -1,10 +1,10 @@
-// Unit tests of MT5Client against an in-process gRPC server (no network, no MRPC account): the server implements the
-// services the client calls with the SDK's own generated definitions, records what the client sent and answers with
-// data or with an error reply.
+// Unit tests of the 3-layer SDK (MT5Service over MT5Account) against an in-process gRPC server (no network, no MRPC
+// account): the server implements the services the client calls with the SDK's own generated definitions, records what
+// the client sent and answers with data or with an error reply.
 const { test, before, after } = require('node:test');
 const assert = require('node:assert');
 const grpc = require('@grpc/grpc-js');
-const { MT5Client, MrpcError, MT5Error } = require('../src/index.js');
+const { MT5Service, MT5Account, MrpcError, MT5Error } = require('../src/index.js');
 // The service definitions and messages straight from the generated stubs: the server side does not depend on the client.
 const ConnectionGrpc = require('../package/mt5-term-api-connection_grpc_pb');
 const ConnectionPb = require('../package/mt5-term-api-connection_pb');
@@ -159,18 +159,19 @@ before(async () => {
 
 after(() => server.forceShutdown());
 
-const client = () => new MT5Client('127.0.0.1', port, 'key-1');
+// A MT5Service (mid layer) over a fresh MT5Account, pointed at the in-process server (insecure: port != 443).
+const client = () => MT5Service.create('127.0.0.1', port, 'key-1');
 
 test('connect sends the API key, keeps the terminal id and sends it with every later call', async () => {
   seen.length = 0;
   const c = client();
   assert.strictEqual(await c.connect({ user: 123, password: 'p', server: 'MetaQuotes-Demo' }), true);
-  assert.strictEqual(c.id, TERMINAL);
+  assert.strictEqual(c.account().id, TERMINAL);
   const connect = seen.find(s => s.method === 'connectEx');
   assert.strictEqual(connect.apikey, 'key-1');
   assert.strictEqual(connect.id, undefined);
   assert.strictEqual(connect.request.getMtClusterName(), 'MetaQuotes-Demo');
-  await c.getAccountInfo();
+  await c.getAccountSummary();
   assert.ok(seen.filter(s => s.method !== 'connectEx').every(s => s.id === TERMINAL && s.apikey === 'key-1'));
   await c.disconnect(true);
   assert.strictEqual(seen.find(s => s.method === 'disconnect').request.getDelete(), true);
@@ -178,20 +179,20 @@ test('connect sends the API key, keeps the terminal id and sends it with every l
 
 test('connect sends a stable terminal id and the terminal name with ConnectEx', async () => {
   seen.length = 0;
-  const id = MT5Client.uuid5('6f1c3b2e-7a4d-4c0e-9a1f-0000f1ee0001', 'S042');
+  const id = MT5Account.uuid5('6f1c3b2e-7a4d-4c0e-9a1f-0000f1ee0001', 'S042');
   assert.match(id, /^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
   const c = client();
   await c.connect({ user: 123, password: 'p', server: 'MetaQuotes-Demo', name: 'S042', id });
   const connect = seen.find(s => s.method === 'connectEx');
   assert.strictEqual(connect.id, id);
   assert.strictEqual(connect.request.getName(), 'S042');
-  assert.strictEqual(c.id, TERMINAL);
+  assert.strictEqual(c.account().id, TERMINAL);
 });
 
-test('account info is what the server answered: summary, margin values and the broker server', async () => {
+test('getAccountSummary is what the server answered: summary, margin values and the broker server', async () => {
   const c = client();
   await c.connect({ user: 123, password: 'p', server: 'MetaQuotes-Demo' });
-  assert.deepStrictEqual(await c.getAccountInfo(), {
+  assert.deepStrictEqual(await c.getAccountSummary(), {
     login: 5057401134, currency: 'EUR', balance: 1000.5, equity: 990.25, credit: 5,
     margin: 12.5, freeMargin: 977.75, marginLevel: 7922, leverage: 100, name: 'Jane Trader', server: 'MetaQuotes-Demo',
     company: 'MetaQuotes Ltd.', tradeMode: 'DEMO', tradeModeCode: 0,
@@ -199,25 +200,25 @@ test('account info is what the server answered: summary, margin values and the b
   });
 });
 
-test('an error reply is an error - also for the key and login that used to get invented answers', async () => {
-  const c = new MT5Client('127.0.0.1', port, 'mrpc_test_key');
+test('an error reply becomes an MrpcError across the layers', async () => {
+  const c = MT5Service.create('127.0.0.1', port, 'mrpc_test_key');
   failNext = { code: 'CONNECT_INVALID_LOGIN_ERROR', message: 'Invalid account' };
   await assert.rejects(c.connect(12345678, 'demo_password'), (e) => e instanceof MrpcError && e instanceof MT5Error && e.code === 'CONNECT_INVALID_LOGIN_ERROR' && e.isInvalidLogin);
-  assert.strictEqual(c.connected, false);
+  assert.strictEqual(c.account().isConnected(), false);
 
   await c.connect({ user: 12345678, password: 'p', server: 'MetaQuotes-Demo' });
   failNext = { code: 'TERMINAL_INSTANCE_NOT_FOUND', message: 'no terminal' };
-  await assert.rejects(c.getAccountInfo(), (e) => e.code === 'TERMINAL_INSTANCE_NOT_FOUND');
+  await assert.rejects(c.getAccountSummary(), (e) => e.code === 'TERMINAL_INSTANCE_NOT_FOUND');
   failNext = { code: 'TRADE_RETCODE_NO_MONEY', message: 'Not enough money' };
-  await assert.rejects(c.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }), (e) => e.code === 'TRADE_RETCODE_NO_MONEY' && e.error.getErrorMessage() === 'Not enough money');
+  await assert.rejects(c.placeOrder({ symbol: 'EURUSD', action: 'BUY', volume: 0.1 }), (e) => e.code === 'TRADE_RETCODE_NO_MONEY' && e.error.getErrorMessage() === 'Not enough money');
 });
 
-test('orderSend sends the order type asked for and returns the server result', async () => {
+test('placeOrder sends the order type asked for and returns the mapped OrderResult', async () => {
   const c = client();
   await c.connect({ user: 123, password: 'p', server: 'MetaQuotes-Demo' });
   for (const [action, type] of [['BUY', 'TMT5_ORDER_TYPE_BUY'], ['SELL_LIMIT', 'TMT5_ORDER_TYPE_SELL_LIMIT'], ['BUY_STOP', 'TMT5_ORDER_TYPE_BUY_STOP']]) {
     seen.length = 0;
-    const res = await c.orderSend({ symbol: 'EURUSD', action, volume: 0.2, price: 1.2, stopLoss: 1.1, takeProfit: 1.3, magic: 600042 });
+    const res = await c.placeOrder({ symbol: 'EURUSD', action, volume: 0.2, price: 1.2, stopLoss: 1.1, takeProfit: 1.3, magic: 600042 });
     const sent = seen.find(s => s.method === 'orderSend').request;
     assert.strictEqual(sent.getOperation(), TradingHelperPb.TMT5_ENUM_ORDER_TYPE[type]);
     assert.strictEqual(sent.getStopLoss(), 1.1);
@@ -229,13 +230,13 @@ test('orderSend sends the order type asked for and returns the server result', a
   }
 });
 
-test('subscribeQuotes delivers the ticks of the stream until unsubscribed', async () => {
+test('streamTicks delivers mapped Quotes until unsubscribed', async () => {
   const c = client();
   await c.connect({ user: 123, password: 'p', server: 'MetaQuotes-Demo' });
   const quotes = [];
   const errors = [];
   await new Promise((resolve) => {
-    const sub = c.subscribeQuotes(['EURUSD', 'GBPUSD'], (q) => {
+    const sub = c.streamTicks(['EURUSD', 'GBPUSD'], (q) => {
       quotes.push(q);
       if (quotes.length === 4) { sub.unsubscribe(); resolve(); }
     }, (e) => errors.push(e));
@@ -249,18 +250,18 @@ test('subscribeQuotes delivers the ticks of the stream until unsubscribed', asyn
 
 test('getId asks the server and fails when the server refuses', async () => {
   seen.length = 0;
-  assert.strictEqual(await client().getId(123, 'p'), TERMINAL);
+  assert.strictEqual(await client().account().getId(123, 'p'), TERMINAL);
   assert.strictEqual(seen[0].request.getUser(), '123');
   failNext = { code: 'INVALID_ACCOUNT', message: 'Invalid account' };
-  await assert.rejects(client().getId(123, 'wrong'), (e) => e.code === 'INVALID_ACCOUNT');
+  await assert.rejects(client().account().getId(123, 'wrong'), (e) => e.code === 'INVALID_ACCOUNT');
 });
 
-test('subscribeQuotes reports an error reply of the stream instead of a quote', async () => {
+test('streamTicks reports an error reply of the stream instead of a quote', async () => {
   const c = client();
   await c.connect({ user: 123, password: 'p', server: 'MetaQuotes-Demo' });
   const quotes = [];
   const error = await new Promise((resolve) => {
-    const sub = c.subscribeQuotes(['NOSUCH'], (q) => quotes.push(q), (e) => { sub.unsubscribe(); resolve(e); });
+    const sub = c.streamTicks(['NOSUCH'], (q) => quotes.push(q), (e) => { sub.unsubscribe(); resolve(e); });
   });
   assert.ok(error instanceof MrpcError);
   assert.strictEqual(error.code, 'SYMBOL_NOT_FOUND');

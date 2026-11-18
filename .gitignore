@@ -4,4 +4,6 @@ site/
 .env
 *.log
 
+1-27.md
 .cache/
+1.md
