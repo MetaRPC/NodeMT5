@@ -1,0 +1,468 @@
+/*
+ * ════════════════════════════════════════════════════════════════════════════
+ *  MT5Sugar — High-Level One-Liner API (Layer 3 of 3)
+ * ════════════════════════════════════════════════════════════════════════════
+ *
+ *  The highest-level, most ergonomic layer: ultra-simple one-liner methods for
+ *  everyday MT5 work, with smart defaults. It wraps {@link MT5Service} (which
+ *  wraps {@link MT5Account}), so you can always drop down with `service()` /
+ *  `account()` for finer control.
+ *
+ *      LOW  → MT5Account   (protobuf Request/Data, direct gRPC)
+ *      MID  → MT5Service   (plain args, typed objects)
+ *      HIGH → MT5Sugar     (one-liners, business logic)   ← you are here
+ *
+ *  METHOD GROUPS
+ *  ──────────────────────────────────────────────────────────────────────────
+ *   1.  Connection          : quickConnect · isConnected · ping
+ *   2.  Balance & margin     : getBalance · getEquity · getMargin · getFreeMargin ·
+ *                              getMarginLevel · getProfit
+ *   3.  Prices & quotes      : getBid · getAsk · getSpread · getPriceInfo · waitForPrice
+ *   4.  Simple trading       : buyMarket · sellMarket · buyLimit · sellLimit ·
+ *                              buyStop · sellStop
+ *   5.  Trading with SL/TP   : buy/sellMarketWithSLTP · buy/sellLimitWithSLTP
+ *   6.  Position management  : closePosition · closePositionPartial · closeAllPositions ·
+ *                              closeAllBySymbol · modifyPositionSL · modifyPositionTP ·
+ *                              modifyPositionSLTP
+ *   7.  Position information : getOpenPositions · getPositionByTicket ·
+ *                              getPositionsBySymbol · hasOpenPosition · countOpenPositions ·
+ *                              getTotalProfit · getProfitBySymbol
+ *   8.  History & profit     : getDealsToday/Yesterday/ThisWeek/ThisMonth/DateRange ·
+ *                              getProfitToday/ThisWeek/ThisMonth
+ *   9.  Symbol information   : getSymbolInfo · getAllSymbols · isSymbolAvailable ·
+ *                              getMinStopLevel · getSymbolDigits
+ *   10. Risk management      : calculatePositionSize · getMaxLotSize · canOpenPosition ·
+ *                              calculateRequiredMargin · calculateSLTP
+ *   11. Trading helpers      : buyMarketWithPips · sellMarketWithPips
+ *   12. Account information   : getAccountInfo · getDailyStats
+ *
+ *  Order helpers return the resulting ticket; a broker rejection (retcode ≠ 10009)
+ *  throws `MrpcError`.
+ * ════════════════════════════════════════════════════════════════════════════
+ */
+
+import { MT5Account, ConnectOptions, MarketInfoPb } from './MT5Account';
+import {
+  MT5Service, AccountInfo, Quote, SymbolParams, Position, HistoryPosition, OrderAction,
+} from './MT5Service';
+import { MrpcError } from './errors';
+
+/** Compact price snapshot, from {@link MT5Sugar.getPriceInfo}. */
+export interface PriceInfo {
+  symbol: string;
+  bid: number;
+  ask: number;
+  /** ask − bid, expressed in pips. */
+  spreadPips: number;
+  /** Tick time, milliseconds since epoch. */
+  time: number;
+}
+
+/** A day's trading summary, from {@link MT5Sugar.getDailyStats}. */
+export interface DailyStats {
+  totalDeals: number;
+  winningDeals: number;
+  losingDeals: number;
+  /** winning / total, in percent. */
+  winRate: number;
+  totalProfit: number;
+  bestDeal: number;
+  worstDeal: number;
+}
+
+const RET_DONE = 10009; // TRADE_RETCODE_DONE
+
+/** A pip is `point × 10` on 3/5-digit symbols, else `point`. */
+function pipSize(info: SymbolParams): number {
+  return info.point * (info.digits === 3 || info.digits === 5 ? 10 : 1);
+}
+
+const startOfDay = (d = new Date()): Date => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+const startOfWeek = (d = new Date()): Date => {
+  const s = startOfDay(d);
+  s.setDate(s.getDate() - ((s.getDay() + 6) % 7)); // Monday as the first day
+  return s;
+};
+const startOfMonth = (d = new Date()): Date => new Date(d.getFullYear(), d.getMonth(), 1);
+
+export class MT5Sugar {
+  constructor(private readonly svc: MT5Service) {}
+
+  /** Construct the whole stack (Sugar → Service → Account) in one call. */
+  static create(host = 'mt5.mrpc.pro', port = 443, apiKey: string | null = null, id: string | null = null): MT5Sugar {
+    return new MT5Sugar(MT5Service.create(host, port, apiKey, id));
+  }
+
+  /** The friendly facade underneath. */
+  service(): MT5Service { return this.svc; }
+
+  /** The low-level client underneath. */
+  account(): MT5Account { return this.svc.account(); }
+
+  // #region 1. CONNECTION ─────────────────────────────────────────────────────────
+
+  /** Connect using login / password / server (or the env vars MT5_LOGIN / MT5_PASSWORD / MT5_SERVER). */
+  async quickConnect(login?: number, password?: string, server?: string): Promise<boolean> {
+    const user = login ?? Number(process.env.MT5_LOGIN);
+    const pass = password ?? process.env.MT5_PASSWORD;
+    const srv = server ?? process.env.MT5_SERVER;
+    if (!user || !pass || !srv) {
+      throw new MrpcError('quickConnect: provide login/password/server or set MT5_LOGIN / MT5_PASSWORD / MT5_SERVER');
+    }
+    return this.svc.connect({ user, password: pass, server: srv } as ConnectOptions);
+  }
+
+  /** `true` after a successful connect. */
+  isConnected(): boolean { return this.account().isConnected(); }
+
+  /** Lightweight liveness probe: checks the terminal is connected and alive. */
+  async ping(): Promise<boolean> {
+    try {
+      const data = await this.account().checkConnect();
+      const hc = data?.getHealthCheck?.();
+      return !!hc?.getIsAlive?.();
+    } catch {
+      return false;
+    }
+  }
+
+  // #endregion
+
+  // #region 2. BALANCE & MARGIN ───────────────────────────────────────────────────
+
+  private summary(): Promise<AccountInfo> { return this.svc.getAccountSummary(); }
+
+  /** Account balance (excludes floating P/L). */
+  async getBalance(): Promise<number> { return (await this.summary()).balance; }
+  /** Account equity (balance + floating P/L). */
+  async getEquity(): Promise<number> { return (await this.summary()).equity; }
+  /** Margin currently in use. */
+  async getMargin(): Promise<number> { return (await this.summary()).margin; }
+  /** Free margin available for new positions. */
+  async getFreeMargin(): Promise<number> { return (await this.summary()).freeMargin; }
+  /** Margin level, percent (0 when flat). */
+  async getMarginLevel(): Promise<number> { return (await this.summary()).marginLevel; }
+  /** Current floating profit (equity − balance). */
+  async getProfit(): Promise<number> { const a = await this.summary(); return a.equity - a.balance; }
+
+  // #endregion
+
+  // #region 3. PRICES & QUOTES ────────────────────────────────────────────────────
+
+  /** Current bid of a symbol. */
+  async getBid(symbol: string): Promise<number> { return (await this.svc.getSymbolTick(symbol)).bid; }
+  /** Current ask of a symbol. */
+  async getAsk(symbol: string): Promise<number> { return (await this.svc.getSymbolTick(symbol)).ask; }
+  /** Current spread (ask − bid), in price units. */
+  async getSpread(symbol: string): Promise<number> {
+    const t = await this.svc.getSymbolTick(symbol); return t.ask - t.bid;
+  }
+
+  /** Bid / ask / spread-in-pips / time in one snapshot. */
+  async getPriceInfo(symbol: string): Promise<PriceInfo> {
+    const [tick, info] = await Promise.all([this.svc.getSymbolTick(symbol), this.svc.getSymbolParams(symbol)]);
+    const pip = pipSize(info) || info.point || 1;
+    return { symbol, bid: tick.bid, ask: tick.ask, spreadPips: (tick.ask - tick.bid) / pip, time: tick.time };
+  }
+
+  /**
+   * Poll until the bid reaches `targetBid` (or just the next tick when `targetBid` is 0), up to
+   * `timeoutMs`. Returns the last price seen, or `null` on timeout.
+   */
+  async waitForPrice(symbol: string, targetBid: number, timeoutMs = 10000): Promise<PriceInfo | null> {
+    const until = Date.now() + timeoutMs;
+    let last: PriceInfo | null = null;
+    while (Date.now() < until) {
+      last = await this.getPriceInfo(symbol);
+      if (targetBid === 0 || last.bid >= targetBid) return last;
+      await new Promise(r => setTimeout(r, 500));
+    }
+    return last && (targetBid === 0 || last.bid >= targetBid) ? last : null;
+  }
+
+  // #endregion
+
+  // #region 4. SIMPLE TRADING ─────────────────────────────────────────────────────
+
+  /** Send an order and return the ticket; throws `MrpcError` on a broker rejection (retcode ≠ 10009). */
+  private async send(action: OrderAction, symbol: string, volume: number, extra: Record<string, any> = {}): Promise<number> {
+    const r = await this.svc.placeOrder({ symbol, action, volume, ...extra });
+    if (r.retcode !== RET_DONE) throw new MrpcError(`order rejected (${r.retcode}): ${r.retcodeDescription}`, String(r.retcode));
+    return r.ticket;
+  }
+
+  /** Open a market BUY; returns the ticket. */
+  buyMarket(symbol: string, volume: number): Promise<number> { return this.send('BUY', symbol, volume); }
+  /** Open a market SELL; returns the ticket. */
+  sellMarket(symbol: string, volume: number): Promise<number> { return this.send('SELL', symbol, volume); }
+  /** Place a BUY LIMIT at `price`. */
+  buyLimit(symbol: string, volume: number, price: number): Promise<number> { return this.send('BUY_LIMIT', symbol, volume, { price }); }
+  /** Place a SELL LIMIT at `price`. */
+  sellLimit(symbol: string, volume: number, price: number): Promise<number> { return this.send('SELL_LIMIT', symbol, volume, { price }); }
+  /** Place a BUY STOP at `price`. */
+  buyStop(symbol: string, volume: number, price: number): Promise<number> { return this.send('BUY_STOP', symbol, volume, { price }); }
+  /** Place a SELL STOP at `price`. */
+  sellStop(symbol: string, volume: number, price: number): Promise<number> { return this.send('SELL_STOP', symbol, volume, { price }); }
+
+  // #endregion
+
+  // #region 5. TRADING WITH SL/TP ─────────────────────────────────────────────────
+
+  /** Market BUY with absolute SL/TP prices. */
+  buyMarketWithSLTP(symbol: string, volume: number, sl: number, tp: number): Promise<number> {
+    return this.send('BUY', symbol, volume, { stopLoss: sl, takeProfit: tp });
+  }
+  /** Market SELL with absolute SL/TP prices. */
+  sellMarketWithSLTP(symbol: string, volume: number, sl: number, tp: number): Promise<number> {
+    return this.send('SELL', symbol, volume, { stopLoss: sl, takeProfit: tp });
+  }
+  /** Pending BUY LIMIT at `price` with absolute SL/TP. */
+  buyLimitWithSLTP(symbol: string, volume: number, price: number, sl: number, tp: number): Promise<number> {
+    return this.send('BUY_LIMIT', symbol, volume, { price, stopLoss: sl, takeProfit: tp });
+  }
+  /** Pending SELL LIMIT at `price` with absolute SL/TP. */
+  sellLimitWithSLTP(symbol: string, volume: number, price: number, sl: number, tp: number): Promise<number> {
+    return this.send('SELL_LIMIT', symbol, volume, { price, stopLoss: sl, takeProfit: tp });
+  }
+
+  // #endregion
+
+  // #region 6. POSITION MANAGEMENT ────────────────────────────────────────────────
+
+  /** Close a position fully (deletes a pending order). Throws on a rejection. */
+  async closePosition(ticket: number): Promise<boolean> {
+    const r = await this.svc.closeOrder({ ticket });
+    if (r.retcode !== RET_DONE) throw new MrpcError(`close rejected (${r.retcode}): ${r.retcodeDescription}`, String(r.retcode));
+    return true;
+  }
+
+  /** Close part of a position (`volume` lots). */
+  async closePositionPartial(ticket: number, volume: number): Promise<boolean> {
+    const r = await this.svc.closeOrder({ ticket, volume });
+    if (r.retcode !== RET_DONE) throw new MrpcError(`partial close rejected (${r.retcode}): ${r.retcodeDescription}`, String(r.retcode));
+    return true;
+  }
+
+  /** Close every open position; returns how many were closed. */
+  async closeAllPositions(): Promise<number> { return this.closePositions(await this.getOpenPositions()); }
+
+  /** Close every open position on one symbol; returns how many were closed. */
+  async closeAllBySymbol(symbol: string): Promise<number> {
+    return this.closePositions((await this.getOpenPositions()).filter(p => p.symbol === symbol));
+  }
+
+  private async closePositions(positions: Position[]): Promise<number> {
+    let n = 0;
+    for (const p of positions) { try { if (await this.closePosition(p.ticket)) n++; } catch { /* skip */ } }
+    return n;
+  }
+
+  /** Set a position's stop-loss (keeps its take-profit). */
+  async modifyPositionSL(ticket: number, sl: number): Promise<boolean> {
+    const r = await this.svc.modifyOrder({ ticket, stopLoss: sl });
+    return r.retcode === RET_DONE;
+  }
+  /** Set a position's take-profit (keeps its stop-loss). */
+  async modifyPositionTP(ticket: number, tp: number): Promise<boolean> {
+    const r = await this.svc.modifyOrder({ ticket, takeProfit: tp });
+    return r.retcode === RET_DONE;
+  }
+  /** Set both stop-loss and take-profit of a position. */
+  async modifyPositionSLTP(ticket: number, sl: number, tp: number): Promise<boolean> {
+    const r = await this.svc.modifyOrder({ ticket, stopLoss: sl, takeProfit: tp });
+    return r.retcode === RET_DONE;
+  }
+
+  // #endregion
+
+  // #region 7. POSITION INFORMATION ───────────────────────────────────────────────
+
+  /** All open positions. */
+  getOpenPositions(): Promise<Position[]> { return this.svc.getPositions(); }
+
+  /** The open position with this ticket, or `undefined`. */
+  async getPositionByTicket(ticket: number): Promise<Position | undefined> {
+    return (await this.getOpenPositions()).find(p => p.ticket === ticket);
+  }
+
+  /** Open positions on one symbol. */
+  async getPositionsBySymbol(symbol: string): Promise<Position[]> {
+    return (await this.getOpenPositions()).filter(p => p.symbol === symbol);
+  }
+
+  /** Whether any position is open on a symbol. */
+  async hasOpenPosition(symbol: string): Promise<boolean> {
+    return (await this.getOpenPositions()).some(p => p.symbol === symbol);
+  }
+
+  /** Number of open positions. */
+  async countOpenPositions(): Promise<number> { return (await this.getOpenPositions()).length; }
+
+  /** Summed floating profit across all open positions. */
+  async getTotalProfit(): Promise<number> {
+    return (await this.getOpenPositions()).reduce((s, p) => s + p.profit, 0);
+  }
+
+  /** Summed floating profit of the positions on one symbol. */
+  async getProfitBySymbol(symbol: string): Promise<number> {
+    return (await this.getOpenPositions()).filter(p => p.symbol === symbol).reduce((s, p) => s + p.profit, 0);
+  }
+
+  // #endregion
+
+  // #region 8. HISTORY & PROFIT ANALYSIS ──────────────────────────────────────────
+
+  /** Closed positions opened today (server day boundaries approximated by the local day). */
+  getDealsToday(): Promise<HistoryPosition[]> { return this.svc.getPositionsHistory(startOfDay(), new Date()); }
+  /** Closed positions opened yesterday. */
+  getDealsYesterday(): Promise<HistoryPosition[]> {
+    const end = startOfDay(); const start = new Date(end); start.setDate(start.getDate() - 1);
+    return this.svc.getPositionsHistory(start, end);
+  }
+  /** Closed positions opened since the start of this week (Monday). */
+  getDealsThisWeek(): Promise<HistoryPosition[]> { return this.svc.getPositionsHistory(startOfWeek(), new Date()); }
+  /** Closed positions opened since the start of this month. */
+  getDealsThisMonth(): Promise<HistoryPosition[]> { return this.svc.getPositionsHistory(startOfMonth(), new Date()); }
+  /** Closed positions opened in a custom window. */
+  getDealsDateRange(from: Date, to: Date): Promise<HistoryPosition[]> { return this.svc.getPositionsHistory(from, to); }
+
+  /** Net profit of positions opened today. */
+  async getProfitToday(): Promise<number> { return (await this.getDealsToday()).reduce((s, d) => s + d.profit, 0); }
+  /** Net profit of positions opened this week. */
+  async getProfitThisWeek(): Promise<number> { return (await this.getDealsThisWeek()).reduce((s, d) => s + d.profit, 0); }
+  /** Net profit of positions opened this month. */
+  async getProfitThisMonth(): Promise<number> { return (await this.getDealsThisMonth()).reduce((s, d) => s + d.profit, 0); }
+
+  // #endregion
+
+  // #region 9. SYMBOL INFORMATION ─────────────────────────────────────────────────
+
+  /** Full contract specification of a symbol. */
+  getSymbolInfo(symbol: string): Promise<SymbolParams> { return this.svc.getSymbolParams(symbol); }
+
+  /** Every symbol name the account can see. */
+  getAllSymbols(): Promise<string[]> { return this.account().symbolList(); }
+
+  /** Whether the broker knows this symbol. */
+  async isSymbolAvailable(symbol: string): Promise<boolean> { return (await this.svc.symbolExist(symbol)).exists; }
+
+  /** Minimum SL/TP distance from the market, in points. */
+  getMinStopLevel(symbol: string): Promise<number> {
+    return this.svc.getSymbolInteger(symbol, MarketInfoPb.SymbolInfoIntegerProperty.SYMBOL_TRADE_STOPS_LEVEL);
+  }
+
+  /** Price decimal places of a symbol. */
+  getSymbolDigits(symbol: string): Promise<number> {
+    return this.svc.getSymbolInteger(symbol, MarketInfoPb.SymbolInfoIntegerProperty.SYMBOL_DIGITS);
+  }
+
+  // #endregion
+
+  // #region 10. RISK MANAGEMENT ───────────────────────────────────────────────────
+
+  /** Lot size so that a `stopLossPips` stop risks `riskPercent`% of the balance. */
+  async calculatePositionSize(symbol: string, riskPercent: number, stopLossPips: number): Promise<number> {
+    if (stopLossPips <= 0) throw new MrpcError('calculatePositionSize: stopLossPips must be > 0');
+    const [balance, info] = await Promise.all([this.getBalance(), this.getSymbolInfo(symbol)]);
+    const [tickValue, tickSize] = await Promise.all([
+      this.svc.getSymbolDouble(symbol, MarketInfoPb.SymbolInfoDoubleProperty.SYMBOL_TRADE_TICK_VALUE),
+      this.svc.getSymbolDouble(symbol, MarketInfoPb.SymbolInfoDoubleProperty.SYMBOL_TRADE_TICK_SIZE),
+    ]);
+    if (tickValue <= 0 || tickSize <= 0) throw new MrpcError(`calculatePositionSize: bad tick value/size for ${symbol}`);
+    const riskAmount = balance * riskPercent / 100;
+    const valuePerPipPerLot = (pipSize(info) / tickSize) * tickValue;
+    let lots = riskAmount / (stopLossPips * valuePerPipPerLot);
+    return this.clampVolume(info, lots);
+  }
+
+  /** Largest lot the current free margin (80% of it) can open on this symbol. */
+  async getMaxLotSize(symbol: string): Promise<number> {
+    const [freeMargin, info, marginPerLot] = await Promise.all([
+      this.getFreeMargin(), this.getSymbolInfo(symbol), this.calculateRequiredMargin(symbol, 1),
+    ]);
+    if (marginPerLot <= 0) return info.volumeMin;
+    return this.clampVolume(info, (freeMargin * 0.8) / marginPerLot);
+  }
+
+  /** Whether a `volume`-lot order can be opened now; the string explains a `false`. */
+  async canOpenPosition(symbol: string, volume: number): Promise<{ ok: boolean; reason: string }> {
+    if (!(await this.isSymbolAvailable(symbol))) return { ok: false, reason: `symbol ${symbol} is not available` };
+    const info = await this.getSymbolInfo(symbol);
+    if (volume < info.volumeMin) return { ok: false, reason: `volume ${volume} below minimum ${info.volumeMin}` };
+    if (volume > info.volumeMax) return { ok: false, reason: `volume ${volume} above maximum ${info.volumeMax}` };
+    const [required, free] = await Promise.all([this.calculateRequiredMargin(symbol, volume), this.getFreeMargin()]);
+    if (required > free) return { ok: false, reason: `need ${required.toFixed(2)} margin, only ${free.toFixed(2)} free` };
+    return { ok: true, reason: '' };
+  }
+
+  /** Margin required to open `volume` lots of `symbol` at the current ask. */
+  async calculateRequiredMargin(symbol: string, volume: number): Promise<number> {
+    const ask = await this.getAsk(symbol);
+    return this.svc.calculateMargin('BUY', symbol, volume, ask);
+  }
+
+  /**
+   * Absolute SL/TP prices for a `direction` ("BUY"/"SELL") given pip distances from `entryPrice`
+   * (0 = use the current ask for BUY / bid for SELL).
+   */
+  async calculateSLTP(symbol: string, direction: 'BUY' | 'SELL', entryPrice: number,
+    stopLossPips: number, takeProfitPips: number): Promise<{ sl: number; tp: number }> {
+    const info = await this.getSymbolInfo(symbol);
+    const pip = pipSize(info);
+    let entry = entryPrice;
+    if (!entry) entry = direction === 'BUY' ? await this.getAsk(symbol) : await this.getBid(symbol);
+    const sl = direction === 'BUY' ? entry - stopLossPips * pip : entry + stopLossPips * pip;
+    const tp = direction === 'BUY' ? entry + takeProfitPips * pip : entry - takeProfitPips * pip;
+    return { sl, tp };
+  }
+
+  private clampVolume(info: SymbolParams, lots: number): number {
+    if (lots < info.volumeMin) lots = info.volumeMin;
+    if (info.volumeMax && lots > info.volumeMax) lots = info.volumeMax;
+    const step = info.volumeStep || 0.01;
+    return Math.round(lots / step) * step;
+  }
+
+  // #endregion
+
+  // #region 11. TRADING HELPERS ───────────────────────────────────────────────────
+
+  /** Market BUY with SL/TP given as pip distances from entry. */
+  async buyMarketWithPips(symbol: string, volume: number, stopLossPips: number, takeProfitPips: number): Promise<number> {
+    const { sl, tp } = await this.calculateSLTP(symbol, 'BUY', 0, stopLossPips, takeProfitPips);
+    return this.buyMarketWithSLTP(symbol, volume, sl, tp);
+  }
+
+  /** Market SELL with SL/TP given as pip distances from entry. */
+  async sellMarketWithPips(symbol: string, volume: number, stopLossPips: number, takeProfitPips: number): Promise<number> {
+    const { sl, tp } = await this.calculateSLTP(symbol, 'SELL', 0, stopLossPips, takeProfitPips);
+    return this.sellMarketWithSLTP(symbol, volume, sl, tp);
+  }
+
+  // #endregion
+
+  // #region 12. ACCOUNT INFORMATION ───────────────────────────────────────────────
+
+  /** Full account snapshot. */
+  getAccountInfo(): Promise<AccountInfo> { return this.svc.getAccountSummary(); }
+
+  /** Today's win/loss summary from the positions opened today. */
+  async getDailyStats(): Promise<DailyStats> {
+    const deals = await this.getDealsToday();
+    const stats: DailyStats = {
+      totalDeals: deals.length, winningDeals: 0, losingDeals: 0, winRate: 0,
+      totalProfit: 0, bestDeal: 0, worstDeal: 0,
+    };
+    for (const d of deals) {
+      const net = d.profit + d.swap + d.commission + d.fee;
+      stats.totalProfit += net;
+      if (net >= 0) stats.winningDeals++; else stats.losingDeals++;
+      stats.bestDeal = Math.max(stats.bestDeal, net);
+      stats.worstDeal = Math.min(stats.worstDeal, net);
+    }
+    stats.winRate = stats.totalDeals ? (stats.winningDeals / stats.totalDeals) * 100 : 0;
+    return stats;
+  }
+
+  // #endregion
+}

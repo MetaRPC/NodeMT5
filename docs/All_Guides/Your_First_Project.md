@@ -1,67 +1,90 @@
-# Your First Project in 10 Minutes (Node.js)
+# Your First Project
 
-> **Hands-on Quick Start** - A working MetaTrader 5 project with NodeMT5 from scratch.
-
----
-
-## Step 0: API key
-
-1. Register free at [https://mrpc.pro/signup](https://mrpc.pro/signup).
-2. Create your API key at [https://mrpc.pro/my](https://mrpc.pro/my).
-3. Put it in `MRPC_API_KEY`.
+> Build a small, complete NodeMT5 script: connect, quote, trade with risk sizing, and report.
 
 ---
 
-## Step 1: Create the project
+## 1 · Set up
 
 ```bash
-mkdir my-mt5-bot
-cd my-mt5-bot
+mkdir mt5-bot && cd mt5-bot
 npm init -y
-npm install github:MetaRPC/NodeMT5 @grpc/grpc-js
+npm install @metarpc/nodemt5
+```
+
+Create `index.mjs`.
+
+---
+
+## 2 · Connect
+
+```ts
+import { MT5Sugar } from '@metarpc/nodemt5';
+
+const sugar = MT5Sugar.create('mt5.mrpc.pro', 443, process.env.MRPC_API_KEY);
+await sugar.quickConnect(
+  Number(process.env.MT5_LOGIN),
+  process.env.MT5_PASSWORD,
+  process.env.MT5_SERVER,         // e.g. MetaQuotes-Demo
+);
+console.log('connected?', sugar.isConnected());
+```
+
+> Need the `MRPC_API_KEY`? Register at [https://mrpc.pro/signup](https://mrpc.pro/signup) — your key is then provisioned automatically and shown in the [MT5 Client API Explorer](https://mrpc.pro/explorer/mt5-client) (*Copy key*). See [Getting Started → API Key](./GETTING_STARTED.md). (Or omit it for keyless `TRIAL` access while testing.)
+
+---
+
+## 3 · Look at the market
+
+```ts
+const symbol = 'EURUSD';
+const price = await sugar.getPriceInfo(symbol);
+console.log(`${symbol}  bid ${price.bid}  ask ${price.ask}  ${price.spreadPips.toFixed(1)} pips`);
 ```
 
 ---
 
-## Step 2: Write the program
+## 4 · Trade with risk sizing
 
-Save as `index.js` (it connects, reads the account, buys 0.01 lot of EURUSD and disconnects):
+```ts
+// risk 1% of balance over a 20-pip stop, 40-pip target
+const lots = await sugar.calculatePositionSize(symbol, 1, 20);
 
-```javascript
-const { MT5Client } = require('@metarpc/nodemt5');
+const { ok, reason } = await sugar.canOpenPosition(symbol, lots);
+if (!ok) throw new Error('cannot trade: ' + reason);
 
-async function main() {
-  const client = new MT5Client('mt5.mrpc.pro', 443, process.env.MRPC_API_KEY);
-  await client.connect({ user: Number(process.env.MT5_LOGIN), password: process.env.MT5_PASSWORD, server: 'MetaQuotes-Demo' });
-  try {
-    const account = await client.getAccountInfo();
-    console.log(`Balance: ${account.balance} ${account.currency}, equity ${account.equity}, leverage 1:${account.leverage}`);
-
-    const order = await client.orderSend({ symbol: 'EURUSD', action: 'BUY', volume: 0.01, comment: 'first order' });
-    console.log(`Deal #${order.deal}, position #${order.order} at ${order.price} (return code ${order.retcode})`);
-  } finally {
-    await client.disconnect();
-  }
-}
-
-main().catch((err) => { console.error(err.message); process.exit(1); });
+const ticket = await sugar.buyMarketWithPips(symbol, lots, 20, 40);
+console.log('opened #', ticket, 'with', lots, 'lots');
 ```
+
 ---
 
-## Step 3: Run it
+## 5 · Manage & report
+
+```ts
+console.log('open positions:', await sugar.countOpenPositions());
+console.log('floating P/L:', await sugar.getTotalProfit());
+
+// tidy up for the demo
+await sugar.closeAllPositions();
+
+const stats = await sugar.getDailyStats();
+console.log(`today: ${stats.totalDeals} deals, net ${stats.totalProfit.toFixed(2)}`);
+```
+
+---
+
+## 6 · Run it
 
 ```bash
-export MRPC_API_KEY=your-api-key MT5_LOGIN=your-login MT5_PASSWORD=your-password
-node index.js
+MT5_LOGIN=500000 MT5_PASSWORD=secret MT5_SERVER=MetaQuotes-Demo \
+MRPC_API_KEY=YOUR_KEY node index.mjs
 ```
-
-No account yet? `MT5Client.openDemoAccount('MetaQuotes-Demo', apiKey)` opens a demo account and returns its login and password;
-[`examples/quickstart.js`](https://github.com/MetaRPC/NodeMT5/blob/main/examples/quickstart.js) does that when no login is set.
 
 ---
 
-## Next steps
+## Where to go next
 
-- **[Quotes](../quotes.md)** - stream ticks with `subscribeQuotes`.
-- **[API Reference](../api.md)** - everything `MT5Client` does, and the generated clients for the rest of the API.
-- **[Streams](STREAMS.md)** - the other streams.
+* Stream live prices → [Streams](./GRPC_STREAM_MANAGEMENT.md).
+* Strategy loops → [Orchestrators](../Orchestrators/Strategies.Master.Overview.md).
+* Full helper list → [MT5Sugar API](../MT5Sugar/MT5Sugar.API_Overview.md).
