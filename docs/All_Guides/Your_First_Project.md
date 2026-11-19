@@ -9,7 +9,7 @@
 ```bash
 mkdir mt5-bot && cd mt5-bot
 npm init -y
-npm install @metarpc/nodemt5
+npm install github:MetaRPC/NodeMT5
 ```
 
 Create `index.mjs`.
