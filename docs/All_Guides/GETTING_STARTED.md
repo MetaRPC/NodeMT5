@@ -46,15 +46,30 @@ The complete thing we built: the three layers (`MT5Sugar` / `MT5Service` / `MT5A
 
 ### 2 · Take only the protos and build it yourself (raw gRPC)
 
-**For advanced use — after you know the SDK.** Skip our layers and talk to the gateway from the generated stubs directly.
+**For advanced use — after you know the SDK.** Skip our layers and talk to the gateway from the generated stubs directly. The stubs ship in the **`package/`** folder (`mt5-term-api-*_pb.js`, `*_grpc_pb.js`, and the `google/` subfolder).
 
-* The stubs ship in the **`package/`** folder (`*_pb.js`, `*_grpc_pb.js`). Take the **whole folder**, then install the runtime:
+**Download just the `package/` folder** (not the whole repo) — any of these:
 
-  ```bash
-  npm install google-protobuf @grpc/grpc-js
-  ```
+```bash
+# A) quickest — grab only the subfolder (no git history)
+npx degit MetaRPC/NodeMT5/package package
 
-* The raw **`.proto`** sources (to regenerate stubs for another language or version) are on the **[MT5 Client API Explorer](https://mrpc.pro/explorer/mt5-client)** → *Download MT5 Protos*.
+# B) pure git — sparse-checkout only package/
+git clone --depth 1 --filter=blob:none --no-checkout https://github.com/MetaRPC/NodeMT5.git
+cd NodeMT5 && git sparse-checkout set --no-cone 'package/**' && git checkout
+
+# C) via npm — then copy the folder out of node_modules
+npm install @metarpc/nodemt5
+cp -r node_modules/@metarpc/nodemt5/package ./package
+```
+
+Then install the gRPC + protobuf runtime next to it:
+
+```bash
+npm install google-protobuf @grpc/grpc-js
+```
+
+The raw **`.proto`** sources (to regenerate stubs for another language or version) are on the **[MT5 Client API Explorer](https://mrpc.pro/explorer/mt5-client)** → *Download MT5 Protos*.
 
 > ⚠️ **The stubs are not standalone — take the whole `package/` folder, not single files.** Each `*_pb.js` cross-requires its siblings (e.g. `./mrpc-mt5-error_pb.js`), the `./google/` subfolder and `google-protobuf`. This path gives you **raw gRPC with no 3-layer SDK** — see the [Protobuf Inspector](./PROTOBUF_INSPECTOR_GUIDE.md).
 
