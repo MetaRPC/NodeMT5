@@ -27,7 +27,7 @@ The complete thing we built: the three layers (`MT5Sugar` / `MT5Service` / `MT5A
 * **Just the library**, for your own app:
 
   ```bash
-  npm install @metarpc/nodemt5
+  npm install github:MetaRPC/NodeMT5
   ```
 
   Brings the SDK, the types, **and** the protobuf stubs under `@metarpc/nodemt5/package/`.
@@ -59,7 +59,7 @@ git clone --depth 1 --filter=blob:none --no-checkout https://github.com/MetaRPC/
 cd NodeMT5 && git sparse-checkout set --no-cone 'package/**' && git checkout
 
 # C) via npm — then copy the folder out of node_modules
-npm install @metarpc/nodemt5
+npm install github:MetaRPC/NodeMT5
 cp -r node_modules/@metarpc/nodemt5/package ./package
 ```
 
