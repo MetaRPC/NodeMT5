@@ -127,7 +127,7 @@ console.log({ spread: spread.toFixed(5), mid: mid.toFixed(5) });
 
 ```ts
 const t = await account.symbolInfoTick('EURUSD');
-const when = new Date(t.getTime().getSeconds() * 1000);
+const when = new Date(t.getTimeUtc().getSeconds() * 1000);
 console.log('quote at', when.toISOString());
 ```
 

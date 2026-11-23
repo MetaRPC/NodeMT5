@@ -1,6 +1,6 @@
 # 🧾 Getting Full Symbol Parameters
 
-> **Request:** the full contract spec (~40 fields) of one or all symbols (`SymbolParamsManyData`), on **MT5**.
+> **Request:** the full contract spec (116 fields) of one or all symbols (`SymbolParamsManyData`), on **MT5**.
 
 **API Information:**
 
